@@ -1,0 +1,33 @@
+﻿<Application x:Class="IncubeAdmin.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:IncubeAdmin"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#67dacb"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Black"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2ba89a"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="Black"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#20786b"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+            <!-- accent -->
+            <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#ffffa8"/>
+            <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="Black"/>
+            <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#fff176"/>
+            <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="Black"/>
+            <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#cabf45"/>
+            <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="Black"/>
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
