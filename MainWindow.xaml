@@ -49,25 +49,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!--
-            <materialDesign:Card Padding="32" Margin="16" Grid.Column="2" Grid.Row="0">
-                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-            </materialDesign:Card>
-            <Button Grid.Column="0" Grid.Row="0"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                    Content="_DARK" />
-            <Button Grid.Column="1" Grid.Row="0"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                Width="100"
-                ToolTip="Resource name: MaterialDesignRaisedAccentButton"
-                Content="ACCENT" />
-            <Button Grid.Column="0" Grid.Row="1"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Width="100"
-                ToolTip="Resource name: MaterialDesignRaisedLightButton"
-                Content="_LIGHT" />
-        -->
+        
+        <!-- Верхняя навигационная панель -->
         <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.ColumnSpan="13">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -191,6 +174,7 @@
 
         </materialDesign:ColorZone>
 
+        <!-- Выезжающие панели -->
         <materialDesign:DrawerHost
             x:Name="DrawerHost"
             Margin="0"
