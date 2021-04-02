@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IncubeAdmin.main;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -28,6 +29,7 @@ namespace IncubeAdmin
         {
             InitializeComponent();
             global = Global.getInstance();
+            DataContext = new ApplicationViewModel();
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;

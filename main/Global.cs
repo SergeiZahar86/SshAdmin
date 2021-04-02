@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 
 namespace IncubeAdmin
 {
@@ -12,6 +13,7 @@ namespace IncubeAdmin
         private static Global instance;
         private User User;
         private string connectionString;
+        private string sqlExpression;
 
         public static Global getInstance() // возвращает singleton объекта Global
         {
@@ -25,12 +27,29 @@ namespace IncubeAdmin
             var appSettings = ConfigurationManager.AppSettings;
             connectionString = appSettings["connectionString"];
 
-
-            using (var connection = new SQLiteConnection("Data Source=usersdata.db"))
+            sqlExpression = "SELECT * FROM Users";
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
+
+                /*SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            var id = reader.GetValue(0);
+                            var name = reader.GetValue(1);
+                            var age = reader.GetValue(2);
+
+                            Console.WriteLine($"{id} \t {name} \t {age}");
+                        }
+                    }
+                }*/
+
+
             }
-            //Console.Read();
 
         }
 

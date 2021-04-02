@@ -232,10 +232,8 @@
 
         </materialDesign:ColorZone>
 
-
-
         
-
+        <!-- Первая страница -->
         <Border 
             x:Name="first"
             Grid.Column="2"
@@ -402,7 +400,7 @@
                 </StackPanel>
             </Grid>
         </Border>
-
+        <!--
         <Border 
             x:Name="second"
             Grid.Column="2"
@@ -410,6 +408,7 @@
             Grid.Row="1"
             Grid.RowSpan="11"
             >
+            
             <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                 <ListView>
                         
@@ -564,9 +563,58 @@
                     <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
                 </ListView>
             </ScrollViewer>
-
+            
         </Border>
+        -->
 
+        
+        <!-- Вторая страница -->
+        <Grid 
+            x:Name="second"
+            Grid.Column="2"
+            Grid.ColumnSpan="10"
+            Grid.Row="1"
+            Grid.RowSpan="11"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.8*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.2*" />
+            </Grid.RowDefinitions>
+
+
+            <ListBox Grid.Column="0" ItemsSource="{Binding Users}"
+                 SelectedItem="{Binding selectedUser}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18" Text="{Binding Path=Id}" />
+                            <TextBlock Text="{Binding Path=Name}" />
+                            <TextBlock Text="{Binding Path=Pass}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Command="{Binding AddCommand}">+</Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" DataContext="{Binding selectedUser}">
+                <TextBlock Text="Выбранный элемент"  />
+                <TextBlock Text="Модель" />
+                <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Производитель" />
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Цена" />
+                <TextBox Text="{Binding Pass, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Третья страница -->
         <Border 
             x:Name="third"
             Grid.Column="2"
