@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IncubeAdmin.main;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -25,11 +24,15 @@ namespace IncubeAdmin
     public partial class MainWindow : Window
     {
         private Global global;
+        ApplicationViewModel applicationView;
         public MainWindow()
         {
             InitializeComponent();
             global = Global.getInstance();
-            DataContext = new ApplicationViewModel();
+            applicationView = ApplicationViewModel.getInstance();
+            DataContext = applicationView;
+            datagrid.ItemsSource = applicationView.Users;
+            datagrid.SelectedItem = applicationView.SelectedUser;
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
@@ -78,6 +81,13 @@ namespace IncubeAdmin
 
 
 
+        }
+        private void but_Click(object sender, RoutedEventArgs e)
+        {
+            User user = new User();
+            applicationView.Users.Insert(0, user);
+            datagrid.ItemsSource = null;
+            datagrid.ItemsSource = applicationView.Users;
         }
         // для диаграммы
         public Func<ChartPoint, string> PointLabel { get; set; }
@@ -229,6 +239,31 @@ namespace IncubeAdmin
         private void RestartOnClick(object sender, RoutedEventArgs e)
         {
             Chart.Update(true, true);
+        }
+
+
+        // выбор строки в таблице
+        private void datagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (datagrid.SelectedItem != null)
+                {
+                    if (datagrid.SelectedItem is User)
+                    {
+                        var row = (User)datagrid.SelectedItem;
+
+                        if (row != null)
+                        {
+                            stackPanel.DataContext = row;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
