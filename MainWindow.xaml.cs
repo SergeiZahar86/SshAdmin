@@ -23,9 +23,11 @@ namespace IncubeAdmin
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Global global;
         public MainWindow()
         {
             InitializeComponent();
+            global = Global.getInstance();
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
