@@ -26,9 +26,13 @@
     HorizontalContentAlignment="Right"
     MaxHeight="1080"
     VerticalContentAlignment="Center"
-    UseLayoutRounding="False" WindowStyle="None" AllowsTransparency="False" >
+    UseLayoutRounding="False"
+    WindowStyle="None"
+    AllowsTransparency="True" >
 
-    <Grid>
+    <Grid
+        Background="{StaticResource Background}"
+        >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition />
@@ -60,13 +64,15 @@
 
         <!-- Панель слева -->
         <materialDesign:Card
-            Background="{DynamicResource PrimaryHueMidBrush}"
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Grid.Row="0"
             Grid.RowSpan="12"
-            Padding="8">
+            Padding="8"
+            Background="#FF424242"
+
+            >
             <StackPanel Margin="0,70,0,0">
                 <TextBlock
                     Margin="16 16 12 8"
@@ -80,7 +86,8 @@
                     IsChecked="True"
                     Content="FIRST"
                     Cursor="Hand"
-                    Click="radio1_Click" />
+                    Click="radio1_Click"
+                    />
                 <RadioButton
                     x:Name="radio2"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
@@ -102,9 +109,10 @@
         <!-- Верхняя навигационная панель -->
         <materialDesign:ColorZone 
             Mode="PrimaryMid" 
-            Padding="16" 
+            Padding="16, 5, 16, 5" 
             Grid.ColumnSpan="12"
             MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
+            Background="{StaticResource LightBackground}"
             >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -123,7 +131,8 @@
                 </Grid.ColumnDefinitions>
                 <DockPanel 
                     Grid.Column="1"
-                    Grid.ColumnSpan="11" 
+                    Grid.ColumnSpan="11"
+                    Height="45"
                     >
                     <!--
                 <Button Content="{materialDesign:PackIcon Close}" ToolTip="Icon" DockPanel.Dock="Right" />
@@ -133,40 +142,65 @@
                 -->
                     <Button 
                        Click="CloseButton_Click"
-                       Style="{StaticResource MaterialDesignIconForegroundButton}" 
+                       Style="{StaticResource MaterialDesignFlatButton}" 
+                       Foreground="{StaticResource Gray}"
                        ToolTip="Закрыть" 
                        DockPanel.Dock="Right"
                        Width="40" 
                        Height="30"
+                        Padding="4"
                        >
-                        <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
+                        <materialDesign:PackIcon
+                            Kind="Close"
+                            Width="20"
+                            Height="20"
+                            />
                     </Button>
                     <Button 
                        Click="ExpandButton_Click"
-                       Style="{StaticResource MaterialDesignIconForegroundButton}" 
-                       ToolTip="Закрыть" 
+                       Style="{StaticResource MaterialDesignFlatButton}" 
+                       Foreground="{StaticResource Gray}"
+                       ToolTip="Растянуть" 
                        DockPanel.Dock="Right"
                        Width="40" 
                        Height="30"
+                        Padding="4"
                        >
-                        <materialDesign:PackIcon Kind="WindowRestore"  Width="20" Height="20"/>
+                        <materialDesign:PackIcon
+                            Kind="WindowRestore"
+                            Width="20"
+                            Height="20"
+                            />
                     </Button>
                     <Button 
                        Click="MinButton_Click"
-                       Style="{StaticResource MaterialDesignIconForegroundButton}" 
-                       ToolTip="Закрыть" 
+                       Style="{StaticResource MaterialDesignFlatButton}" 
+                       Foreground="{StaticResource Gray}"
+                       ToolTip="Свернуть" 
                        DockPanel.Dock="Right"
                        Width="40" 
                        Height="30"
+                        Padding="4"
                        >
-                        <materialDesign:PackIcon Kind="WindowMinimize"  Width="20" Height="20"/>
+                        <materialDesign:PackIcon
+                            Kind="WindowMinimize"
+                            Width="20"
+                            Height="20"
+                            />
                     </Button>
-                    <ToggleButton Style="{DynamicResource MaterialDesignSwitchAccentToggleButton}"
-                       VerticalAlignment="Center" DockPanel.Dock="Right" Margin="0,0,20,0" />
+                    <!--
+                    <ToggleButton 
+                        Style="{DynamicResource MaterialDesignSwitchAccentToggleButton}"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Right"
+                        Margin="0,0,20,0" 
+                        />
+                    -->
                     <StackPanel
+                        x:Name="stackPan_Nav"
                        Orientation="Horizontal"
                        materialDesign:RippleAssist.IsCentered="True"
-                       
+                       Height="35"
                        >
                         <!--
                        <ToggleButton 
@@ -228,13 +262,52 @@
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                             Text="INCUBE  ADMIN"
                             FontSize="25" Margin="100,0,0,0"/>
+                        
+                        <Button
+                        x:Name="signUp"
+                        MaxWidth="60"
+                        Margin="450,0,20,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Foreground="{StaticResource Gray}"
+                        Click="signUp_Click" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FlowDirection="RightToLeft" Padding="4,0"
+                        >
+                            <materialDesign:PackIcon Width="30" Height="30" Kind="AccountKeyOutline" />
+                        </Button>
+
+                        <materialDesign:Chip
+                            x:Name="chip_connect"
+                            Content="Connect"
+                            Height="35"
+                            Background="{StaticResource Background}"
+                            Foreground="{StaticResource Gray}"
+                            IconBackground="{DynamicResource PrimaryHueLightBrush}"
+                            IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                            <materialDesign:Chip.Icon>
+                                <materialDesign:PackIcon
+                                    Kind="Check" />
+                            </materialDesign:Chip.Icon>
+                        </materialDesign:Chip>
+                        <materialDesign:Chip
+                            x:Name="chip_block"
+                            Content="Not conn"
+                            Height="35"
+                            Background="{StaticResource Background}"
+                            Foreground="{StaticResource Gray}"
+                            IconBackground="{DynamicResource SecondaryHueMidBrush}"
+                            IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                            <materialDesign:Chip.Icon>
+                                <materialDesign:PackIcon
+                                    Kind="BlockHelper" />
+                            </materialDesign:Chip.Icon>
+                        </materialDesign:Chip>
                     </StackPanel>
                 </DockPanel>
             </Grid>
 
         </materialDesign:ColorZone>
 
-        
+
         <!-- Первая страница -->
         <Border 
             x:Name="first"
@@ -242,6 +315,7 @@
             Grid.ColumnSpan="10"
             Grid.Row="1"
             Grid.RowSpan="11"
+            Background="{StaticResource Background}"
             >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -272,7 +346,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
+
                 <materialDesign:Card
                     Grid.Column="1"
                     Grid.ColumnSpan="4"
@@ -280,6 +354,7 @@
                     Grid.RowSpan="8"
                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                     Padding="15"
+                    Background="{StaticResource LightBackground}"
                     >
 
                     <Wpf:PieChart
@@ -300,7 +375,7 @@
                             <Wpf:PieSeries Title = "Frederic" Values = "2" DataLabels = "True"    
                                LabelPoint = "{Binding PointLabel}" />
                         </Wpf:PieChart.Series>
-                        
+
                     </Wpf:PieChart>
 
                 </materialDesign:Card>
@@ -312,7 +387,7 @@
                     Grid.RowSpan="8"
                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                     Padding="15"
-                    
+                    Background="{StaticResource LightBackground}"
                     >
                     <Wpf:PieChart 
                         Name="Chart"
@@ -328,7 +403,7 @@
                             <Wpf:DefaultTooltip BulletSize="20"></Wpf:DefaultTooltip>
                         </Wpf:PieChart.DataTooltip>
                     </Wpf:PieChart>
-                    
+
                 </materialDesign:Card>
 
                 <StackPanel Grid.Row="0"
@@ -357,6 +432,7 @@
                         VerticalAlignment="Center"
                         Padding="10 0"
                         Margin="0,10,0,10"
+                        Foreground="White"
                         >
                         Series
                     </TextBlock>
@@ -378,6 +454,7 @@
                         VerticalAlignment="Center"
                         Padding="10 0"
                         Margin="0,10,0,10"
+                        Foreground="White"
                         >
                         Values
                     </TextBlock>
@@ -568,7 +645,7 @@
         </Border>
         -->
 
-                 <!-- Вторая страница -->
+        <!-- Вторая страница -->
         <Grid 
             x:Name="second"
             Grid.Column="2"
@@ -605,8 +682,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            
-                <!--
+
+            <!--
                 MouseLeftButtonDown="datagrid_MouseLeftButtonDown"
                 MouseDown="datagrid_MouseDown"
                 PreviewMouseDown="datagrid_PreviewMouseDown"
@@ -635,64 +712,64 @@
                 
                 SelectionChanged="datagrid_SelectionChanged"
                 >
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn x:Name="id" Header="Id" Width="100"
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn x:Name="id" Header="Id" Width="100"
                                         HeaderStyle="{StaticResource CenterGridHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Id}"  HorizontalAlignment="Center"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Id}"  HorizontalAlignment="Center"
                                        VerticalAlignment="Center" ToolTipService.ShowDuration="15000" 
                                        >
-                                    <TextBlock.ToolTip >
-                                        <ToolTip>
-                                            <TextBlock Text="{Binding Path=Id}" FontSize="22" Foreground="Black" 
+                                        <TextBlock.ToolTip >
+                                            <ToolTip>
+                                                <TextBlock Text="{Binding Path=Id}" FontSize="22" Foreground="Black" 
                                                     Background="White" />
-                                        </ToolTip>
-                                    </TextBlock.ToolTip>
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
                                 </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="name" Header="Name" Width="100"
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="name" Header="Name" Width="100"
                                         HeaderStyle="{StaticResource CenterGridHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Name}"  HorizontalAlignment="Center"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"  HorizontalAlignment="Center"
                                        VerticalAlignment="Center" ToolTipService.ShowDuration="15000" 
                                        >
-                                    <TextBlock.ToolTip >
-                                        <ToolTip>
-                                            <TextBlock Text="{Binding Path=Name}" FontSize="22" Foreground="Black" 
+                                        <TextBlock.ToolTip >
+                                            <ToolTip>
+                                                <TextBlock Text="{Binding Path=Name}" FontSize="22" Foreground="Black" 
                                                     Background="White" />
-                                        </ToolTip>
-                                    </TextBlock.ToolTip>
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
                                 </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="pass" Header="Pass" Width="100"
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="pass" Header="Pass" Width="100"
                                         HeaderStyle="{StaticResource CenterGridHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Pass}"  HorizontalAlignment="Center"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Pass}"  HorizontalAlignment="Center"
                                        VerticalAlignment="Center" ToolTipService.ShowDuration="15000" 
                                        >
-                                    <TextBlock.ToolTip >
-                                        <ToolTip>
-                                            <TextBlock Text="{Binding Path=Pass}" FontSize="22" Foreground="Black" 
+                                        <TextBlock.ToolTip >
+                                            <ToolTip>
+                                                <TextBlock Text="{Binding Path=Pass}" FontSize="22" Foreground="Black" 
                                                     Background="White" />
-                                        </ToolTip>
-                                    </TextBlock.ToolTip>
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
                                 </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                </DataGrid.Columns>
-                
-                
-                
-                <!--
+                    </DataGrid.Columns>
+
+
+
+                    <!--
                 <DataGrid.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
@@ -703,11 +780,11 @@
                     </DataTemplate>
                 </DataGrid.ItemTemplate>
                 -->
-            </DataGrid>
+                </DataGrid>
 
-                
+
             </materialDesign:Card>
-            
+
             <StackPanel 
                 Grid.Row="1"
                 Orientation="Vertical"
@@ -733,21 +810,21 @@
                            
                 DataContext="{Binding SelectedUser}"
                 >
-                <TextBlock Text="Выбранный элемент"  />
-                <TextBlock Text="Модель" />
-                <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Производитель" />
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Цена" />
-                <TextBox Text="{Binding Pass, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
+                    <TextBlock Text="Выбранный элемент"  />
+                    <TextBlock Text="Модель" />
+                    <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Производитель" />
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Цена" />
+                    <TextBox Text="{Binding Pass, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
 
-                
+
             </materialDesign:Card>
 
         </Grid>
 
-       
+
 
         <!-- Третья страница -->
         <Border 
@@ -786,10 +863,95 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="third"/>
+
+
+
+                <Canvas 
+                    Name="cnv"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="12"
+                    Grid.Row="0"
+                    Grid.RowSpan="12"
+                    RenderTransformOrigin="0.5,0.5"
+                    Width="1360"
+                    Height="832" Background="{StaticResource Background}"
+                    >
+                    <Canvas.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="scaleTransform"/>
+                        </TransformGroup>
+                    </Canvas.LayoutTransform>
+                </Canvas>
+
+                <StackPanel 
+                    Grid.Row="0"
+                    Grid.RowSpan="12"
+                    Grid.Column="0"
+                    Orientation="Vertical"
+                    
+                    >
+                    <Button
+                        x:Name="system"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="_LIGHT"
+                        Margin="0,20"
+                        Click="system_Click"
+                        />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="11"
+                    Orientation="Horizontal"
+                    >
+                    <!--
+                    <TextBox
+                        x:Name="ip_adress_TB"
+                        Width="250"
+                        Height="40"
+                        Margin="10"
+                        materialDesign:HintAssist.Hint="IP адрес"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                        materialDesign:HintAssist.FloatingScale="0.7"
+                        Text=""
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        FontSize="15"
+                        Foreground="White"
+                        BorderBrush="White"
+                        ></TextBox>
+                    <TextBox
+                        x:Name="login_TB"
+                        Width="250"
+                        Height="40"
+                        Margin="10"
+                        materialDesign:HintAssist.Hint="Login"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                        materialDesign:HintAssist.FloatingScale="0.7"
+                        Text=""
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        FontSize="15"
+                        Foreground="White"
+                        BorderBrush="White" HorizontalAlignment="Center"
+                        />
+                    <PasswordBox
+                        x:Name="password_TB"
+                        Width="250"
+                        Height="40"
+                        Margin="10"
+                        materialDesign:HintAssist.Hint="Password"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                        materialDesign:HintAssist.FloatingScale="0.7"
+                        Foreground="White"
+                        BorderBrush="White"
+                        FontSize="15"
+                        ></PasswordBox>
+                    -->
+                </StackPanel>
             </Grid>
         </Border>
-        
+
         <!-- Выезжающие панели -->
         <materialDesign:DrawerHost
             x:Name="DrawerHost"
@@ -871,7 +1033,7 @@
                         Style="{DynamicResource MaterialDesignFlatButton}"
                         Margin="4"
                         VerticalAlignment="Center"
-                        Content="CLOSE THIS" />
+                        Content="Зарегистрироваться" />
                 </StackPanel>
             </materialDesign:DrawerHost.TopDrawerContent>
             <materialDesign:DrawerHost.BottomDrawerContent>
@@ -941,6 +1103,7 @@
                     Orientation="Horizontal"
                     FlowDirection="RightToLeft"
                     >
+                    <!--
                     <Button
                         Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                         CommandParameter="{x:Static Dock.Top}"
@@ -952,9 +1115,27 @@
                     </Button>
                     <materialDesign:Chip
                         Content="Example Name" />
+                    -->
+                    
+                    <!--
+                    <Button
+                        x:Name="signUp"
+                        MaxWidth="60"
+                        Margin="0,0,20,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Foreground="{StaticResource Gray}"
+                        Click="signUp_Click"
+                        >
+                        <materialDesign:PackIcon Width="27" Height="27" Kind="AccountKeyOutline" />
+                    </Button>
+                    
+                    <materialDesign:Chip
+                        Content="Example Name" />
+                    -->
                 </StackPanel>
                 <Button 
-                    Background="{DynamicResource SecondaryHueMidBrush}"
+                    Background="{StaticResource PrimaryHueMidBrush}"
                     Style="{DynamicResource MaterialDesignRaisedButton}"
                     Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                     CommandParameter="{x:Static Dock.Left}"
@@ -979,7 +1160,7 @@
                 </Button>
                 -->
                 <Button
-                    Background="{DynamicResource SecondaryHueMidBrush}"
+                    Background="{StaticResource PrimaryHueMidBrush}"
                     Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                     CommandParameter="{x:Static Dock.Bottom}"
                     Grid.Row="12"

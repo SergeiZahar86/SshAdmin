@@ -9,9 +9,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IncubeAdmin.window;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -25,6 +27,20 @@ namespace IncubeAdmin
     {
         private Global global;
         ApplicationViewModel applicationView;
+        Border border;
+        int stckNmbr;
+        TextBlock textBlock;
+        double radius;
+        private Color с3;
+        double x0;              // центр канваса
+        double y0;              // центр канваса
+
+
+
+
+
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +52,7 @@ namespace IncubeAdmin
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
+            stackPan_Nav.Children.Remove(chip_connect);
 
 
             // для диаграммы
@@ -79,9 +96,179 @@ namespace IncubeAdmin
 
             DataContext = this;
 
+            x0 = cnv.Width / 2;    // центр канваса
+            y0 = cnv.Height / 2;   // центр канваса
+            byte r = 66;
+            byte g = 66;
+            byte b = 66;
+            /*Ellipse ellipse = new Ellipse();
+            ellipse.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
+            ellipse.Width = 550;
+            ellipse.Height = 550;
+            ellipse.Margin = new Thickness(x0 - 275, y0 - 275, 0, 0);
+            ellipse.Stroke = Brushes.Black;
+            ellipse.StrokeThickness = 0;*/
+
+            /*DropShadowEffect effect = new DropShadowEffect();
+            Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
+            //effect.Color = Colors.Orange;
+            effect.Color = c3;
+            effect.Direction = 315;
+            effect.BlurRadius = 40;
+            effect.ShadowDepth = 20;
+            effect.Opacity = 50;
+            //effect.
+            ellipse.Effect = effect;*/
+
+            //cnv.Children.Add(ellipse);
 
 
+            Ellipse ellipse2 = new Ellipse();
+            //Color c2 = Color.FromArgb(246, 246, 248, 0);
+            //ellipse2.Fill = new SolidColorBrush(c);
+            ellipse2.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
+            ellipse2.Width = 550;
+            ellipse2.Height = 550;
+            ellipse2.Margin = new Thickness(x0 - 275, y0 - 275, 0, 0);
+            ellipse2.Stroke = Brushes.Black;
+            ellipse2.StrokeThickness = 0;
+
+
+            DropShadowEffect shadowEffect = new DropShadowEffect();
+            //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
+            //shadowEffect.Color = c3;
+            shadowEffect.Color = Colors.Black;
+            shadowEffect.Direction = 0;
+            shadowEffect.BlurRadius = 10;
+            shadowEffect.ShadowDepth = 0;
+            shadowEffect.Opacity = 50;
+            //effect.
+            ellipse2.Effect = shadowEffect;
+            cnv.Children.Add(ellipse2);
+
+
+
+            radius = 200;
+            radius_Elipse(4);
         }
+
+        public void radius_Elipse (int count) // отрисовка элипсов по окружности
+        {
+            /*double x0 = cnv.Width / 2;    // центр канваса
+            double y0 = cnv.Height / 2;   // центр канваса*/
+
+
+            stckNmbr = 1;
+            /*border = new Border();
+            border.Width = 50;
+            border.Height = 50;
+
+
+            border.Margin = new Thickness(x0 - 25, y0 + radius - 25, 0, 0);   // первый круг
+            //var ddd = border.Margin.Left;
+            border.CornerRadius = new CornerRadius(25);
+            border.BorderBrush = Brushes.Red;
+            border.Background = Brushes.LightPink;
+            border.BorderThickness = new Thickness(2);
+            border.Focusable = true;
+            border.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши
+
+
+            textBlock = new TextBlock();
+            textBlock.FontSize = 10;
+            textBlock.Inlines.Add(new Bold(new Run(stckNmbr.ToString())));
+            textBlock.Foreground = Brushes.Black;
+            textBlock.TextAlignment = TextAlignment.Center;
+            textBlock.VerticalAlignment = VerticalAlignment.Center;
+            textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            textBlock.Padding = new Thickness(0, 0, 0, 1);
+
+            border.Child = textBlock;
+            cnv.Children.Add(border);*/
+            
+
+
+
+            double angle = 360 / count;
+            double angle2 = angle;
+
+            double radian = angle * Math.PI / 180;
+            double radian2 = radian;
+            for (int i = 0; i < count; i++)
+            {
+
+
+                double x1 = x0 + (radius * Math.Cos(radian2));
+                double y1 = y0 + (radius * Math.Sin(radian2));
+
+                Border bord = new Border();
+                bord.Width = 100;
+                bord.Height = 100;
+                bord.Margin = new Thickness(x1 - 50, y1 - 50, 0, 0);   // первый круг
+                bord.CornerRadius = new CornerRadius(50);
+                //bord.BorderBrush = Brushes.Orange;
+                byte r = 255;
+                byte g = 241;
+                byte b = 118;
+                bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r, g, b));
+                //bord.Background = Brushes.Orange;
+                bord.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
+                bord.BorderThickness = new Thickness(2);
+                bord.Focusable = true;
+                bord.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши
+
+                /*DropShadowEffect shadowEffect = new DropShadowEffect();
+                //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
+                //shadowEffect.Color = c3;
+                shadowEffect.Color = Colors.White;
+                shadowEffect.Direction = 135;
+                shadowEffect.BlurRadius = 15;
+                shadowEffect.ShadowDepth = 15;
+                shadowEffect.Opacity = 50;
+                //effect.
+                bord.Effect = shadowEffect;*/
+
+                Border bord1 = new Border();
+                bord1.Width = 100;
+                bord1.Height = 100;
+                bord1.Margin = new Thickness(x1 - 50, y1 - 50, 0, 0);   // первый круг
+                bord1.CornerRadius = new CornerRadius(50);
+                bord1.BorderBrush = Brushes.Orange;
+                bord1.Background = Brushes.Orange;
+                bord1.BorderThickness = new Thickness(2);
+                bord1.Focusable = true;
+                bord1.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши
+
+               /* DropShadowEffect effect3 = new DropShadowEffect();
+                Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
+                //effect.Color = Colors.Orange;
+                effect3.Color = c3;
+                effect3.Direction = 315;
+                effect3.BlurRadius = 10;
+                effect3.ShadowDepth = 8;
+                effect3.Opacity = 50;
+                bord1.Effect = effect3;*/
+
+                TextBlock tBlock = new TextBlock();
+                tBlock.FontSize = 10;
+                tBlock.Inlines.Add(new Bold(new Run(stckNmbr.ToString())));
+                tBlock.Foreground = Brushes.Black;
+                tBlock.TextAlignment = TextAlignment.Center;
+                tBlock.VerticalAlignment = VerticalAlignment.Center;
+                tBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                tBlock.Padding = new Thickness(0, 0, 0, 1);
+
+                bord.Child = tBlock;
+                cnv.Children.Add(bord1);
+                cnv.Children.Add(bord);
+
+                stckNmbr ++;
+                angle2 += angle;
+                radian2 = angle2 * Math.PI / 180;
+            }
+        }
+
+
         private void but_Click(object sender, RoutedEventArgs e)
         {
             User user = new User();
@@ -264,6 +451,32 @@ namespace IncubeAdmin
             catch (Exception)
             {
             }
+        }
+
+        private void system_Click(object sender, RoutedEventArgs e)
+        {
+            /*SignUp sighUp = new SignUp();
+            sighUp.Owner = Window.GetWindow(this);
+            sighUp.ShowDialog();*/
+        }
+
+        private void signUp_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+
+                SignUp sighUp = new SignUp();
+                sighUp.Owner = Window.GetWindow(this);
+                sighUp.ShowDialog();
+                if (global.isConnect == true)
+                {
+                    stackPan_Nav.Children.Remove(chip_block);
+                    stackPan_Nav.Children.Add(chip_connect);
+                }
+                global.isConnect = false;
+            }
+            catch { }
         }
     }
 }

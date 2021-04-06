@@ -18,9 +18,19 @@
         Height="450"
         Width="600"
         AllowsTransparency="True"
-        WindowStyle="None">
-    <Grid>
-        <Grid.ColumnDefinitions>
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+
+        >
+
+    <Border
+        BorderBrush="{StaticResource DarkGray}"
+        BorderThickness="1"
+        >
+        <Grid
+            Background="{StaticResource Background}"
+            >
+            <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -34,7 +44,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
+            <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition/>
             <RowDefinition/>
@@ -49,15 +59,26 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- Верхняя навигационная панель -->
-        <materialDesign:ColorZone 
-            Mode="PrimaryMid" 
-            Padding="5" 
+            <materialDesign:Card
+            Grid.Row="1"
+            Grid.RowSpan="11"
+            Grid.Column="0"
             Grid.ColumnSpan="12"
-            
-            MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
+            Background="{StaticResource LightBackground}"
+            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+            Margin="20"
             >
-            <Grid>
+            
+        </materialDesign:Card>
+            <!-- Верхняя навигационная панель -->
+            <materialDesign:ColorZone 
+                Mode="PrimaryMid" 
+                Padding="5" 
+                Grid.ColumnSpan="12"
+                Background="{StaticResource LightBackground}"
+                MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
+                >
+                <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition/>
@@ -79,56 +100,105 @@
                     >
                     <StackPanel
                        Orientation="Horizontal"
+                       FlowDirection="RightToLeft"
                        materialDesign:RippleAssist.IsCentered="True"
-                       
                        >
-                        <!--
-                       <ToggleButton 
-                           Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                       -->
-                        <TextBlock 
-                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                            Text="INCUBE  ADMIN"
-                            FontSize="25"/>
-                    </StackPanel>
-                    
-                    <Button 
-                       Click="CloseButton_Click"
-                       Style="{StaticResource MaterialDesignIconForegroundButton}" 
-                       ToolTip="Закрыть" 
-                       DockPanel.Dock="Right"
-                       Width="40" 
-                       Height="30"
-                       >
+                        
+                       <Button 
+                            Click="CloseButton_Click"
+                            Style="{StaticResource MaterialDesignFlatButton}" 
+                           Foreground="{StaticResource Gray}"
+                            ToolTip="Закрыть" 
+                            DockPanel.Dock="Right"
+                            Width="40" 
+                            Height="30" Padding="4"
+                            >
                         <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
                     </Button>
-                    <!--
-                    <Button 
-                       Click="ExpandButton_Click"
-                       Style="{StaticResource MaterialDesignIconForegroundButton}" 
-                       ToolTip="Закрыть" 
-                       DockPanel.Dock="Right"
-                       Width="40" 
-                       Height="30"
-                       >
-                        <materialDesign:PackIcon Kind="WindowRestore"  Width="20" Height="20"/>
-                    </Button>
-                    <Button 
-                       Click="MinButton_Click"
-                       Style="{StaticResource MaterialDesignIconForegroundButton}" 
-                       ToolTip="Закрыть" 
-                       DockPanel.Dock="Right"
-                       Width="40" 
-                       Height="30"
-                       >
-                        <materialDesign:PackIcon Kind="WindowMinimize"  Width="20" Height="20"/>
-                    </Button>
-                    -->
+
+                        <TextBlock 
+                            Foreground="{StaticResource Gray}"
+                            Text="Вход в систему"
+                            FontSize="20" Margin="172,0,0,0"
+                            />
+
+                    </StackPanel>
+                    
                 </DockPanel>
+
             </Grid>
 
-        </materialDesign:ColorZone>
+            </materialDesign:ColorZone>
 
+            <Border
+                x:Name="border_signUp"
+                BorderBrush="{StaticResource LightBackground}"
+                BorderThickness="2"
+                Grid.Row="2"
+                Grid.RowSpan="9"
+                Grid.Column="1"
+                Grid.ColumnSpan="10"
+                >
+                <StackPanel>
+                    <TextBox
+                    x:Name="host_string"
+                    FontSize="16"
+                    Foreground="{StaticResource LightGray}"
+                    materialDesign:HintAssist.Hint="Host"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Center"
+                    Margin="5,0" />
+                    <TextBox
+                    x:Name="login_string"
+                    FontSize="16"
+                    Foreground="{StaticResource LightGray}"
+                    materialDesign:HintAssist.Hint="Login"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Center"
+                    Margin="5,0"
+                    />
+                    <PasswordBox
+                    Name="pass_string"
+                    FontSize="16"
+                    Foreground="{StaticResource LightGray}"
+                    materialDesign:HintAssist.Hint="Password"
+                    materialDesign:HintAssist.Foreground="{StaticResource PrimaryHueMidBrush}"
+                    materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource PrimaryHueMidBrush}"
+                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                    Margin="5,0"
+                    />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <TextBlock
+                        x:Name="textError"
+                        Margin="6,6,6,6"
+                        TextWrapping="Wrap"
+                        Foreground="{StaticResource SecondaryHueMidForegroundBrush}"
+                        />
+                    </ScrollViewer>
+                    
+                </StackPanel>
 
-    </Grid>
+            </Border>
+
+            <Button
+                x:Name="signUp_Ok"
+                Grid.Row="10"
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                ToolTip="MaterialDesignFlatButton"
+                Content="ПРИНЯТЬ" Click="signUp_Ok_Click" />
+            <Button
+                x:Name="signUp_cancel"
+                Foreground="{StaticResource SecondaryHueMidBrush}"
+                Grid.Row="10"
+                Grid.Column="7"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                ToolTip="MaterialDesignFlatButton"
+                Content="ОТМЕНА" Click="signUp_cancel_Click" />
+        </Grid>
+    </Border>
+    
+   
 </Window>

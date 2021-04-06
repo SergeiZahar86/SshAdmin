@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renci.SshNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,17 @@ namespace IncubeAdmin.window
     /// </summary>
     public partial class SignUp : Window
     {
+        private Global global;
         public SignUp()
         {
             InitializeComponent();
+            global = Global.getInstance();
+            host_string.Text = "10.90.0.29";
+            login_string.Text = "admin";
+            pass_string.Password = "admin26032021";
+            global.host = "10.90.0.29";
+            global.login = "admin";
+            global.password = "admin26032021";
         }
 
 
@@ -32,30 +41,46 @@ namespace IncubeAdmin.window
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(); // выход из программы
-            Environment.Exit(0);
+            /*Application.Current.Shutdown(); // выход из программы
+            Environment.Exit(0);*/
+            this.Close();
         }
-        private void ExpandButton_Click(object sender, RoutedEventArgs e) // сворачивание окна
-        {
-            if (WindowState == WindowState.Normal)
-            {
-                this.WindowState = WindowState.Maximized;
-                this.Padding = new Thickness(100);
-                this.Margin = new Thickness(100);
-                HorizontalAlignment = HorizontalAlignment.Center;
-
-            }
-            else
-            {
-                WindowState = WindowState.Normal;
-            }
-        }
+        
 
         private void MinButton_Click(object sender, RoutedEventArgs e) // сворачивание окна
         {
             this.WindowState = WindowState.Minimized;
         }
 
+        private void signUp_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            /*global.host = host_string.Text;
+            global.login = login_string.Text;
+            global.password = pass_string.Password;*/
+            try
+            {
+                global.sftp = new SftpClient(global.host, global.login, global.password);
+                global.sftp.Connect();
+                if (global.sftp.IsConnected == true)
+                {
+                    global.isConnect = true;
+                    this.Close();
 
+                }
+                else
+                {
+                    textError.Text = "Соединение не установлено";
+                }
+            }
+            catch(Exception ee)
+            {
+                textError.Text = $"Ошибка соединения. \n {ee}";
+            }
+        }
+
+        private void signUp_cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

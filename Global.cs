@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
+using Renci.SshNet;
 
 namespace IncubeAdmin
 {
@@ -15,7 +16,13 @@ namespace IncubeAdmin
         private User User;
         private string connectionString;
         private string sqlExpression;
-        public List<User> UsersGlobal;
+        public List<User> UsersGlobal; // список пользователей из базы данных
+
+        public string host;
+        public string login;
+        public string password;
+        public SftpClient sftp;
+        public bool isConnect;
 
         public static Global getInstance() // возвращает singleton объекта Global
         {
@@ -26,6 +33,9 @@ namespace IncubeAdmin
 
         private Global()
         {
+
+
+
             UsersGlobal = new List<User>();
             var appSettings = ConfigurationManager.AppSettings;
             connectionString = appSettings["connectionString"];

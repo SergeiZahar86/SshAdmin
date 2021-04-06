@@ -14,22 +14,27 @@
             </ResourceDictionary.MergedDictionaries>
 
 
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#67dacb"/>
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#70dac9"/>
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Black"/>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2ba89a"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#39a899"/>
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="Black"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#20786b"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#2c786b"/>
             <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
             <!-- accent -->
-            <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#ffffa8"/>
+            <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#ffa097"/>
             <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="Black"/>
-            <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#fff176"/>
+            <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#f46e68"/>
             <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="Black"/>
-            <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#cabf45"/>
+            <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#ba584a"/>
             <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="Black"/>
 
+            <SolidColorBrush x:Key="Background" Color="#FF303030"/>
+            <SolidColorBrush x:Key="LightBackground" Color="#FF424242"/>
 
-            
+            <SolidColorBrush x:Key="LightGray" Color="#FFEEEEEE"/>
+            <SolidColorBrush x:Key="Gray" Color="#FFA0B2BB"/>
+            <SolidColorBrush x:Key="DarkGray" Color="#FF647076"/>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
