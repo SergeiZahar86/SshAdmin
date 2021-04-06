@@ -22,6 +22,7 @@ namespace IncubeAdmin
         public string login;
         public string password;
         public SftpClient sftp;
+        public SshClient sshClient;
         public bool isConnect;
 
         public static Global getInstance() // возвращает singleton объекта Global

@@ -64,13 +64,24 @@ namespace IncubeAdmin.window
                 if (global.sftp.IsConnected == true)
                 {
                     global.isConnect = true;
-                    this.Close();
+                    //this.Close();
 
                 }
                 else
                 {
                     textError.Text = "Соединение не установлено";
                 }
+
+
+                global.sshClient = new SshClient(global.host, global.login, global.password);
+                global.sshClient.Connect();
+                if(global.sshClient.IsConnected == true)
+                {
+                    //global.isConnect = true;
+                    this.Close();
+                }
+
+
             }
             catch(Exception ee)
             {

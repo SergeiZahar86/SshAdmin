@@ -34,7 +34,7 @@ namespace IncubeAdmin
         private Color с3;
         double x0;              // центр канваса
         double y0;              // центр канваса
-
+        string remoteDirectory = "/";
 
 
 
@@ -455,9 +455,17 @@ namespace IncubeAdmin
 
         private void system_Click(object sender, RoutedEventArgs e)
         {
-            /*SignUp sighUp = new SignUp();
-            sighUp.Owner = Window.GetWindow(this);
-            sighUp.ShowDialog();*/
+            try
+            {
+                var files = global.sftp.ListDirectory(remoteDirectory);
+                foreach(var file in files)
+                {
+                    ssh_text.Text += (file.Name.ToString() + "\n");
+                }
+            }catch(Exception eee)
+            {
+
+            }
         }
 
         private void signUp_Click(object sender, RoutedEventArgs e)
@@ -477,6 +485,29 @@ namespace IncubeAdmin
                 global.isConnect = false;
             }
             catch { }
+        }
+
+        private void system1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
+                {
+                    string fff = command.Execute();
+                    string[] words = fff.Split(new char[] { '\n' });
+                    foreach (string s in words)
+                    {
+                        ssh_text.Text += (s + "\n");
+                    }
+                    //Console.Write(command.Execute());
+                    //Console.ReadLine();
+                }
+                
+            }
+            catch (Exception eee)
+            {
+
+            }
         }
     }
 }

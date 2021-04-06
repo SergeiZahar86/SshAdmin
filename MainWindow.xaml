@@ -103,6 +103,13 @@
                     IsChecked="False"
                     Content="THIRD"
                     Cursor="Hand" Click="radio3_Click"/>
+                <RadioButton
+                    x:Name="radio4"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="False"
+                    Content="SSH"
+                    Cursor="Hand" Click="radio3_Click"/>
             </StackPanel>
         </materialDesign:Card>
 
@@ -885,9 +892,9 @@
 
                 <StackPanel 
                     Grid.Row="0"
-                    Grid.RowSpan="12"
                     Grid.Column="0"
-                    Orientation="Vertical"
+                    Grid.ColumnSpan="12"
+                    Orientation="Horizontal"
                     
                     >
                     <Button
@@ -896,59 +903,39 @@
                         Width="80"
                         ToolTip="Resource"
                         Content="_LIGHT"
-                        Margin="0,20"
+                        Margin="20"
                         Click="system_Click"
                         />
-                </StackPanel>
-                <StackPanel
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="11"
-                    Orientation="Horizontal"
-                    >
-                    <!--
-                    <TextBox
-                        x:Name="ip_adress_TB"
-                        Width="250"
-                        Height="40"
-                        Margin="10"
-                        materialDesign:HintAssist.Hint="IP адрес"
-                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
-                        materialDesign:HintAssist.FloatingScale="0.7"
-                        Text=""
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        FontSize="15"
-                        Foreground="White"
-                        BorderBrush="White"
-                        ></TextBox>
-                    <TextBox
-                        x:Name="login_TB"
-                        Width="250"
-                        Height="40"
-                        Margin="10"
-                        materialDesign:HintAssist.Hint="Login"
-                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
-                        materialDesign:HintAssist.FloatingScale="0.7"
-                        Text=""
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        FontSize="15"
-                        Foreground="White"
-                        BorderBrush="White" HorizontalAlignment="Center"
+                    <Button
+                        x:Name="system1"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="_LIGHT"
+                        Margin="20" Click="system1_Click"
                         />
-                    <PasswordBox
-                        x:Name="password_TB"
-                        Width="250"
-                        Height="40"
-                        Margin="10"
-                        materialDesign:HintAssist.Hint="Password"
-                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
-                        materialDesign:HintAssist.FloatingScale="0.7"
-                        Foreground="White"
-                        BorderBrush="White"
-                        FontSize="15"
-                        ></PasswordBox>
-                    -->
                 </StackPanel>
+                <materialDesign:Card
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="1"
+                    Grid.RowSpan="10"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" 
+                    Margin="30,0, 0,0"
+                    >
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto"
+                        >
+                        <TextBlock
+                            x:Name="ssh_text"
+                            TextWrapping="Wrap"
+                            Foreground="{StaticResource LightGray}"
+                            />
+                    </ScrollViewer>
+                </materialDesign:Card>
+                
             </Grid>
         </Border>
 
