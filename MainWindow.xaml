@@ -28,7 +28,8 @@
     VerticalContentAlignment="Center"
     UseLayoutRounding="False"
     WindowStyle="None"
-    AllowsTransparency="True" >
+    AllowsTransparency="True" Loaded="Window_Loaded" 
+    >
 
     <Grid
         x:Name="MainGrid"

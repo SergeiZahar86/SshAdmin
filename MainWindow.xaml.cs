@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,8 +66,8 @@ namespace IncubeAdmin
 
 
 
-
-            SeriesCollection = new SeriesCollection
+            // создание объектов для диаграмм
+            SeriesCollection = new SeriesCollection      
             {
                 new PieSeries
                 {
@@ -153,29 +154,24 @@ namespace IncubeAdmin
 
 
             radius = 200;
-            radius_Elipse(4);
+            //radius_Elipse(4);
 
-           
-
-
-                SignUp sighUp = new SignUp();
-                sighUp.Owner = Window.GetWindow(this);
-                sighUp.ShowDialog();
-                if (global.isConnect == true)
-                {
-                    stackPan_Nav.Children.Remove(chip_block);
-                    stackPan_Nav.Children.Add(chip_connect);
-                }
-                global.isConnect = false;
         }
 
-        public void radius_Elipse (int count) // отрисовка элипсов по окружности
+        public void radius_Elipse (string[] count) // отрисовка элипсов по окружности
         {
             /*double x0 = cnv.Width / 2;    // центр канваса
             double y0 = cnv.Height / 2;   // центр канваса*/
 
 
-            stckNmbr = 1;
+            //stckNmbr = 1;
+
+
+            /*for(int i = 0; i <count.Length - 1; i++)
+            {
+
+            }*/
+
             /*border = new Border();
             border.Width = 50;
             border.Height = 50;
@@ -206,12 +202,12 @@ namespace IncubeAdmin
 
 
 
-            double angle = 360 / count;
+            double angle = 360 / (count.Length - 1);
             double angle2 = angle;
 
             double radian = angle * Math.PI / 180;
             double radian2 = radian;
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < count.Length - 1; i++)
             {
 
 
@@ -230,9 +226,9 @@ namespace IncubeAdmin
                 bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r, g, b));
                 //bord.Background = Brushes.Orange;
                 bord.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
-                bord.BorderThickness = new Thickness(2);
+                bord.BorderThickness = new Thickness(0);
                 bord.Focusable = true;
-                bord.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши
+                bord.Tag = count[i]; // для поиска метки по клику правой кнопки мыши
 
                 /*DropShadowEffect shadowEffect = new DropShadowEffect();
                 //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
@@ -245,7 +241,7 @@ namespace IncubeAdmin
                 //effect.
                 bord.Effect = shadowEffect;*/
 
-                Border bord1 = new Border();
+                /*Border bord1 = new Border();
                 bord1.Width = 100;
                 bord1.Height = 100;
                 bord1.Margin = new Thickness(x1 - 50, y1 - 50, 0, 0);   // первый круг
@@ -254,7 +250,7 @@ namespace IncubeAdmin
                 bord1.Background = Brushes.Orange;
                 bord1.BorderThickness = new Thickness(2);
                 bord1.Focusable = true;
-                bord1.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши
+                bord1.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши*/
 
                /* DropShadowEffect effect3 = new DropShadowEffect();
                 Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
@@ -267,8 +263,8 @@ namespace IncubeAdmin
                 bord1.Effect = effect3;*/
 
                 TextBlock tBlock = new TextBlock();
-                tBlock.FontSize = 10;
-                tBlock.Inlines.Add(new Bold(new Run(stckNmbr.ToString())));
+                tBlock.FontSize = 20;
+                tBlock.Inlines.Add(new Bold(new Run(count[i])));
                 tBlock.Foreground = Brushes.Black;
                 tBlock.TextAlignment = TextAlignment.Center;
                 tBlock.VerticalAlignment = VerticalAlignment.Center;
@@ -276,27 +272,28 @@ namespace IncubeAdmin
                 tBlock.Padding = new Thickness(0, 0, 0, 1);
 
                 bord.Child = tBlock;
-                cnv.Children.Add(bord1);
+                //cnv.Children.Add(bord1);
                 cnv.Children.Add(bord);
 
-                stckNmbr ++;
+                //stckNmbr ++;
                 angle2 += angle;
                 radian2 = angle2 * Math.PI / 180;
             }
         }
 
 
-        private void but_Click(object sender, RoutedEventArgs e)
+        private void but_Click(object sender, RoutedEventArgs e)                            // добавление User в таблицу
         {
             User user = new User();
             applicationView.Users.Insert(0, user);
             datagrid.ItemsSource = null;
             datagrid.ItemsSource = applicationView.Users;
         }
-        // для диаграммы
-        public Func<ChartPoint, string> PointLabel { get; set; }
-        // для диаграммы
-        private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
+
+
+
+        public Func<ChartPoint, string> PointLabel { get; set; }               // для диаграммы
+        private void Chart_OnDataClick(object sender, ChartPoint chartpoint)   // для диаграммы
         {
             var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;
 
@@ -312,12 +309,12 @@ namespace IncubeAdmin
 
 
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)                    // выход из программы
         {
             Application.Current.Shutdown(); // выход из программы
             Environment.Exit(0);
-        }
-        private void ExpandButton_Click(object sender, RoutedEventArgs e) // сворачивание окна
+        }  
+        private void ExpandButton_Click(object sender, RoutedEventArgs e)                   // сворачивание окна
         {
             if (WindowState == WindowState.Normal)
             {
@@ -331,19 +328,20 @@ namespace IncubeAdmin
                 WindowState = WindowState.Normal;
             }
         }
-
-        private void MinButton_Click(object sender, RoutedEventArgs e) // сворачивание окна
+        private void MinButton_Click(object sender, RoutedEventArgs e)                      // сворачивание окна
         {
             this.WindowState = WindowState.Minimized;
         }
-
-        // Перемещение окна по экрану
-        private void ColorZone_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ColorZone_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)   // Перемещение окна по экрану
         {
             this.DragMove();
         }
 
-        private void radio1_Click(object sender, RoutedEventArgs e)
+
+
+
+
+        private void radio1_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Visible;
             second.Visibility = Visibility.Hidden;
@@ -351,8 +349,7 @@ namespace IncubeAdmin
             fourth.Visibility = Visibility.Hidden;
 
         }
-
-        private void radio2_Click(object sender, RoutedEventArgs e)
+        private void radio2_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Visible;
@@ -360,8 +357,7 @@ namespace IncubeAdmin
             fourth.Visibility = Visibility.Hidden;
 
         }
-
-        private void radio3_Click(object sender, RoutedEventArgs e)
+        private void radio3_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
@@ -369,14 +365,13 @@ namespace IncubeAdmin
             fourth.Visibility = Visibility.Hidden;
 
         }
-        private void radio4_Click(object sender, RoutedEventArgs e)
+        private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
             fourth.Visibility = Visibility.Visible;
         }
-
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             ScrollViewer scv = (ScrollViewer)sender;
@@ -395,7 +390,7 @@ namespace IncubeAdmin
 
 
 
-
+        /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public SeriesCollection SeriesCollection { get; set; }
 
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
@@ -457,10 +452,14 @@ namespace IncubeAdmin
         {
             Chart.Update(true, true);
         }
+        /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        // выбор строки в таблице
-        private void datagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+
+        
+        private void datagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)   // выбор строки в таблице
         {
             try
             {
@@ -502,15 +501,21 @@ namespace IncubeAdmin
         {
             try
             {
+                stackPan_Nav.Children.Remove(chip_connect); // маркер определения состояния подключения
+                stackPan_Nav.Children.Add(chip_block);  // маркер определения состояния подключения
+            }
+            catch { }
 
 
+            try
+            {
                 SignUp sighUp = new SignUp();
                 sighUp.Owner = Window.GetWindow(this);
                 sighUp.ShowDialog();
                 if (global.isConnect == true)
                 {
-                    stackPan_Nav.Children.Remove(chip_block);
-                    stackPan_Nav.Children.Add(chip_connect);
+                    stackPan_Nav.Children.Remove(chip_block); // маркер определения состояния подключения
+                    stackPan_Nav.Children.Add(chip_connect);  // маркер определения состояния подключения
                 }
                 global.isConnect = false;
             }
@@ -520,8 +525,9 @@ namespace IncubeAdmin
         private void system1_Click(object sender, RoutedEventArgs e)
         {
             //progressBar.Visibility = Visibility.Visible;
-            MainGrid.Children.Add(progressBar);
+            /*MainGrid.Children.Add(progressBar);
             progressBar.Visibility = Visibility.Visible;
+            Thread.Sleep(2000);*/
             try
             {
                 if (global.sshClient.IsConnected == true)
@@ -537,18 +543,96 @@ namespace IncubeAdmin
                         //Console.Write(command.Execute());
                         //Console.ReadLine();
                     }
+
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $1}'"))
+                    {
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        foreach (string s in words)
+                        {
+                            ssh_text.Text += (s + "\n");
+                        }
+                        //Console.Write(command.Execute());
+                        //Console.ReadLine();
+                    }
+
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $2}'"))
+                    {
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        foreach (string s in words)
+                        {
+                            ssh_text.Text += (s + "\n");
+                        }
+                        //Console.Write(command.Execute());
+                        //Console.ReadLine();
+                    }
+
+                    using (var command = global.sshClient.CreateCommand("nodetool status"))
+                    {
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        foreach (string s in words)
+                        {
+                            ssh_text.Text += (s + "\n");
+                        }
+                        //Console.Write(command.Execute());
+                        //Console.ReadLine();
+                    }
                 }
-                
+
             }
             catch (Exception eee)
             {
                 ssh_text.Text = eee.ToString();
             }
-            
-            MainGrid.Children.Remove(progressBar);
-            progressBar.Visibility = Visibility.Hidden;
+
+            /*MainGrid.Children.Remove(progressBar);
+            progressBar.Visibility = Visibility.Hidden;*/
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) // после загрузки главного окна
+        {
+            try
+            {
+
+
+                SignUp sighUp = new SignUp();
+                sighUp.Owner = Window.GetWindow(this);
+                sighUp.ShowDialog();
+                if (global.isConnect == true)
+                {
+                    stackPan_Nav.Children.Remove(chip_block);
+                    stackPan_Nav.Children.Add(chip_connect);
+                }
+                global.isConnect = false;
+
+
+
+
+
+
+                if (global.sshClient.IsConnected == true)
+                {
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
+                    {
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        radius_Elipse(words);
+                        /*foreach (string s in words)
+                        {
+                            ssh_text.Text += (s + "\n");
+                        }*/
+                        //Console.Write(command.Execute());
+                        //Console.ReadLine();
+                    }
+
+                }
+
+
+                }
+            catch { }
+        }
     }
 }
 
