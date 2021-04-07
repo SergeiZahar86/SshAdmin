@@ -95,7 +95,7 @@
                 </Grid.ColumnDefinitions>
                 <DockPanel 
                     Height="30"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Grid.ColumnSpan="11" 
                     >
                     <StackPanel
@@ -103,19 +103,19 @@
                        FlowDirection="RightToLeft"
                        materialDesign:RippleAssist.IsCentered="True"
                        >
-                        
-                       <Button 
+                        <!--
+                        <Button 
                             Click="CloseButton_Click"
                             Style="{StaticResource MaterialDesignFlatButton}" 
-                           Foreground="{StaticResource Gray}"
+                            Foreground="{StaticResource Gray}"
                             ToolTip="Закрыть" 
                             DockPanel.Dock="Right"
                             Width="40" 
                             Height="30" Padding="4"
                             >
-                        <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
-                    </Button>
-
+                            <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
+                        </Button>
+                        -->
                         <TextBlock 
                             Foreground="{StaticResource Gray}"
                             Text="Вход в систему"
@@ -196,7 +196,8 @@
                 Grid.ColumnSpan="3"
                 Style="{StaticResource MaterialDesignFlatButton}"
                 ToolTip="MaterialDesignFlatButton"
-                Content="ОТМЕНА" Click="signUp_cancel_Click" />
+                Content="ОТМЕНА" 
+                Click="signUp_cancel_Click" />
         </Grid>
     </Border>
     

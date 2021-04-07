@@ -31,7 +31,9 @@
     AllowsTransparency="True" >
 
     <Grid
+        x:Name="MainGrid"
         Background="{StaticResource Background}"
+        
         >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
@@ -102,14 +104,16 @@
                     Margin="4"
                     IsChecked="False"
                     Content="THIRD"
-                    Cursor="Hand" Click="radio3_Click"/>
+                    Cursor="Hand"
+                    Click="radio3_Click"/>
                 <RadioButton
                     x:Name="radio4"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False"
                     Content="SSH"
-                    Cursor="Hand" Click="radio3_Click"/>
+                    Cursor="Hand" Click="radio4_Click"
+                    />
             </StackPanel>
         </materialDesign:Card>
 
@@ -271,16 +275,18 @@
                             FontSize="25" Margin="100,0,0,0"/>
                         
                         <Button
-                        x:Name="signUp"
-                        MaxWidth="60"
-                        Margin="450,0,20,0"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Foreground="{StaticResource Gray}"
-                        Click="signUp_Click" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FlowDirection="RightToLeft" Padding="4,0"
-                        >
-                            <materialDesign:PackIcon Width="30" Height="30" Kind="AccountKeyOutline" />
-                        </Button>
+                            x:Name="signUp"
+                            Style="{StaticResource MaterialDesignFlatButton}" 
+                            ToolTip="Создать соединение"
+                            MaxWidth="60"
+                            Margin="450,0,20,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Foreground="{StaticResource Gray}"
+                            Click="signUp_Click" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FlowDirection="RightToLeft" Padding="4,0"
+                            >
+                                <materialDesign:PackIcon Width="30" Height="30" Kind="AccountKeyOutline" />
+                            </Button>
 
                         <materialDesign:Chip
                             x:Name="chip_connect"
@@ -313,7 +319,6 @@
             </Grid>
 
         </materialDesign:ColorZone>
-
 
         <!-- Первая страница -->
         <Border 
@@ -485,172 +490,6 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <!--
-        <Border 
-            x:Name="second"
-            Grid.Column="2"
-            Grid.ColumnSpan="10"
-            Grid.Row="1"
-            Grid.RowSpan="11"
-            >
-            
-            <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
-                <ListView>
-                        
-                    <System:String xml:space="preserve">     </System:String>
-                        
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                    <TextBlock><Run Text="LG Nexus 5X"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Huawei Nexus 6P"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="iPhone 6S Plus"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Аsus Zenphone 2"/></TextBlock>
-                        
-                    <System:String xml:space="preserve">      </System:String>
-                        
-                    <TextBlock><Run Text="Microsoft Lumia 950"/></TextBlock>
-                </ListView>
-            </ScrollViewer>
-            
-        </Border>
-        -->
 
         <!-- Вторая страница -->
         <Grid 
@@ -831,8 +670,6 @@
 
         </Grid>
 
-
-
         <!-- Третья страница -->
         <Border 
             x:Name="third"
@@ -902,7 +739,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
-                        Content="_LIGHT"
+                        Content="LIGHT1"
                         Margin="20"
                         Click="system_Click"
                         />
@@ -911,8 +748,9 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
-                        Content="_LIGHT"
-                        Margin="20" Click="system1_Click"
+                        Content="LIGHT2"
+                        Margin="20"
+                        Click="system1_Click"
                         />
                 </StackPanel>
                 <materialDesign:Card
@@ -939,6 +777,91 @@
             </Grid>
         </Border>
 
+        <!-- Четвертая страница -->
+        <Border 
+            x:Name="fourth"
+            Grid.Column="2"
+            Grid.ColumnSpan="10"
+            Grid.Row="1"
+            Grid.RowSpan="11"
+            >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="12"
+                    Orientation="Horizontal"
+                    >
+                    <Button
+                        x:Name="system2"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="LIGHT1"
+                        Margin="20"
+                        />
+                    <Button
+                        x:Name="system3"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="LIGHT1"
+                        Margin="20"
+                        />
+                </StackPanel>
+                <materialDesign:Card
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="1"
+                    Grid.RowSpan="10"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" 
+                    Margin="30,0, 0,0"
+                    >
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto"
+                        >
+                        <TextBlock
+                            x:Name="ssh_text1"
+                            TextWrapping="Wrap"
+                            Foreground="{StaticResource LightGray}"
+                            />
+                    </ScrollViewer>
+                </materialDesign:Card>
+
+            </Grid>
+        </Border>
+        
         <!-- Выезжающие панели -->
         <materialDesign:DrawerHost
             x:Name="DrawerHost"
@@ -1159,5 +1082,68 @@
 
             </Grid>
         </materialDesign:DrawerHost>
+        
+        <!-- Прогресс бар -->
+        <Grid 
+           
+            x:Name="progressBar"
+            Grid.Column="0"
+            Grid.ColumnSpan="12"
+            Grid.Row="0"
+            Grid.RowSpan="12"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Grid.ColumnSpan="12"
+                Grid.Row="0"
+                Grid.RowSpan="12"
+                Background="{StaticResource DarkGray}"
+                Opacity="0.5"
+                >
+                
+            </Border>
+            <ProgressBar
+                
+                Grid.Row="5"
+                Grid.RowSpan="2"
+                Grid.Column="5"
+                Grid.ColumnSpan="2"
+                Foreground="White"
+                Height="70"
+                Width="70"
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                Value="0"
+                IsIndeterminate="True" />
+        </Grid>
+        
     </Grid>
 </Window>

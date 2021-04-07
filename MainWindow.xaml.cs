@@ -30,10 +30,10 @@ namespace IncubeAdmin
         Border border;
         int stckNmbr;
         TextBlock textBlock;
-        double radius;
+        double radius;                            // радиус круга для узлов 
         private Color с3;
-        double x0;              // центр канваса
-        double y0;              // центр канваса
+        double x0;                                // центр канваса
+        double y0;                                // центр канваса
         string remoteDirectory = "/";
 
 
@@ -52,6 +52,10 @@ namespace IncubeAdmin
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
+            fourth.Visibility = Visibility.Hidden;
+            //progressBar.Visibility = Visibility.Hidden;
+
+            MainGrid.Children.Remove(progressBar);
             stackPan_Nav.Children.Remove(chip_connect);
 
 
@@ -150,6 +154,19 @@ namespace IncubeAdmin
 
             radius = 200;
             radius_Elipse(4);
+
+           
+
+
+                SignUp sighUp = new SignUp();
+                sighUp.Owner = Window.GetWindow(this);
+                sighUp.ShowDialog();
+                if (global.isConnect == true)
+                {
+                    stackPan_Nav.Children.Remove(chip_block);
+                    stackPan_Nav.Children.Add(chip_connect);
+                }
+                global.isConnect = false;
         }
 
         public void radius_Elipse (int count) // отрисовка элипсов по окружности
@@ -331,6 +348,8 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Visible;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
+            fourth.Visibility = Visibility.Hidden;
+
         }
 
         private void radio2_Click(object sender, RoutedEventArgs e)
@@ -338,6 +357,8 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Visible;
             third.Visibility = Visibility.Hidden;
+            fourth.Visibility = Visibility.Hidden;
+
         }
 
         private void radio3_Click(object sender, RoutedEventArgs e)
@@ -345,6 +366,15 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Visible;
+            fourth.Visibility = Visibility.Hidden;
+
+        }
+        private void radio4_Click(object sender, RoutedEventArgs e)
+        {
+            first.Visibility = Visibility.Hidden;
+            second.Visibility = Visibility.Hidden;
+            third.Visibility = Visibility.Hidden;
+            fourth.Visibility = Visibility.Visible;
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -457,18 +487,18 @@ namespace IncubeAdmin
         {
             try
             {
-                var files = global.sftp.ListDirectory(remoteDirectory);
+               /* var files = global.sftp.ListDirectory(remoteDirectory);
                 foreach(var file in files)
                 {
                     ssh_text.Text += (file.Name.ToString() + "\n");
-                }
+                }*/
             }catch(Exception eee)
             {
 
             }
         }
 
-        private void signUp_Click(object sender, RoutedEventArgs e)
+        private void signUp_Click(object sender, RoutedEventArgs e) // окно создания подключения
         {
             try
             {
@@ -489,26 +519,36 @@ namespace IncubeAdmin
 
         private void system1_Click(object sender, RoutedEventArgs e)
         {
+            //progressBar.Visibility = Visibility.Visible;
+            MainGrid.Children.Add(progressBar);
+            progressBar.Visibility = Visibility.Visible;
             try
             {
-                using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
+                if (global.sshClient.IsConnected == true)
                 {
-                    string fff = command.Execute();
-                    string[] words = fff.Split(new char[] { '\n' });
-                    foreach (string s in words)
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
                     {
-                        ssh_text.Text += (s + "\n");
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        foreach (string s in words)
+                        {
+                            ssh_text.Text += (s + "\n");
+                        }
+                        //Console.Write(command.Execute());
+                        //Console.ReadLine();
                     }
-                    //Console.Write(command.Execute());
-                    //Console.ReadLine();
                 }
                 
             }
             catch (Exception eee)
             {
-
+                ssh_text.Text = eee.ToString();
             }
+            
+            MainGrid.Children.Remove(progressBar);
+            progressBar.Visibility = Visibility.Hidden;
         }
+
     }
 }
 

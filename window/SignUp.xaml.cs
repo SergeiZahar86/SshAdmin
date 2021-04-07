@@ -59,7 +59,7 @@ namespace IncubeAdmin.window
             global.password = pass_string.Password;*/
             try
             {
-                global.sftp = new SftpClient(global.host, global.login, global.password);
+                /*global.sftp = new SftpClient(global.host, global.login, global.password);
                 global.sftp.Connect();
                 if (global.sftp.IsConnected == true)
                 {
@@ -70,15 +70,19 @@ namespace IncubeAdmin.window
                 else
                 {
                     textError.Text = "Соединение не установлено";
-                }
+                }*/
 
 
                 global.sshClient = new SshClient(global.host, global.login, global.password);
                 global.sshClient.Connect();
                 if(global.sshClient.IsConnected == true)
                 {
-                    //global.isConnect = true;
+                    global.isConnect = true;
                     this.Close();
+                }
+                else
+                {
+                    textError.Text = "Соединение не установлено";
                 }
 
 
@@ -92,6 +96,8 @@ namespace IncubeAdmin.window
         private void signUp_cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown(); // выход из программы
+            Environment.Exit(0);
         }
     }
 }

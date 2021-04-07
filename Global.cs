@@ -24,6 +24,7 @@ namespace IncubeAdmin
         public SftpClient sftp;
         public SshClient sshClient;
         public bool isConnect;
+        public bool isProgressBar;    // видимость прогресс-бара
 
         public static Global getInstance() // возвращает singleton объекта Global
         {
@@ -36,7 +37,7 @@ namespace IncubeAdmin
         {
 
 
-
+            //sshClient = new SshClient();
             UsersGlobal = new List<User>();
             var appSettings = ConfigurationManager.AppSettings;
             connectionString = appSettings["connectionString"];
