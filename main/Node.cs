@@ -11,5 +11,15 @@ namespace IncubeAdmin.main
         public string Name { get; set; }
         public string Ip { get; set; }
         public string Status { get; set; }
+
+
+
+        public Node(string name, string ip, string status)
+        {
+            Name = name;
+            Ip = ip;
+            Status = status;
+        }
     }
+
 }

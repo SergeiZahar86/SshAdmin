@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IncubeAdmin.main;
 using Microsoft.Data.Sqlite;
 using Renci.SshNet;
 
@@ -26,6 +27,9 @@ namespace IncubeAdmin
         public bool isConnect;
         public bool isProgressBar;    // видимость прогресс-бара
 
+        public List<Node> nodes;
+        
+
         public static Global getInstance() // возвращает singleton объекта Global
         {
             if (instance == null)
@@ -36,7 +40,7 @@ namespace IncubeAdmin
         private Global()
         {
 
-
+            nodes = new List<Node>();
             //sshClient = new SshClient();
             UsersGlobal = new List<User>();
             var appSettings = ConfigurationManager.AppSettings;

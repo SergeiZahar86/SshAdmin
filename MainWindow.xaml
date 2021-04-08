@@ -1,13 +1,13 @@
 ﻿<Window
+    x:Class="IncubeAdmin.MainWindow"
+    xmlns:local="clr-namespace:IncubeAdmin" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:IncubeAdmin" 
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:System="clr-namespace:System;assembly=mscorlib" 
-    x:Class="IncubeAdmin.MainWindow"
     mc:Ignorable="d"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -740,21 +740,31 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
-                        Content="LIGHT1"
+                        Content="sys"
                         Margin="20"
                         Click="system_Click"
                         />
                     <Button
                         x:Name="system1"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Style="{DynamicResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
-                        Content="LIGHT2"
+                        Content="sys1"
                         Margin="20"
                         Click="system1_Click"
                         />
+                    <Button
+                        x:Name="system4"
+                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="sys4"
+                        Margin="20"
+                        Click="system4_Click"
+                        />
                 </StackPanel>
                 <materialDesign:Card
+                    x:Name="left_card"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
                     Padding="10"
                     Background="{StaticResource Background}"
@@ -768,13 +778,47 @@
                         VerticalScrollBarVisibility="Auto"
                         >
                         <TextBlock
-                            x:Name="ssh_text"
+                            x:Name="left_ssh_text"
                             TextWrapping="Wrap"
                             Foreground="{StaticResource LightGray}"
                             />
                     </ScrollViewer>
                 </materialDesign:Card>
-                
+
+                <materialDesign:Card
+                    x:Name="right_card"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="9"
+                    Grid.ColumnSpan="3" 
+                    Margin="0,0,30,0"
+                    >
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto" 
+                        Foreground="{StaticResource LightGray}"
+                        >
+                        <StackPanel
+                            
+                            x:Name="third_stack_right"
+                            
+                            >
+                            <!--
+                            <TextBlock
+                                x:Name="right_ssh_text"
+                                TextWrapping="Wrap"
+                                Foreground="{StaticResource LightGray}"
+                                />
+                            -->
+                        </StackPanel>
+                    </ScrollViewer>
+                        
+                        
+                    
+                </materialDesign:Card>
+
             </Grid>
         </Border>
 
@@ -1123,6 +1167,7 @@
             </Grid.RowDefinitions>
 
             <Border
+                x:Name="progress_border"
                 Grid.Column="0"
                 Grid.ColumnSpan="12"
                 Grid.Row="0"
@@ -1132,8 +1177,20 @@
                 >
                 
             </Border>
+            <TextBlock
+                Text="Подождите..."
+                Grid.Column="4"
+                Grid.ColumnSpan="4"
+                Grid.Row="5"
+                Grid.RowSpan="2"
+                FontSize="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{StaticResource LightGray}"
+                />
+
+            <!--
             <ProgressBar
-                
                 Grid.Row="5"
                 Grid.RowSpan="2"
                 Grid.Column="5"
@@ -1144,6 +1201,7 @@
                 Style="{StaticResource MaterialDesignCircularProgressBar}"
                 Value="0"
                 IsIndeterminate="True" />
+            -->
         </Grid>
         
     </Grid>
