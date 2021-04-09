@@ -26,11 +26,11 @@ namespace IncubeAdmin.window
             InitializeComponent();
             global = Global.getInstance();
             host_string.Text = "10.90.0.29";
-            login_string.Text = "admin";
-            pass_string.Password = "admin26032021";
+            login_string.Text = "root";
+            pass_string.Password = "root26032021";
             global.host = "10.90.0.29";
-            global.login = "admin";
-            global.password = "admin26032021";
+            global.login = "root";
+            global.password = "root26032021";
         }
 
 
@@ -45,7 +45,11 @@ namespace IncubeAdmin.window
             Environment.Exit(0);*/
             this.Close();
         }
-        
+        /*private void myGif_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            myGif.Position = new TimeSpan(0, 0, 1);
+            myGif.Play();
+        }*/
 
         private void MinButton_Click(object sender, RoutedEventArgs e) // сворачивание окна
         {

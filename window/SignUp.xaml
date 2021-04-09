@@ -21,6 +21,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
 
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         >
 
     <Border
@@ -31,33 +32,33 @@
             Background="{StaticResource Background}"
             >
             <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
             <materialDesign:Card
             Grid.Row="1"
@@ -68,8 +69,8 @@
             materialDesign:ShadowAssist.ShadowDepth="Depth1"
             Margin="20"
             >
-            
-        </materialDesign:Card>
+
+            </materialDesign:Card>
             <!-- Верхняя навигационная панель -->
             <materialDesign:ColorZone 
                 Mode="PrimaryMid" 
@@ -79,31 +80,31 @@
                 MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
                 >
                 <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <DockPanel 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel 
                     Height="30"
                     Grid.Column="0"
                     Grid.ColumnSpan="11" 
                     >
-                    <StackPanel
+                        <StackPanel
                        Orientation="Horizontal"
                        FlowDirection="RightToLeft"
                        materialDesign:RippleAssist.IsCentered="True"
                        >
-                        <!--
+                            <!--
                         <Button 
                             Click="CloseButton_Click"
                             Style="{StaticResource MaterialDesignFlatButton}" 
@@ -116,17 +117,17 @@
                             <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
                         </Button>
                         -->
-                        <TextBlock 
+                            <TextBlock 
                             Foreground="{StaticResource Gray}"
                             Text="Вход в систему"
                             FontSize="20" Margin="172,0,0,0"
                             />
 
-                    </StackPanel>
-                    
-                </DockPanel>
+                        </StackPanel>
 
-            </Grid>
+                    </DockPanel>
+
+                </Grid>
 
             </materialDesign:ColorZone>
 
@@ -175,7 +176,35 @@
                         Foreground="{StaticResource SecondaryHueMidForegroundBrush}"
                         />
                     </ScrollViewer>
+<!--
+                    <MediaElement
+                        x:Name="myGif"
+                        MediaEnded="myGif_MediaEnded"
+                        UnloadedBehavior="Play"
+                        Source="Blocks_gif.gif"
+                        LoadedBehavior="Play"
+                        Stretch="None"
+
+                        >
+                        <MediaElement.OpacityMask>
+                            <SolidColorBrush Color="Black"/>
+                        </MediaElement.OpacityMask>
+                    </MediaElement>
+                    -->
+                    <Image
+                        x:Name="image_Gif"
+                        gif:AnimationBehavior.SourceUri = "Blocks_gif.gif"
+                        Grid.ColumnSpan="2"
+                        Grid.Column="5"
+                        HorizontalAlignment="Center"
+                        Height="100"
+                        Grid.Row="6"
+                        Grid.RowSpan="2"
+                        VerticalAlignment="Top"
+                        Width="100"
+                        />
                     
+
                 </StackPanel>
 
             </Border>
@@ -200,6 +229,6 @@
                 Click="signUp_cancel_Click" />
         </Grid>
     </Border>
-    
-   
+
+
 </Window>
