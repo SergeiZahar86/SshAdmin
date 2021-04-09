@@ -519,7 +519,7 @@ namespace IncubeAdmin
             }
         }
 
-        private void system_Click(object sender, RoutedEventArgs e)  // определение размеров окна
+        private void sys_Click(object sender, RoutedEventArgs e)  // определение размеров окна
         {
             try
             {
@@ -530,35 +530,8 @@ namespace IncubeAdmin
                 progressBar.Visibility = Visibility.Visible;
 
 
-                Thread thread = new Thread(UpdateTextWrong);
+                Thread thread = new Thread(GetDataCassandra);
                 thread.Start();
-
-
-
-                
-
-                //new MainWindow().ShowDialog();
-
-                //progressBar.Visibility = Visibility.Visible;
-
-                /*Wait wait = new Wait();
-                wait.Width = this.Width;
-                wait.Height = this.Height;
-                wait.Show();*/
-
-                /*if (WindowState == WindowState.Normal)
-                {
-                    this.WindowState = WindowState.Maximized;
-                    this.Padding = new Thickness(100);
-                    this.Margin = new Thickness(100);
-                    HorizontalAlignment = HorizontalAlignment.Center;
-
-                }
-                else
-                {
-                    WindowState = WindowState.Normal;
-                }*/
-
 
             }
             catch(Exception eee)
@@ -567,70 +540,66 @@ namespace IncubeAdmin
             }
         }
 
-        private void UpdateTextWrong() // Получение начальных сведений от виртуальной машины
+        private void GetDataCassandra() // Получение начальных сведений от виртуальной машины
         {
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+            try
             {
-                //left_ssh_text.Text += "Вставить новый текст \n";
-
-                try
+                if (global.sshClient.IsConnected == true)
                 {
-
-
-                    if (global.sshClient.IsConnected == true)
+                    // имя узла
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
                     {
-                        // имя узла
-                        using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        for (int i = 0; i < words.Length - 1; i++)
                         {
-                            string fff = command.Execute();
-                            string[] words = fff.Split(new char[] { '\n' });
-                            for (int i = 0; i < words.Length - 1; i++)
-                            {
-                                //left_ssh_text.Text += (words[i] + "\n");
-                                name_node.Add(words[i]);
-                            }
-                            //radius_Elipse(words);
-                            /*foreach (string s in words)
-                            {
-                                ssh_text.Text += (s + "\n");
-                            }*/
-                            //Console.Write(command.Execute());
-                            //Console.ReadLine();
+                            name_node.Add(words[i]);
                         }
-                        // доступность узла
-                        using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $1}'"))
-                        {
-                            string fff = command.Execute();
-                            string[] words = fff.Split(new char[] { '\n' });
-                            for (int i = 0; i < words.Length - 1; i++)
-                            {
-                                //left_ssh_text.Text += (words[i] + "\n");
-                                isOk_node.Add(words[i]);
-                            }
-                            //Console.Write(command.Execute());
-                            //Console.ReadLine();
-                        }
-                        // ip адрес узла
-                        using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $2}'"))
-                        {
-                            string fff = command.Execute();
-                            string[] words = fff.Split(new char[] { '\n' });
-                            for (int i = 0; i < words.Length - 1; i++)
-                            {
-                                //left_ssh_text.Text += (words[i] + "\n");
-                                ip_node.Add(words[i]);
-                            }
-                            //Console.Write(command.Execute());
-                            //Console.ReadLine();
-                        }
+                    }
 
-                        for (int i = 0; i < name_node.Count; i++)
+                    // доступность узла
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $1}'"))
+                    {
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        for (int i = 0; i < words.Length - 1; i++)
                         {
-                            global.nodes.Add(new Node(name_node[i], ip_node[i], isOk_node[i]));
+                            isOk_node.Add(words[i]);
                         }
+                    }
 
+                    // ip адрес узла
+                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $2}'"))
+                    {
+                        string fff = command.Execute();
+                        string[] words = fff.Split(new char[] { '\n' });
+                        for (int i = 0; i < words.Length - 1; i++)
+                        {
+                            ip_node.Add(words[i]);
+                        }
+                    }
+
+                    for (int i = 0; i < name_node.Count; i++)
+                    {
+                        global.nodes.Add(new Node(name_node[i], ip_node[i], isOk_node[i]));
+                    }
+
+
+
+                    // вызвать диспетчер патока главного окна и сделать изменения в GUI. Если вместо BeginInvoke() 
+                    // применить Invoke(). Метод Invoke() останавливает поток до тех пор, пока диспетчер выполняет код.
+                    // Метод Invoke() можно использовать, если нужно приостановить асинхронную операцию до тех пор, пока
+                    // от пользователя не поступит какой-нибудь отклик.
+                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                    {
                         radius_Elipse(global.nodes);
+                    });
+
+
+                    // вызвать диспетчер патока главного окна и сделать изменения в GUI.
+                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                    {
 
                         // добавление элементов в стекпанель
                         for (int i = 0; i < global.nodes.Count; i++)
@@ -658,7 +627,6 @@ namespace IncubeAdmin
                             bord.Focusable = true;
                             //bord.Tag = count[i]; // для поиска метки по клику правой кнопки мыши
 
-
                             TextBlock tBlock = new TextBlock();
                             tBlock.FontSize = 14;
                             tBlock.Inlines.Add(new Span(new Run(global.nodes[i].Name + "   " + global.nodes[i].Ip + "   " + global.nodes[i].Status)));
@@ -668,77 +636,27 @@ namespace IncubeAdmin
                             tBlock.HorizontalAlignment = HorizontalAlignment.Center;
                             tBlock.Padding = new Thickness(0, 0, 0, 1);
 
-
-
                             stack.Children.Add(bord);
                             stack.Children.Add(tBlock);
                             third_stack_right.Children.Add(stack);
                         }
+                    });
 
-
-                    }
-                    //wait.Close();
+                    // вызвать диспетчер патока главного окна и сделать изменения в GUI.
+                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                    {
+                        //progressBar.Visibility = Visibility.Hidden;
+                    });
                 }
-                catch (Exception dddd)
+            }
+            catch (Exception dddd)
+            {
+                // вызвать диспетчер патока главного окна и сделать изменения в GUI.
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                 {
                     left_ssh_text.Text += (dddd.ToString() + " \n");
-                }
-                
-
-
-
-                progressBar.Visibility = Visibility.Hidden;
+                });
             }
-            );
-
-
-
-
-
-
-
-
-            /*using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
-            {
-                string fff = command.Execute();
-                string[] words = fff.Split(new char[] { '\n' });
-                for (int i = 0; i < words.Length - 1; i++)
-                {
-                    //left_ssh_text.Text += (words[i] + "\n");
-                    name_node.Add(words[i]);
-                }
-                //radius_Elipse(words);
-                *//*foreach (string s in words)
-                {
-                    ssh_text.Text += (s + "\n");
-                }*//*
-                //Console.Write(command.Execute());
-                //Console.ReadLine();
-            }
-            // Эмулирует некоторую работу посредством пятисекундной задержки
-            while (true)
-            {
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-
-                // Получить диспетчер от текущего окна и использовать его для вызова кода обновления
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                    (ThreadStart)delegate ()
-                    {
-                        left_ssh_text.Text += "Вставить новый текст \n";
-                    }
-                );
-            }
-        }*/
-
-
-            /*private void Worker(object state)
-            {
-                for (var i = 0; i < 100; i++)
-                {
-                    var t = i.ToString();
-                    this.Dispatcher.Invoke(() => { left_ssh_text.Text += (t + "  "); });
-                    Thread.Sleep(1000);
-                }*/
         }
 
 
@@ -767,12 +685,8 @@ namespace IncubeAdmin
             catch { }
         }
 
-        private void system1_Click(object sender, RoutedEventArgs e) // вывести информацию о узлах
+        private void sys1_Click(object sender, RoutedEventArgs e) // вывести информацию о узлах
         {
-            //progressBar.Visibility = Visibility.Visible;
-            /*MainGrid.Children.Add(progressBar);
-            progressBar.Visibility = Visibility.Visible;
-            Thread.Sleep(2000);*/
             try
             {
                 if (global.sshClient.IsConnected == true)
@@ -839,7 +753,8 @@ namespace IncubeAdmin
             /*MainGrid.Children.Remove(progressBar);
             progressBar.Visibility = Visibility.Hidden;*/
         }
-        private void system4_Click(object sender, RoutedEventArgs e)
+
+        private void sys4_Click(object sender, RoutedEventArgs e)
         {
             /*progressBar.Visibility = Visibility.Visible;
             Thread.Sleep(4000);
@@ -864,9 +779,9 @@ namespace IncubeAdmin
 
 
 
-            Thread thread = new Thread(UpdateTextWrong);
+            Thread thread = new Thread(GetDataCassandra);
             thread.Start();
-            progressBar.Visibility = Visibility.Visible;
+            //progressBar.Visibility = Visibility.Visible;
            
            // progressBar.Visibility = Visibility.Hidden;
         }

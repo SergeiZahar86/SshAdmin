@@ -738,31 +738,31 @@
                     
                     >
                     <Button
-                        x:Name="system"
+                        x:Name="sys"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
                         Content="sys"
                         Margin="20"
-                        Click="system_Click"
+                        Click="sys_Click"
                         />
                     <Button
-                        x:Name="system1"
+                        x:Name="sys1"
                         Style="{DynamicResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
                         Content="sys1"
                         Margin="20"
-                        Click="system1_Click"
+                        Click="sys1_Click"
                         />
                     <Button
-                        x:Name="system4"
+                        x:Name="sys4"
                         Style="{DynamicResource MaterialDesignRaisedButton}"
                         Width="80"
                         ToolTip="Resource"
                         Content="sys4"
                         Margin="20"
-                        Click="system4_Click"
+                        Click="sys4_Click"
                         />
                 </StackPanel>
                 <materialDesign:Card
