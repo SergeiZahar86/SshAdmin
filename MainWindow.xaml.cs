@@ -672,9 +672,9 @@ namespace IncubeAdmin
 
             try
             {
-                SignUp sighUp = new SignUp();
-                sighUp.Owner = Window.GetWindow(this);
-                sighUp.ShowDialog();
+                SignIn sighIn = new SignIn();
+                sighIn.Owner = Window.GetWindow(this);
+                sighIn.ShowDialog();
                 if (global.isConnect == true)
                 {
                     stackPan_Nav.Children.Remove(chip_block); // маркер определения состояния подключения
@@ -764,9 +764,9 @@ namespace IncubeAdmin
         private void Window_Loaded(object sender, RoutedEventArgs e) // после загрузки главного окна
         {
 
-            SignUp sighUp = new SignUp();
-            sighUp.Owner = Window.GetWindow(this);
-            sighUp.ShowDialog();
+            SignIn sighIn = new SignIn();
+            sighIn.Owner = Window.GetWindow(this);
+            sighIn.ShowDialog();
             if (global.isConnect == true)
             {
                 stackPan_Nav.Children.Remove(chip_block);
@@ -774,13 +774,14 @@ namespace IncubeAdmin
             }
             global.isConnect = false;
 
+            //Thread thread = new Thread(GetDataCassandra);
+            //thread.Start();
 
 
 
 
 
-            Thread thread = new Thread(GetDataCassandra);
-            thread.Start();
+
             //progressBar.Visibility = Visibility.Visible;
            
            // progressBar.Visibility = Visibility.Hidden;

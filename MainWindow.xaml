@@ -286,7 +286,11 @@
                             Background="Transparent"
                             BorderBrush="Transparent"
                             Foreground="{StaticResource Gray}"
-                            Click="signUp_Click" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FlowDirection="RightToLeft" Padding="4,0"
+                            Click="signUp_Click"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Left"
+                            FlowDirection="RightToLeft"
+                            Padding="4,0"
                             >
                                 <materialDesign:PackIcon Width="30" Height="30" Kind="AccountKeyOutline" />
                             </Button>

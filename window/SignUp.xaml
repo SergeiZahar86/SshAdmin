@@ -141,6 +141,7 @@
                 Grid.ColumnSpan="10"
                 >
                 <StackPanel>
+                    <!--
                     <TextBox
                     x:Name="host_string"
                     FontSize="16"
@@ -149,6 +150,7 @@
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Center"
                     Margin="5,0" />
+                    -->
                     <TextBox
                     x:Name="login_string"
                     FontSize="16"

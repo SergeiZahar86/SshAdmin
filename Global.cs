@@ -15,7 +15,7 @@ namespace IncubeAdmin
     {
         private static Global instance;
         private User User;
-        private string connectionString;
+        public string connectionString;
         private string sqlExpression;
         public List<User> UsersGlobal; // список пользователей из базы данных
 
@@ -39,67 +39,41 @@ namespace IncubeAdmin
 
         private Global()
         {
-
+            connectionString = "Data Source = ../../MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             nodes = new List<Node>();
             //sshClient = new SshClient();
             UsersGlobal = new List<User>();
+
+            getUsers();
+
+        }
+
+        public void getUsers()
+        {
             var appSettings = ConfigurationManager.AppSettings;
-            connectionString = appSettings["connectionString"];
+            //connectionString = "Data Source = MySqlite.db;Cache=Shared;Mode=ReadWrite;";
+            //connectionString = appSettings["connectionString"];
             List<string> ImportedFiles = new List<string>();
             sqlExpression = "SELECT * FROM Users";
-
-
-            /*using (SQLiteConnection connect = new SQLiteConnection("Data Source = MySqlite.db;Cache=Shared;Mode=ReadOnly;"))
-            {
-                connect.Open();
-                using (SQLiteCommand fmd = connect.CreateCommand())
-                {
-                    fmd.CommandText = sqlExpression;
-                    fmd.CommandType = CommandType.Text;
-                    SQLiteDataReader r = fmd.ExecuteReader();
-                    while (r.Read())
-                    {
-                        var id = r.GetValue(0);
-                        var name = r.GetValue(1);
-                        var age = r.GetValue(2);
-
-                        //ImportedFiles.Add(Convert.ToString(r["FileName"]));
-                    }
-                }
-            }*/
-            //return ImportedFiles;
-
-
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
-
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-
-
-
-
-
-
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
+                    int f = 1;
                     if (reader.HasRows) // если есть данные
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            int id = reader.GetInt32(0);
-                            string name = reader.GetString(1);
-                            string pass = reader.GetString(2);
-                            UsersGlobal.Add(new User { Id = id, Name = name, Pass = pass });
+                            string name = reader.GetString(0);
+                            string pass = reader.GetString(1);
+                            UsersGlobal.Add(new User { Id = f++, Name = name, Pass = pass });
                         }
                     }
                 }
-
-
             }
-
         }
-
 
         /*private void UpdateTextWrong() // Получение начальных сведений от виртуальной машины
         {
@@ -265,15 +239,15 @@ namespace IncubeAdmin
         }*/
 
 
-            /*private void Worker(object state)
+        /*private void Worker(object state)
+        {
+            for (var i = 0; i < 100; i++)
             {
-                for (var i = 0; i < 100; i++)
-                {
-                    var t = i.ToString();
-                    this.Dispatcher.Invoke(() => { left_ssh_text.Text += (t + "  "); });
-                    Thread.Sleep(1000);
-                }*//*
-        }*/
+                var t = i.ToString();
+                this.Dispatcher.Invoke(() => { left_ssh_text.Text += (t + "  "); });
+                Thread.Sleep(1000);
+            }*//*
+    }*/
 
 
     }
