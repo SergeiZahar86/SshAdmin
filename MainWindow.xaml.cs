@@ -67,7 +67,7 @@ namespace IncubeAdmin
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
-            fourth.Visibility = Visibility.Hidden;
+            //fourth.Visibility = Visibility.Hidden;
             progressBar.Visibility = Visibility.Hidden;
 
             //MainGrid.Children.Remove(progressBar);
@@ -383,7 +383,7 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Visible;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
-            fourth.Visibility = Visibility.Hidden;
+            //fourth.Visibility = Visibility.Hidden;
 
         }
         private void radio2_Click(object sender, RoutedEventArgs e)                         // переключение страниц
@@ -391,7 +391,7 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Visible;
             third.Visibility = Visibility.Hidden;
-            fourth.Visibility = Visibility.Hidden;
+            //fourth.Visibility = Visibility.Hidden;
 
         }
         private void radio3_Click(object sender, RoutedEventArgs e)                         // переключение страниц
@@ -399,7 +399,7 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Visible;
-            fourth.Visibility = Visibility.Hidden;
+            //fourth.Visibility = Visibility.Hidden;
 
         }
         private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
@@ -407,7 +407,7 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
-            fourth.Visibility = Visibility.Visible;
+            //fourth.Visibility = Visibility.Visible;
         }
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

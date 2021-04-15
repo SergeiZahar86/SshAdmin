@@ -714,9 +714,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
-
-
+                <!-- Для размещения диаграммы -->
                 <Canvas 
                     Name="cnv"
                     Grid.Column="0"
@@ -733,7 +731,7 @@
                         </TransformGroup>
                     </Canvas.LayoutTransform>
                 </Canvas>
-
+                <!-- Верхняя панель -->
                 <StackPanel 
                     Grid.Row="0"
                     Grid.Column="0"
@@ -769,6 +767,7 @@
                         Click="sys4_Click"
                         />
                 </StackPanel>
+                <!-- Левая панель -->
                 <materialDesign:Card
                     x:Name="left_card"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
@@ -790,7 +789,7 @@
                             />
                     </ScrollViewer>
                 </materialDesign:Card>
-
+                <!-- Правая верхняя -->
                 <materialDesign:Card
                     x:Name="right_card"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
@@ -807,28 +806,52 @@
                         Foreground="{StaticResource LightGray}"
                         >
                         <StackPanel
-                            
                             x:Name="third_stack_right"
-                            
                             >
-                            <!--
                             <TextBlock
                                 x:Name="right_ssh_text"
                                 TextWrapping="Wrap"
-                                Foreground="{StaticResource LightGray}"
+                                Text="Подключенные узлы Cassandra"
+                                Foreground="{StaticResource Gray}"
+                                Margin="10,0,10,10"
                                 />
-                            -->
                         </StackPanel>
                     </ScrollViewer>
-                        
-                        
-                    
                 </materialDesign:Card>
-
+                <!-- Правая вторая сверху -->
+                <materialDesign:Card
+                    x:Name="right_card1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="4"
+                    Grid.RowSpan="2"
+                    Grid.Column="9"
+                    Grid.ColumnSpan="3" 
+                    Margin="0,0,30,0"
+                    >
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto" 
+                        Foreground="{StaticResource LightGray}"
+                        >
+                        <StackPanel
+                            x:Name="third_stack_right1"
+                            >
+                            <TextBlock
+                                x:Name="right_ssh_text1"
+                                TextWrapping="Wrap"
+                                Text="Список введённых хостов"
+                                Foreground="{StaticResource Gray}"
+                                Margin="10,0,10,10"
+                                />
+                        </StackPanel>
+                    </ScrollViewer>
+                </materialDesign:Card>
             </Grid>
         </Border>
 
         <!-- Четвертая страница -->
+        <!--
         <Border 
             x:Name="fourth"
             Grid.Column="2"
@@ -912,7 +935,7 @@
 
             </Grid>
         </Border>
-        
+        -->
         <!-- Выезжающие панели -->
         <materialDesign:DrawerHost
             x:Name="DrawerHost"

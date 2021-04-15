@@ -141,6 +141,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="main\Host.cs" />
     <Compile Include="main\Node.cs" />
     <Compile Include="window\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
