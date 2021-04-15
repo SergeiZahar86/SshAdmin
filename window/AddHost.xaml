@@ -1,0 +1,537 @@
+﻿<Window x:Class="IncubeAdmin.window.AddHost"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IncubeAdmin.window"
+        xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="AddHost"
+        Height="450"
+        Width="600"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        >
+
+    <Border
+        x:Name="border_signIn"
+        BorderBrush="{StaticResource DarkGray}"
+        BorderThickness="1"
+        >
+        <Grid
+            Background="{StaticResource Background}"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!-- Авторизация -->
+            <Grid
+                x:Name="grid_signIn"
+                Grid.Column="0"
+                Grid.ColumnSpan="12"
+                Grid.Row="0"
+                Grid.RowSpan="12"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <materialDesign:Card
+                    Grid.Row="1"
+                    Grid.RowSpan="11"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="12"
+                    Background="{StaticResource LightBackground}"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Margin="20"
+                    >
+                </materialDesign:Card>
+                <!-- Верхняя навигационная панель -->
+                <materialDesign:ColorZone 
+                    Mode="PrimaryMid" 
+                    Padding="5" 
+                    Grid.ColumnSpan="12"
+                    Background="{StaticResource LightBackground}"
+                    MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel 
+                        Height="30"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="11" 
+                        >
+                            <StackPanel
+                           Orientation="Horizontal"
+                           FlowDirection="RightToLeft"
+                           materialDesign:RippleAssist.IsCentered="True"
+                           >
+                                <!--
+                            <Button 
+                                Click="CloseButton_Click"
+                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                Foreground="{StaticResource Gray}"
+                                ToolTip="Закрыть" 
+                                DockPanel.Dock="Right"
+                                Width="40" 
+                                Height="30" Padding="4"
+                                >
+                                <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
+                            </Button>
+                            -->
+                                <TextBlock 
+                                Foreground="{StaticResource Gray}"
+                                Text="Вход в систему"
+                                FontSize="20" Margin="172,0,0,0"
+                                />
+
+                            </StackPanel>
+
+                        </DockPanel>
+
+                    </Grid>
+
+                </materialDesign:ColorZone>
+                <!-- поля ввода -->
+                <Border
+                    x:Name="border_signIn_"
+                    BorderBrush="{StaticResource LightBackground}"
+                    BorderThickness="2"
+                    Grid.Row="2"
+                    Grid.RowSpan="9"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="10"
+                    >
+                    <StackPanel>
+                        <!--
+                        <TextBox
+                        x:Name="host_string"
+                        FontSize="16"
+                        Foreground="{StaticResource LightGray}"
+                        materialDesign:HintAssist.Hint="Host"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        Margin="5,0" />
+                        -->
+                        <TextBox
+                            x:Name="login_string"
+                            FontSize="16"
+                            Foreground="{StaticResource LightGray}"
+                            materialDesign:HintAssist.Hint="Login"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center"
+                            Margin="5,0"
+                            />
+                        <PasswordBox
+                            Name="pass_string"
+                            FontSize="16"
+                            Foreground="{StaticResource LightGray}"
+                            materialDesign:HintAssist.Hint="Password"
+                            materialDesign:HintAssist.Foreground="{StaticResource PrimaryHueMidBrush}"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                            Margin="5,0"
+                            />
+                        <Button
+                            x:Name="signIn"
+                            Grid.Row="10"
+                            Grid.Column="2"
+                            FontSize="16"
+                            Grid.ColumnSpan="3"
+                            Foreground="{StaticResource Gray}"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="Перейти к регистрации"
+                            Content="Зарегистрироваться"
+                            Click="signUp_Click"
+                            Margin="0,10,0,0" />
+                        <ScrollViewer
+                            VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                                x:Name="textError"
+                                Margin="6,6,6,6"
+                                TextWrapping="Wrap"
+                                Foreground="{StaticResource SecondaryHueMidForegroundBrush}"
+                                />
+                        </ScrollViewer>
+                        <!--
+                        <MediaElement
+                            x:Name="myGif"
+                            MediaEnded="myGif_MediaEnded"
+                            UnloadedBehavior="Play"
+                            Source="Blocks_gif.gif"
+                            LoadedBehavior="Play"
+                            Stretch="None"
+
+                            >
+                            <MediaElement.OpacityMask>
+                                <SolidColorBrush Color="Black"/>
+                            </MediaElement.OpacityMask>
+                        </MediaElement>
+                        -->
+                        <!--
+                        <Image
+                            x:Name="image_Gif"
+                            gif:AnimationBehavior.SourceUri = "Blocks_gif.gif"
+                            Grid.ColumnSpan="2"
+                            Grid.Column="5"
+                            HorizontalAlignment="Center"
+                            Height="100"
+                            Grid.Row="6"
+                            Grid.RowSpan="2"
+                            VerticalAlignment="Top"
+                            Width="100"
+                            />
+                        -->
+
+                    </StackPanel>
+
+                </Border>
+
+                <Button
+                    x:Name="signIn_Ok"
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    ToolTip="Авторизоваться"
+                    Content="ПРИНЯТЬ"
+                    Click="signIn_Ok_Click" />
+                <Button
+                    x:Name="signIn_cancel"
+                    Foreground="{StaticResource SecondaryHueMidBrush}"
+                    Grid.Row="10"
+                    Grid.Column="7"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    ToolTip="Выйти из программы"
+                    Content="ОТМЕНА" 
+                    Click="signIn_cancel_Click" />
+            </Grid>
+
+            <!-- ======================================================================================================================== -->
+
+            <!-- Регистрация -->
+            <Grid
+                x:Name="grid_signUp"
+                Grid.Column="0"
+                Grid.ColumnSpan="12"
+                Grid.Row="0"
+                Grid.RowSpan="12"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <materialDesign:Card
+                    Grid.Row="1"
+                    Grid.RowSpan="11"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="12"
+                    Background="{StaticResource LightBackground}"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Margin="20"
+                    >
+                </materialDesign:Card>
+                <!-- Верхняя навигационная панель -->
+                <materialDesign:ColorZone 
+                    Mode="PrimaryMid" 
+                    Padding="5" 
+                    Grid.ColumnSpan="12"
+                    Background="{StaticResource LightBackground}"
+                    MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel 
+                            Height="30"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="12" 
+                            >
+
+                            <!--
+                            <Button 
+                                Click="CloseButton_Click"
+                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                Foreground="{StaticResource Gray}"
+                                ToolTip="Закрыть" 
+                                DockPanel.Dock="Right"
+                                Width="40" 
+                                Height="30" Padding="4"
+                                >
+                                <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
+                            </Button>
+                            -->
+                            <TextBlock 
+                                    Foreground="{StaticResource Gray}"
+                                    Text="Регистрация в системе"
+                                    HorizontalAlignment="Center"
+                                    FontSize="20"
+                                    />
+                            <!--
+                            <Button 
+                                Click="CloseButton_Click"
+                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                Foreground="{StaticResource Gray}"
+                                ToolTip="Закрыть" 
+                                DockPanel.Dock="Right"
+                                Width="40" 
+                                Height="30" Padding="4"
+                                >
+                                <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
+                            </Button>
+                            -->
+
+
+
+                        </DockPanel>
+
+                    </Grid>
+
+                </materialDesign:ColorZone>
+                <Border
+                    x:Name="border_signUp"
+                    BorderBrush="{StaticResource LightBackground}"
+                    BorderThickness="2"
+                    Grid.Row="2"
+                    Grid.RowSpan="9"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="10"
+                    >
+                    <StackPanel>
+                        <!--
+                        <TextBox
+                        x:Name="host_string"
+                        FontSize="16"
+                        Foreground="{StaticResource LightGray}"
+                        materialDesign:HintAssist.Hint="Host"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        Margin="5,0" />
+                        -->
+                        <TextBox
+                            x:Name="login_string1"
+                            FontSize="16"
+                            Foreground="{StaticResource LightGray}"
+                            materialDesign:HintAssist.Hint="Login"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center"
+                            Margin="5,0"
+                            />
+                        <PasswordBox
+                            Name="pass_string1"
+                            FontSize="16"
+                            Foreground="{StaticResource LightGray}"
+                            materialDesign:HintAssist.Hint="Password"
+                            materialDesign:HintAssist.Foreground="{StaticResource PrimaryHueMidBrush}"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                            Margin="5,0"
+                            />
+                        <PasswordBox
+                            Name="pass_string2"
+                            FontSize="16"
+                            Foreground="{StaticResource LightGray}"
+                            materialDesign:HintAssist.Hint="Password"
+                            materialDesign:HintAssist.Foreground="{StaticResource PrimaryHueMidBrush}"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                            Margin="5,0"
+                            />
+                        <!--
+                        <Button
+                            x:Name="signUp"
+                            Grid.Row="10"
+                            Grid.Column="2"
+                            FontSize="16"
+                            Grid.ColumnSpan="3"
+                            Foreground="{StaticResource Gray}"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="MaterialDesignFlatButton"
+                            Content="Зарегистрироваться"
+                            Click="signUp_Click"
+                            Margin="0,10,0,0" />
+                        -->
+                        <ScrollViewer
+                            VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                                x:Name="textError1"
+                                Margin="6,6,6,6"
+                                TextWrapping="Wrap"
+                                Foreground="{StaticResource SecondaryHueMidForegroundBrush}"
+                                />
+                        </ScrollViewer>
+                        <!--
+                        <MediaElement
+                            x:Name="myGif"
+                            MediaEnded="myGif_MediaEnded"
+                            UnloadedBehavior="Play"
+                            Source="Blocks_gif.gif"
+                            LoadedBehavior="Play"
+                            Stretch="None"
+
+                            >
+                            <MediaElement.OpacityMask>
+                                <SolidColorBrush Color="Black"/>
+                            </MediaElement.OpacityMask>
+                        </MediaElement>
+                        -->
+                        <!--
+                        <Image
+                            x:Name="image_Gif"
+                            gif:AnimationBehavior.SourceUri = "Blocks_gif.gif"
+                            Grid.ColumnSpan="2"
+                            Grid.Column="5"
+                            HorizontalAlignment="Center"
+                            Height="100"
+                            Grid.Row="6"
+                            Grid.RowSpan="2"
+                            VerticalAlignment="Top"
+                            Width="100"
+                            />
+                        -->
+
+                    </StackPanel>
+
+                </Border>
+
+                <Button
+                    x:Name="signUp_Ok"
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    ToolTip="Зарегистрироваться"
+                    Content="ПРИНЯТЬ"
+                    Click="signUp_Ok_Click"
+                    />
+                <Button
+                    x:Name="signUp_cancel"
+                    Foreground="{StaticResource SecondaryHueMidBrush}"
+                    Grid.Row="10"
+                    Grid.Column="7"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    ToolTip="Вернуться к авторизации"
+                    Content="ОТМЕНА"
+                    Click="signUp_cancel_Click" 
+                    />
+            </Grid>
+
+        </Grid>
+    </Border>
+
+
+
+</Window>

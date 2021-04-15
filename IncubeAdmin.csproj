@@ -143,6 +143,12 @@
     </ApplicationDefinition>
     <Compile Include="main\Host.cs" />
     <Compile Include="main\Node.cs" />
+    <Compile Include="window\AddHost.xaml.cs">
+      <DependentUpon>AddHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="window\ChangeHost.xaml.cs">
+      <DependentUpon>ChangeHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
@@ -169,6 +175,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="window\AddHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\ChangeHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="window\SignIn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

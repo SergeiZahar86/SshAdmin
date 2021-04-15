@@ -825,27 +825,69 @@
                     Padding="10"
                     Background="{StaticResource Background}"
                     Grid.Row="4"
-                    Grid.RowSpan="2"
+                    Grid.RowSpan="3"
                     Grid.Column="9"
                     Grid.ColumnSpan="3" 
                     Margin="0,0,30,0"
                     >
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
-                        Foreground="{StaticResource LightGray}"
-                        >
-                        <StackPanel
-                            x:Name="third_stack_right1"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        
+                        <ScrollViewer 
+                            Grid.Row="0"
+                            Grid.RowSpan="3"
+                            VerticalScrollBarVisibility="Auto" 
+                            Foreground="{StaticResource LightGray}"
                             >
-                            <TextBlock
-                                x:Name="right_ssh_text1"
-                                TextWrapping="Wrap"
-                                Text="Список введённых хостов"
-                                Foreground="{StaticResource Gray}"
-                                Margin="10,0,10,10"
-                                />
+                            <StackPanel
+                                x:Name="third_stack_right1"
+                                >
+                                <TextBlock
+                                    x:Name="right_ssh_text1"
+                                    TextWrapping="Wrap"
+                                    Text="Список введённых хостов"
+                                    Foreground="{StaticResource Gray}"
+                                    Margin="10,0,10,10"
+                                    />
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Grid.Row="3"
+                            FlowDirection="RightToLeft"
+                            >
+                            <Button
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="Добавить"
+                                Margin="10,5"
+                                Width="30"
+                                Height="30"
+                                >
+                                <materialDesign:PackIcon
+                                    Kind="PlusCircleOutline"
+                                    Height="25"
+                                    Width="25" />
+                            </Button>
+                            <Button
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="Редактировать"
+                                Margin="10,5"
+                                Width="30"
+                                Height="30"
+                                >
+                                <materialDesign:PackIcon
+                                    Kind="ClipboardEditOutline"
+                                    Height="25"
+                                    Width="25" 
+                                    />
+                            </Button>
                         </StackPanel>
-                    </ScrollViewer>
+                    </Grid>
                 </materialDesign:Card>
             </Grid>
         </Border>
