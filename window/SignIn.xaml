@@ -165,6 +165,7 @@
                     </Grid>
 
                 </materialDesign:ColorZone>
+                <!-- поля ввода -->
                 <Border
                     x:Name="border_signIn_"
                     BorderBrush="{StaticResource LightBackground}"

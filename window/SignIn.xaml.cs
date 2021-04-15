@@ -34,15 +34,15 @@ namespace IncubeAdmin.window
             global.hosts = null;
             global.hosts = new List<Host>();
             //host_string.Text = "10.90.0.29";
-            //login_string.Text = "root";
-            //pass_string.Password = "root26032021";
+            login_string.Text = "www";
+            pass_string.Password = "www";
             global.host = "10.90.0.29";
             global.login = "root";
             global.password = "root26032021";
 
 
 
-            CalculateMD5Hash("www");
+            //CalculateMD5Hash("www");
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(OnTimedEvent);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
@@ -73,7 +73,7 @@ namespace IncubeAdmin.window
 
 
 
-            sqlExpression = $"SELECT * FROM Users where Name = '{log}'";
+            sqlExpression = $"SELECT name, pass FROM Users where Name = '{log}'";
             using (var connection = new SqliteConnection(global.connectionString))
             {
                 connection.Open();
@@ -138,6 +138,9 @@ namespace IncubeAdmin.window
                 {
                     textError.Text = $"Ошибка соединения. \n {ee}";
                 }*/
+
+                global.getHosts(log);
+
                 Close();
             }
         }
