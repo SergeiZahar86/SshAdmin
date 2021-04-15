@@ -19,15 +19,16 @@ using System.Windows.Threading;
 
 namespace IncubeAdmin.window
 {
-    /// <summary>
-    /// Логика взаимодействия для SignIn.xaml
-    /// </summary>
     public partial class SignIn : Window
     {
         private Global global;
         private string sqlExpression;
         private string secret;
         private DispatcherTimer dispatcherTimer;
+        private bool error;
+
+        private string name;
+        private string ps;
 
         public SignIn()
         {
@@ -82,24 +83,78 @@ namespace IncubeAdmin.window
 
         private void signUp_Ok_Click(object sender, RoutedEventArgs e)
         {
-            
-            try
+            error = false;
+            string log = login_string.Text;
+            string pass = pass_string.Password;
+
+
+
+            sqlExpression = $"SELECT * FROM Users where Name = '{log}'";
+            using (var connection = new SqliteConnection(global.connectionString))
             {
-                global.sshClient = new SshClient(global.host, global.login, global.password);
-                global.sshClient.Connect();
-                if (global.sshClient.IsConnected == true)
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
                 {
-                    global.isConnect = true;
-                    this.Close();
+                    int f = 1;
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            name = reader.GetString(0);
+                            ps = reader.GetString(1);
+                            //UsersGlobal.Add(new User { Id = f++, Name = name, Pass = pass });
+                        }
+                    }
+                    else
+                    {
+                        error = true;
+                        textError.FontSize = 20;
+                        textError.Foreground = Brushes.Red;
+                        textError.Text = "Пользователя с таким именем не существует";
+                    }
+                }
+            }
+            if (!error)
+            {
+                pass = CalculateMD5Hash(pass);
+                if (pass == ps)
+                {
+                    Close();
                 }
                 else
                 {
-                    textError.Text = "Соединение не установлено";
+                    error = true;
+                    textError.FontSize = 20;
+                    textError.Foreground = Brushes.Red;
+                    textError.Text = "Пароль введён неверно";
                 }
             }
-            catch (Exception ee)
+
+            name = "";
+            ps = "";
+
+            if (!error)
             {
-                textError.Text = $"Ошибка соединения. \n {ee}";
+                /*try
+                {
+                    global.sshClient = new SshClient(global.host, global.login, global.password);
+                    global.sshClient.Connect();
+                    if (global.sshClient.IsConnected == true)
+                    {
+                        global.isConnect = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        textError.Text = "Соединение не установлено";
+                    }
+                }
+                catch (Exception ee)
+                {
+                    textError.Text = $"Ошибка соединения. \n {ee}";
+                }*/
+                Close();
             }
         }
 
@@ -114,6 +169,7 @@ namespace IncubeAdmin.window
         public string CalculateMD5Hash(string input)    // хэш-функция
         {
             // step 1, calculate MD5 hash from input
+            input = input + secret;
             MD5 md5 = System.Security.Cryptography.MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
             byte[] hash = md5.ComputeHash(inputBytes);
@@ -147,20 +203,36 @@ namespace IncubeAdmin.window
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                int number = command.ExecuteNonQuery();
-                
+                try
+                {
+                    int number = command.ExecuteNonQuery();
+                }
+                catch 
+                {
+                    error = true;
+                }
             }
         }
 
         private void signUp_Ok_Click_1(object sender, RoutedEventArgs e)
         {
-            string password = pass_string1.Password + secret;
-            string str = CalculateMD5Hash(password);
+            error = false;
+            //string password = pass_string1.Password + secret;
+            string str = CalculateMD5Hash(pass_string1.Password);
             setUsers(login_string1.Text, str);
-            textError1.FontSize = 25;
-            textError1.Foreground = Brushes.White;
-            textError1.Text = "Вы успешно зарегистрировались";
-            dispatcherTimer.Start();
+            if (error)
+            {
+                textError1.FontSize = 20;
+                textError1.Foreground = Brushes.Red;
+                textError1.Text = "Пользователь с таким именем уже существует";
+            }
+            else
+            {
+                textError1.FontSize = 25;
+                textError1.Foreground = Brushes.White;
+                textError1.Text = "Вы успешно зарегистрировались";
+                dispatcherTimer.Start();
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace IncubeAdmin
 
         public void getUsers()
         {
-            var appSettings = ConfigurationManager.AppSettings;
+            //var appSettings = ConfigurationManager.AppSettings;
             //connectionString = "Data Source = MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             //connectionString = appSettings["connectionString"];
             List<string> ImportedFiles = new List<string>();
