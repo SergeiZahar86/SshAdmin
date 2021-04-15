@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using IncubeAdmin.main;
 using Microsoft.Data.Sqlite;
 using Renci.SshNet;
+
 
 namespace IncubeAdmin
 {
@@ -19,7 +14,6 @@ namespace IncubeAdmin
         private string sqlExpression;
         public List<User> UsersGlobal; // список пользователей из базы данных
 
-        public string host;
         public string login;
         public string password;
         public SftpClient sftp;
@@ -27,7 +21,9 @@ namespace IncubeAdmin
         public bool isConnect;
         public bool isProgressBar;    // видимость прогресс-бара
 
-        public List<Node> nodes;
+        public List<Node> nodes;      // список узлов Cassandra
+        public List<Host> hosts;      // список хостов
+        public string host;
         
 
         public static Global getInstance() // возвращает singleton объекта Global
@@ -41,6 +37,7 @@ namespace IncubeAdmin
         {
             connectionString = "Data Source = ../../MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             nodes = new List<Node>();
+            //hosts = new List<Host>();
             //sshClient = new SshClient();
             UsersGlobal = new List<User>();
 
@@ -48,12 +45,36 @@ namespace IncubeAdmin
 
         }
 
+        public void getHosts(string nameUser) // выборка всех компьютеров по имени пользователя
+        {
+            sqlExpression = $"SELECT  Hosts.host AS host, Hosts.login as login FROM Users " +
+                $"INNER JOIN UsersHosts ON Users.id = UsersHosts.user " +
+                $"LEFT JOIN Hosts ON UsersHosts.host = Hosts.id WHERE Users.name = '{nameUser}'";
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            string ip = reader.GetString(0);
+                            string login = reader.GetString(1);
+                            hosts.Add(new Host(ip, login));
+                        }
+                    }
+                }
+            }
+        }
+
         public void getUsers()
         {
             //var appSettings = ConfigurationManager.AppSettings;
             //connectionString = "Data Source = MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             //connectionString = appSettings["connectionString"];
-            List<string> ImportedFiles = new List<string>();
+            //List<string> ImportedFiles = new List<string>();
             sqlExpression = "SELECT * FROM Users";
             using (var connection = new SqliteConnection(connectionString))
             {

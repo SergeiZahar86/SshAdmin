@@ -1,20 +1,13 @@
-﻿using Microsoft.Data.Sqlite;
-using Renci.SshNet;
+﻿using IncubeAdmin.main;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace IncubeAdmin.window
@@ -33,10 +26,13 @@ namespace IncubeAdmin.window
         public SignIn()
         {
             InitializeComponent();
-            secret = "kas;ldfu7392n.f(hjafl";
+            secret = "kas;ldfu7392n.f(hjafl";             // соль для хэш-функции
+
             grid_signIn.Visibility = Visibility.Visible;
             grid_signUp.Visibility = Visibility.Hidden;
             global = Global.getInstance();
+            global.hosts = null;
+            global.hosts = new List<Host>();
             //host_string.Text = "10.90.0.29";
             //login_string.Text = "root";
             //pass_string.Password = "root26032021";
@@ -52,36 +48,24 @@ namespace IncubeAdmin.window
             dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
             //dispatcherTimer.Start();
         }
-        private void OnTimedEvent(Object source, EventArgs e)
+        private void OnTimedEvent(Object source, EventArgs e)  // метод таймера
         {
             grid_signIn.Visibility = Visibility.Visible;
             grid_signUp.Visibility = Visibility.Hidden;
             dispatcherTimer.Stop();
         }
 
-        // Перемещение окна по экрану
-        private void ColorZone_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ColorZone_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)  // Перемещение окна по экрану
         {
             this.DragMove();
         }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            /*Application.Current.Shutdown(); // выход из программы
-            Environment.Exit(0);*/
-            this.Close();
-        }
-        /*private void myGif_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            myGif.Position = new TimeSpan(0, 0, 1);
-            myGif.Play();
-        }*/
 
-        private void MinButton_Click(object sender, RoutedEventArgs e) // сворачивание окна
+        private void MinButton_Click(object sender, RoutedEventArgs e)    // сворачивание окна
         {
             this.WindowState = WindowState.Minimized;
         }
 
-        private void signUp_Ok_Click(object sender, RoutedEventArgs e)
+        private void signIn_Ok_Click(object sender, RoutedEventArgs e)  // OK авторизация
         {
             error = false;
             string log = login_string.Text;
@@ -158,13 +142,12 @@ namespace IncubeAdmin.window
             }
         }
 
-        private void signIn_cancel_Click(object sender, RoutedEventArgs e)
+        private void signIn_cancel_Click(object sender, RoutedEventArgs e)   // Закрыть окно и выход из программы
         {
             this.Close();
-            Application.Current.Shutdown(); // выход из программы
+            Application.Current.Shutdown(); 
             Environment.Exit(0);
         }
-
 
         public string CalculateMD5Hash(string input)    // хэш-функция
         {
@@ -182,13 +165,13 @@ namespace IncubeAdmin.window
             return sb.ToString();
         }
 
-        private void signUp_Click(object sender, RoutedEventArgs e)  // зарегистрироваться
+        private void signUp_Click(object sender, RoutedEventArgs e)  // Открыть форму регистрации
         {
             grid_signIn.Visibility = Visibility.Hidden;
             grid_signUp.Visibility = Visibility.Visible;
         }
 
-        private void signUp_cancel_Click_1(object sender, RoutedEventArgs e)
+        private void signUp_cancel_Click(object sender, RoutedEventArgs e) // Вернуться на форму авторизации
         {
             grid_signIn.Visibility = Visibility.Visible;
             grid_signUp.Visibility = Visibility.Hidden;
@@ -214,7 +197,7 @@ namespace IncubeAdmin.window
             }
         }
 
-        private void signUp_Ok_Click_1(object sender, RoutedEventArgs e)
+        private void signUp_Ok_Click(object sender, RoutedEventArgs e)  // OK регистрация
         {
             error = false;
             //string password = pass_string1.Password + secret;

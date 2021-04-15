@@ -60,6 +60,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <!-- Авторизация -->
             <Grid
                 x:Name="grid_signIn"
                 Grid.Column="0"
@@ -267,7 +268,7 @@
                     Style="{StaticResource MaterialDesignFlatButton}"
                     ToolTip="Авторизоваться"
                     Content="ПРИНЯТЬ"
-                    Click="signUp_Ok_Click" />
+                    Click="signIn_Ok_Click" />
                 <Button
                     x:Name="signIn_cancel"
                     Foreground="{StaticResource SecondaryHueMidBrush}"
@@ -282,7 +283,7 @@
             
             <!-- ======================================================================================================================== -->
             
-            
+            <!-- Регистрация -->
             <Grid
                 x:Name="grid_signUp"
                 Grid.Column="0"
@@ -512,7 +513,7 @@
                     Style="{StaticResource MaterialDesignFlatButton}"
                     ToolTip="Зарегистрироваться"
                     Content="ПРИНЯТЬ"
-                    Click="signUp_Ok_Click_1"
+                    Click="signUp_Ok_Click"
                     />
                 <Button
                     x:Name="signUp_cancel"
@@ -523,7 +524,7 @@
                     Style="{StaticResource MaterialDesignFlatButton}"
                     ToolTip="Вернуться к авторизации"
                     Content="ОТМЕНА"
-                    Click="signUp_cancel_Click_1" 
+                    Click="signUp_cancel_Click" 
                     />
             </Grid>
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IncubeAdmin.main
 {
-    class Host
+    public class Host
     {
         public string Ip { get; set; }
         public string Login { get; set; }
