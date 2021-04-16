@@ -553,7 +553,8 @@ namespace IncubeAdmin
                 if (global.sshClient.IsConnected == true)
                 {
                     // имя узла
-                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
+                    //using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
+                    using (var command = global.sshClient.CreateCommand("hostnamectl | grep hostname | cut -d : -f 2"))
                     {
                         string fff = command.Execute();
                         string[] words = fff.Split(new char[] { '\n' });
@@ -670,7 +671,7 @@ namespace IncubeAdmin
             this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
             {
 
-                // добавление элементов в стекпанель
+                // добавление элементов в стекпанель вторая сверху
                 for (int i = 0; i < global.hosts.Count; i++)
                 {
                     StackPanel stack = new StackPanel();
@@ -710,6 +711,48 @@ namespace IncubeAdmin
                     //stack.Children.Add(bord);
                     stack.Children.Add(tBlock);
                     third_stack_right1.Children.Add(stack);
+                }
+
+                // добавление элементов в стекпанель вторая сверху
+                for (int i = 0; i < global.hosts.Count; i++)
+                {
+                    StackPanel stack = new StackPanel();
+                    stack.Orientation = Orientation.Horizontal;
+
+                    Border bord = new Border();
+                    bord.Width = 14;
+                    bord.Height = 14;
+                    bord.Margin = new Thickness(5, 5, 15, 5);   // первый круг
+                    bord.CornerRadius = new CornerRadius(15);
+                    //bord.BorderBrush = Brushes.Orange;
+                    if (global.nodes[i].Status == "DN")
+                    {
+                        bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                        bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                    }
+                    else
+                    {
+                        bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
+                        bord.Background = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
+                    }
+                    bord.BorderThickness = new Thickness(0);
+                    bord.Focusable = true;
+                    //bord.Tag = count[i]; // для поиска метки по клику правой кнопки мыши
+
+                    TextBlock tBlock = new TextBlock();
+                    tBlock.FontSize = 14;
+                    tBlock.Inlines.Add(new Span(new Run(global.hosts[i].Ip + "     " + global.hosts[i].Login)));
+                    //tBlock.Foreground = ;
+                    tBlock.TextAlignment = TextAlignment.Center;
+                    tBlock.VerticalAlignment = VerticalAlignment.Center;
+                    tBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    tBlock.Padding = new Thickness(0, 0, 0, 1);
+                    tBlock.Margin = new Thickness(10, 0, 0, 0);
+                    tBlock.Foreground = new SolidColorBrush(Color.FromRgb(r_Grey, g_Grey, b_Grey));
+
+                    //stack.Children.Add(bord);
+                    stack.Children.Add(tBlock);
+                    third_stack_right.Children.Add(stack);
                 }
             });
         }

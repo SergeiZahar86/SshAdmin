@@ -10,10 +10,12 @@ namespace IncubeAdmin.main
     {
         public string Ip { get; set; }
         public string Login { get; set; }
-        public Host(string ip, string login)
+        public string Pass { get; set; }
+        public Host(string ip, string login, string pass)
         {
             Ip = ip;
             Login = login;
+            Pass = pass;
         }
     }
 }

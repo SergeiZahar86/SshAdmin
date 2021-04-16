@@ -143,6 +143,7 @@
     </ApplicationDefinition>
     <Compile Include="main\Host.cs" />
     <Compile Include="main\Node.cs" />
+    <Compile Include="main\RijndaelAlgorithm.cs" />
     <Compile Include="window\AddHost.xaml.cs">
       <DependentUpon>AddHost.xaml</DependentUpon>
     </Compile>

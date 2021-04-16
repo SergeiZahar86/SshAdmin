@@ -1,5 +1,6 @@
 ﻿using IncubeAdmin.main;
 using Microsoft.Data.Sqlite;
+using Renci.SshNet;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -120,7 +121,7 @@ namespace IncubeAdmin.window
 
             if (!error)
             {
-                /*try
+                try
                 {
                     global.sshClient = new SshClient(global.host, global.login, global.password);
                     global.sshClient.Connect();
@@ -137,7 +138,7 @@ namespace IncubeAdmin.window
                 catch (Exception ee)
                 {
                     textError.Text = $"Ошибка соединения. \n {ee}";
-                }*/
+                }
 
                 global.getHosts(log);
 
@@ -182,8 +183,8 @@ namespace IncubeAdmin.window
 
         public void setUsers(string lg, string pass)  // добавление пользователя в базу
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            List<string> ImportedFiles = new List<string>();
+           /* var appSettings = ConfigurationManager.AppSettings;
+            List<string> ImportedFiles = new List<string>();*/
             sqlExpression = $"INSERT INTO Users (Name, Pass) VALUES ('{lg}', '{pass}')";
             using (var connection = new SqliteConnection(global.connectionString))
             {
