@@ -29,6 +29,7 @@ namespace IncubeAdmin
     public partial class MainWindow : Window
     {
         private Global global;
+        public List<string> roles;
         ApplicationViewModel applicationView;
         Border border;
         int stckNmbr;
@@ -72,8 +73,9 @@ namespace IncubeAdmin
 
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
-            //fourth.Visibility = Visibility.Hidden;
+            directories.Visibility = Visibility.Hidden;
             progressBar.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
 
             //MainGrid.Children.Remove(progressBar);
             stackPan_Nav.Children.Remove(chip_connect);
@@ -83,7 +85,13 @@ namespace IncubeAdmin
             ip_node = new List<string>();
 
 
-
+            roles = new List<string> {"4","5","Hello" };
+            roles.Add("1");
+            roles.Add("2");
+            this.DataContext = this;
+            roles_combo.ItemsSource = null;
+            roles_combo.ItemsSource = roles;
+            
             /*var thread = new Thread(Worker) { IsBackground = true };
             thread.Start();*/
 
@@ -388,6 +396,8 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Visible;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
+
             //fourth.Visibility = Visibility.Hidden;
 
         }
@@ -396,7 +406,9 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Visible;
             third.Visibility = Visibility.Hidden;
-            //fourth.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
+
+            directories.Visibility = Visibility.Hidden;
 
         }
         private void radio3_Click(object sender, RoutedEventArgs e)                         // переключение страниц
@@ -404,7 +416,9 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Visible;
-            //fourth.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
+
+            directories.Visibility = Visibility.Hidden;
 
         }
         private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
@@ -412,7 +426,18 @@ namespace IncubeAdmin
             first.Visibility = Visibility.Hidden;
             second.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
-            //fourth.Visibility = Visibility.Visible;
+            users.Visibility = Visibility.Visible;
+
+            directories.Visibility = Visibility.Hidden;
+        }
+        private void radio5_Click(object sender, RoutedEventArgs e)                         // переключение страниц
+        {
+            users.Visibility = Visibility.Hidden;
+
+            first.Visibility = Visibility.Hidden;
+            second.Visibility = Visibility.Hidden;
+            third.Visibility = Visibility.Hidden;
+            directories.Visibility = Visibility.Visible;
         }
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -665,7 +690,7 @@ namespace IncubeAdmin
             }
         }
 
-        private void GetDataHost()
+        private void GetDataHost() // получить данные о хостах
         {
             // вызвать диспетчер патока главного окна и сделать изменения в GUI.
             this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
@@ -714,7 +739,7 @@ namespace IncubeAdmin
                 }
 
                 // добавление элементов в стекпанель вторая сверху
-                for (int i = 0; i < global.hosts.Count; i++)
+               /* for (int i = 0; i < global.hosts.Count; i++)
                 {
                     StackPanel stack = new StackPanel();
                     stack.Orientation = Orientation.Horizontal;
@@ -753,7 +778,7 @@ namespace IncubeAdmin
                     //stack.Children.Add(bord);
                     stack.Children.Add(tBlock);
                     third_stack_right.Children.Add(stack);
-                }
+                }*/
             });
         }
 

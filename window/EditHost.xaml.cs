@@ -3,17 +3,26 @@ using Microsoft.Data.Sqlite;
 using Renci.SshNet;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace IncubeAdmin.window
 {
-    public partial class SignIn : Window
+    /// <summary>
+    /// Логика взаимодействия для EditHost.xaml
+    /// </summary>
+    public partial class EditHost : Window
     {
         private Global global;
         private string sqlExpression;
@@ -24,7 +33,7 @@ namespace IncubeAdmin.window
         private string name;
         private string ps;
 
-        public SignIn()
+        public EditHost()
         {
             InitializeComponent();
             secret = "kas;ldfu7392n.f(hjafl";             // соль для хэш-функции
@@ -121,7 +130,7 @@ namespace IncubeAdmin.window
 
             if (!error)
             {
-                /*try
+                try
                 {
                     global.sshClient = new SshClient(global.host, global.login, global.password);
                     global.sshClient.Connect();
@@ -140,7 +149,7 @@ namespace IncubeAdmin.window
                     textError.Text = $"Ошибка соединения. \n {ee}";
                 }
 
-                global.getHosts(log);*/
+                global.getHosts(log);
 
                 Close();
             }
@@ -149,7 +158,7 @@ namespace IncubeAdmin.window
         private void signIn_cancel_Click(object sender, RoutedEventArgs e)   // Закрыть окно и выход из программы
         {
             this.Close();
-            Application.Current.Shutdown(); 
+            Application.Current.Shutdown();
             Environment.Exit(0);
         }
 
@@ -183,8 +192,8 @@ namespace IncubeAdmin.window
 
         public void setUsers(string lg, string pass)  // добавление пользователя в базу
         {
-           /* var appSettings = ConfigurationManager.AppSettings;
-            List<string> ImportedFiles = new List<string>();*/
+            /* var appSettings = ConfigurationManager.AppSettings;
+             List<string> ImportedFiles = new List<string>();*/
             sqlExpression = $"INSERT INTO Users (Name, Pass) VALUES ('{lg}', '{pass}')";
             using (var connection = new SqliteConnection(global.connectionString))
             {
@@ -194,7 +203,7 @@ namespace IncubeAdmin.window
                 {
                     int number = command.ExecuteNonQuery();
                 }
-                catch 
+                catch
                 {
                     error = true;
                 }

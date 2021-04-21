@@ -1,7 +1,6 @@
-﻿        
+﻿
         
-        
-<Window x:Class="IncubeAdmin.window.SignUp"
+       <Window x:Class="IncubeAdmin.window.EditHost"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -219,6 +218,7 @@
                             Style="{StaticResource MaterialDesignFlatButton}"
                             ToolTip="Перейти к регистрации"
                             Content="Зарегистрироваться"
+                            Click="signUp_Click"
                             Margin="0,10,0,0" />
                         <ScrollViewer
                             VerticalScrollBarVisibility="Auto">
@@ -271,7 +271,7 @@
                     Style="{StaticResource MaterialDesignFlatButton}"
                     ToolTip="Авторизоваться"
                     Content="ПРИНЯТЬ"
-                    />
+                    Click="signIn_Ok_Click" />
                 <Button
                     x:Name="signIn_cancel"
                     Foreground="{StaticResource SecondaryHueMidBrush}"
@@ -281,7 +281,7 @@
                     Style="{StaticResource MaterialDesignFlatButton}"
                     ToolTip="Выйти из программы"
                     Content="ОТМЕНА" 
-                    />
+                    Click="signIn_cancel_Click" />
             </Grid>
 
             <!-- ======================================================================================================================== -->
@@ -537,3 +537,4 @@
 
 
 </Window>
+

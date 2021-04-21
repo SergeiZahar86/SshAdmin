@@ -33,6 +33,10 @@
     xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
     >
 
+    
+    
+    
+    
     <Grid
         x:Name="MainGrid"
         Background="{StaticResource Background}"
@@ -114,8 +118,17 @@
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False"
-                    Content="SSH"
+                    Content="ПОЛЬЗОВАТЕЛИ"
                     Cursor="Hand" Click="radio4_Click"
+                    />
+                <RadioButton
+                    x:Name="radio5"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="False"
+                    Content="СПРАВОЧНИКИ"
+                    Cursor="Hand"
+                    Click="radio5_Click"
                     />
             </StackPanel>
         </materialDesign:Card>
@@ -891,11 +904,241 @@
                 </materialDesign:Card>
             </Grid>
         </Border>
+        
+        <!-- Пользователи -->
+        <Grid 
+            x:Name="users"
+            Grid.Column="2"
+            Grid.ColumnSpan="10"
+            Grid.Row="1"
+            Grid.RowSpan="11"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <!-- Четвертая страница -->
-        <!--
+            <materialDesign:Card
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.RowSpan="12"
+                Grid.ColumnSpan="4"
+                Margin="15, 15, 7, 15"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                Padding="15"
+                Background="{StaticResource LightBackground}"
+                >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        >
+                        <TextBlock
+                            Foreground="{StaticResource Gray}"
+                            VerticalAlignment="Top"
+                            >
+                            Пользователи
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft"
+                        >
+                        <Button
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"    
+                            ToolTip="Добавить"
+                            VerticalAlignment="Top"
+                            >
+                            <materialDesign:PackIcon
+                                Kind="Plus" 
+                                Width="25"
+                                Height="25"
+                                />
+                        </Button>
+                    </StackPanel>
+                    <ScrollViewer
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="11"
+                        VerticalScrollBarVisibility="Auto"
+                        >
+                        <StackPanel
+                            x:Name="stack_users"
+                            Orientation="Vertical"
+                            >
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                Grid.Column="4"
+                Grid.ColumnSpan="8"
+                Grid.Row="0"
+                Grid.RowSpan="12"
+                Margin="7, 15, 15, 15"
+                Background="{StaticResource LightBackground}"
+                Padding="15"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Content="Сохранить изменения"
+                        Grid.Column="8"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="0"
+                        />
+                    <TextBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="10"
+                        Foreground="{StaticResource LightGray}"
+                        materialDesign:HintAssist.Hint="Фамилия Имя Отчество"
+                        FontSize="16"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" />
+                    <TextBox
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="10"
+                        Foreground="{StaticResource LightGray}"
+                        materialDesign:HintAssist.Hint="Фамилия Имя Отчество"
+                        FontSize="16"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" />
+                    <TextBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="5"
+                        Margin="0,0,7,0"
+                        Foreground="{StaticResource LightGray}"
+                        materialDesign:HintAssist.Hint="Фамилия Имя Отчество"
+                        FontSize="16"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" />
+                    <TextBox
+                        Grid.Row="4"
+                        Grid.Column="6"
+                        Grid.ColumnSpan="5"
+                        Margin="7,0,0,0"
+                        Foreground="{StaticResource LightGray}"
+                        materialDesign:HintAssist.Hint="Фамилия Имя Отчество"
+                        FontSize="16"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" />
+                    <CheckBox
+                        x:Name="DisplaySelectedItemCheckBox"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        IsThreeState="False"
+                        Foreground="{StaticResource PrimaryHueMidBrush}"
+                        FontSize="16"
+                        Margin="0 8 0 0"
+                        Content="Временный пароль" />
+                   
+
+                    <ComboBox
+                        Name="roles_combo"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        materialDesign:HintAssist.FontFamily="Verdana"
+                        MinWidth="72"
+                        Height="40"
+                        FontSize="16"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        Background="{StaticResource DarkGray}"
+                        Padding="9"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+
+        <!-- Справочники -->
         <Border 
-            x:Name="fourth"
+            x:Name="directories"
             Grid.Column="2"
             Grid.ColumnSpan="10"
             Grid.Row="1"
@@ -977,7 +1220,7 @@
 
             </Grid>
         </Border>
-        -->
+        
         <!-- Выезжающие панели -->
         <materialDesign:DrawerHost
             x:Name="DrawerHost"

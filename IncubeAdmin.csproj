@@ -150,6 +150,9 @@
     <Compile Include="window\ChangeHost.xaml.cs">
       <DependentUpon>ChangeHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\EditHost.xaml.cs">
+      <DependentUpon>EditHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\ChangeHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\EditHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
