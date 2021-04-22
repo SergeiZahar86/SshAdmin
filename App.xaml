@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:IncubeAdmin"
              StartupUri="MainWindow.xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <Application.Resources>
         <ResourceDictionary>
@@ -12,6 +13,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="DictionaryMain.xaml"/>
+
+                <!-- Применит темную тему. Нужно еще добавить пространство имён (xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes")  -->
+                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <!-- ====================================================================================================================================== -->
+
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -35,6 +42,11 @@
             <SolidColorBrush x:Key="LightGray" Color="#FFEEEEEE"/>
             <SolidColorBrush x:Key="Gray" Color="#FFA0B2BB"/>
             <SolidColorBrush x:Key="DarkGray" Color="#FF647076"/>
+
+
+
+
+
 
         </ResourceDictionary>
     </Application.Resources>

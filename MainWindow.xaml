@@ -33,10 +33,9 @@
     xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
     >
 
-    
-    
-    
-    
+
+
+
     <Grid
         x:Name="MainGrid"
         Background="{StaticResource Background}"
@@ -1107,12 +1106,13 @@
                         Grid.Column="1"
                         Grid.ColumnSpan="3"
                         IsThreeState="False"
+                        VerticalAlignment="Bottom"
                         Foreground="{StaticResource PrimaryHueMidBrush}"
                         FontSize="16"
                         Margin="0 8 0 0"
                         Content="Временный пароль" />
                    
-
+                    <!--
                     <ComboBox
                         Name="roles_combo"
                         Grid.Row="6"
@@ -1132,6 +1132,69 @@
                             </ItemsPanelTemplate>
                         </ComboBox.ItemsPanel>
                     </ComboBox>
+                    -->
+                    <DatePicker
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        materialDesign:HintAssist.HelperText="Выбор даты"
+                        Foreground="{StaticResource PrimaryHueMidBrush}"
+                        FontSize="16"
+                        >
+                        
+                    </DatePicker>
+                    <materialDesign:TimePicker
+                        Grid.Row="6"
+                        Grid.Column="6"
+                        Grid.ColumnSpan="3"
+                        materialDesign:HintAssist.HelperText="Выбор времени"
+                        Foreground="{StaticResource PrimaryHueMidBrush}"
+                        FontSize="16"
+                        />
+                    <Label
+                        Grid.Row="7"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        FontSize="12"
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource PrimaryHueMidBrush}"
+                        >
+                        Выбор прав доступа
+                    </Label>
+                    <ComboBox
+                        Name="roles_combo"
+                        Grid.Row="7"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.FontFamily="Verdana"
+                        MinWidth="72"
+                        Height="40"
+                        FontSize="16"
+                        Background="{StaticResource DarkGray}"
+                        Padding="9"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <Button
+                        Name="roles_button"
+                        Grid.Row="8"
+                        Grid.RowSpan="1"
+                        Grid.Column="5"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Bottom"
+                        >
+                        Добавить роль
+                    </Button>
+                    
+                    
                 </Grid>
             </materialDesign:Card>
         </Grid>
