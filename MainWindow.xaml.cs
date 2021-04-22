@@ -71,11 +71,11 @@ namespace IncubeAdmin
             datagrid.ItemsSource = applicationView.Users;
             datagrid.SelectedItem = applicationView.SelectedUser;
 
-            second.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
             directories.Visibility = Visibility.Hidden;
             progressBar.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Hidden;
+            none.Visibility = Visibility.Hidden;
 
             //MainGrid.Children.Remove(progressBar);
             stackPan_Nav.Children.Remove(chip_connect);
@@ -91,6 +91,7 @@ namespace IncubeAdmin
             this.DataContext = this;
             roles_combo.ItemsSource = null;
             roles_combo.ItemsSource = roles;
+
             
             /*var thread = new Thread(Worker) { IsBackground = true };
             thread.Start();*/
@@ -332,7 +333,7 @@ namespace IncubeAdmin
         }
 
 
-        private void but_Click(object sender, RoutedEventArgs e)                            // добавление User в таблицу
+        private void butUser_Click(object sender, RoutedEventArgs e)                            // добавление User в таблицу
         {
             User user = new User();
             applicationView.Users.Insert(0, user);
@@ -394,9 +395,9 @@ namespace IncubeAdmin
         private void radio1_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Visible;
-            second.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Hidden;
             users.Visibility = Visibility.Hidden;
+            third.Visibility = Visibility.Hidden;
+            none.Visibility = Visibility.Hidden;
 
             //fourth.Visibility = Visibility.Hidden;
 
@@ -404,9 +405,9 @@ namespace IncubeAdmin
         private void radio2_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
-            second.Visibility = Visibility.Visible;
+            users.Visibility = Visibility.Visible;
             third.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Hidden;
+            none.Visibility = Visibility.Hidden;
 
             directories.Visibility = Visibility.Hidden;
 
@@ -414,9 +415,9 @@ namespace IncubeAdmin
         private void radio3_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
-            second.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Visible;
             users.Visibility = Visibility.Hidden;
+            third.Visibility = Visibility.Visible;
+            none.Visibility = Visibility.Hidden;
 
             directories.Visibility = Visibility.Hidden;
 
@@ -424,18 +425,18 @@ namespace IncubeAdmin
         private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
-            second.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Visible;
+            none.Visibility = Visibility.Visible;
 
             directories.Visibility = Visibility.Hidden;
         }
         private void radio5_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            users.Visibility = Visibility.Hidden;
+            none.Visibility = Visibility.Hidden;
 
             first.Visibility = Visibility.Hidden;
-            second.Visibility = Visibility.Hidden;
+            users.Visibility = Visibility.Hidden;
             third.Visibility = Visibility.Hidden;
             directories.Visibility = Visibility.Visible;
         }

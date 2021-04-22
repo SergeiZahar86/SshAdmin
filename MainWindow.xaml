@@ -101,7 +101,7 @@
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False"
-                    Content="SECOND" 
+                    Content="ПОЛЬЗОВАТЕЛИ" 
                     Cursor="Hand" 
                     Click="radio2_Click"/>
                 <RadioButton
@@ -117,7 +117,7 @@
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False"
-                    Content="ПОЛЬЗОВАТЕЛИ"
+                    Content="NONE"
                     Cursor="Hand" Click="radio4_Click"
                     />
                 <RadioButton
@@ -510,9 +510,9 @@
             </Grid>
         </Border>
 
-        <!-- Вторая страница -->
+        <!-- Пользователи -->
         <Grid 
-            x:Name="second"
+            x:Name="users"
             Grid.Column="2"
             Grid.ColumnSpan="10"
             Grid.Row="1"
@@ -558,26 +558,64 @@
             <materialDesign:Card
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
                 Padding="20"
-                Grid.Column="1"
-                Grid.ColumnSpan="5"
-                Grid.Row="1"
-                Grid.RowSpan="10"
+                Grid.Column="0"
+                Grid.ColumnSpan="12"
+                Grid.Row="0"
+                Grid.RowSpan="12"
+                Margin="15"
                 >
-                <DataGrid 
-                x:Name="datagrid"
-                
-                ColumnWidth="*" 
-                BorderThickness="2"
-                ItemsSource="{Binding Users}"
-                CanUserAddRows="False"
-                AutoGenerateColumns="False"
-                SelectedItem="{Binding SelectedUser}" 
-                
-                
-                
-                SelectionChanged="datagrid_SelectionChanged"
-                >
-                    <DataGrid.Columns>
+               
+
+                <Grid
+                    x:Name="users_card"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <DataGrid 
+                        x:Name="datagrid"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        Grid.Row="1"
+                        Grid.RowSpan="11"
+                        Margin="15"
+                        ColumnWidth="*" 
+                        BorderThickness="2"
+                        ItemsSource="{Binding Users}"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        SelectedItem="{Binding SelectedUser}" 
+                        
+                        
+                        
+                        SelectionChanged="datagrid_SelectionChanged"
+                        >
+                        <DataGrid.Columns>
                         <DataGridTemplateColumn x:Name="id" Header="Id" Width="100"
                                         HeaderStyle="{StaticResource CenterGridHeaderStyle}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -630,62 +668,151 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                    </DataGrid.Columns>
+                        </DataGrid.Columns>
+                        
 
 
+                            <!--
+                        <DataGrid.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock FontSize="18" Text="{Binding Path=Id}" />
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                    <TextBlock Text="{Binding Path=Pass}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.ItemTemplate>
+                        -->
+                
+                    </DataGrid>
 
-                    <!--
-                <DataGrid.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock FontSize="18" Text="{Binding Path=Id}" />
-                            <TextBlock Text="{Binding Path=Name}" />
-                            <TextBlock Text="{Binding Path=Pass}" />
+                    <StackPanel
+                        x:Name="stackPanel"
+                        Grid.Row="1"
+                        Grid.RowSpan="9"
+                        Grid.Column="6"
+                        Grid.ColumnSpan="5"
+                        DataContext="{Binding SelectedUser}"
+                        >
+                        <TextBox
+                            
+                            materialDesign:HintAssist.Hint="Фамилия Имя Отчество"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                        <TextBox 
+                            
+                            materialDesign:HintAssist.Hint="Логин"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                        <Border
+                            BorderBrush="#FFEEEEEE"
+                            BorderThickness="0 0 0 0.6"
+                            Margin="0,30,0,0"
+                            >
+                            <StackPanel>
+                                <Label
+                                    FontSize="16"
+                                    Foreground="{StaticResource TextGray}" Padding="0"
+                                    >
+                                    Роли
+                                </Label>
+                                <TextBlock
+                                    materialDesign:HintAssist.Hint="Роли"
+                                    materialDesign:HintAssist.HelperText="Bigger Helper Text"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Text="{Binding Pass, UpdateSourceTrigger=PropertyChanged}" 
+                                    />
+                            </StackPanel>
+                        </Border>
+                        
+                        
+                        <PasswordBox
+                            materialDesign:HintAssist.Hint="Пароль"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                            VerticalAlignment="Center"
+                            FontSize="16" Margin="0,30,0,0"
+                            />
+                        <PasswordBox
+                            materialDesign:HintAssist.Hint="Повтор пароля"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            />
+                        <CheckBox
+                            x:Name="userRoleCheck"
+                            Content="Временный пароль"
+                            Margin="0,30,0,0"
+                            />
+                        <DatePicker
+                            Grid.Column="4"
+                            Grid.Row="3"
+                            materialDesign:HintAssist.IsFloating="True"
+                            materialDesign:HintAssist.HelperText="Выбор даты окончания срока действия"
+                            materialDesign:HintAssist.HelperTextFontSize="12"
+                            />
+                        <materialDesign:TimePicker
+                            Grid.Column="5"
+                            Grid.Row="3"
+                            Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                            Margin="0,15,0,0"
+                            materialDesign:HintAssist.HelperText="Выбор времени окончания срока действия"
+                            materialDesign:HintAssist.HelperTextFontSize="12"
+                            />
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="0,50,0,0"
+                            >
+                            <ComboBox
+                                Name="roles_combo"
+                                materialDesign:HintAssist.Hint="Выбрать роль"
+                                Width="300"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <Button
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Width="150"
+                                ToolTip="Resource name: MaterialDesignRaisedButton"
+                                Content="Добавить роль"
+                                Margin="30,0,0,0" />
                         </StackPanel>
-                    </DataTemplate>
-                </DataGrid.ItemTemplate>
-                -->
-                </DataGrid>
+                        
+                        
+                    </StackPanel>
 
+                    <StackPanel 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="0"
+                        Orientation="Vertical"
+                        Margin="20,0"
+                        >
+                        <Button
+                            x:Name="butUser"
+                            Content="Добавить пользователя"
+                            Click="butUser_Click"
+                            />
+                    </StackPanel>
+                    
 
-            </materialDesign:Card>
-
-            <StackPanel 
-                Grid.Row="1"
-                Orientation="Vertical"
-                Margin="20,0"
-                >
-                <Button
-                    x:Name="but"
-                    Content="add"
-                    Click="but_Click"
-                    />
-            </StackPanel>
-
-            <materialDesign:Card
-                materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                Padding="20"
-                Grid.Column="7"
-                Grid.ColumnSpan="4"
-                Grid.Row="1"
-                Grid.RowSpan="10"
-                >
-                <StackPanel
-                x:Name="stackPanel"
-                           
-                DataContext="{Binding SelectedUser}"
-                >
-                    <TextBlock Text="Выбранный элемент"  />
-                    <TextBlock Text="Модель" />
-                    <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Text="Производитель" />
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Text="Цена" />
-                    <TextBox Text="{Binding Pass, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-
+                </Grid>
 
             </materialDesign:Card>
+
+            
+
+            
 
         </Grid>
 
@@ -904,9 +1031,9 @@
             </Grid>
         </Border>
         
-        <!-- Пользователи -->
+        <!-- NONE -->
         <Grid 
-            x:Name="users"
+            x:Name="none"
             Grid.Column="2"
             Grid.ColumnSpan="10"
             Grid.Row="1"
@@ -1163,7 +1290,6 @@
                         Выбор прав доступа
                     </Label>
                     <ComboBox
-                        Name="roles_combo"
                         Grid.Row="7"
                         Grid.RowSpan="2"
                         Grid.Column="1"
