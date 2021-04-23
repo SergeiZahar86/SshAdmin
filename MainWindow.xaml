@@ -1363,49 +1363,19 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <StackPanel 
+                <ComboBox
                     Grid.Row="0"
                     Grid.Column="0"
-                    Grid.ColumnSpan="12"
-                    Orientation="Horizontal"
-                    >
-                    <Button
-                        x:Name="system2"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="LIGHT1"
-                        Margin="20"
-                        />
-                    <Button
-                        x:Name="system3"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="LIGHT1"
-                        Margin="20"
-                        />
-                </StackPanel>
-                <materialDesign:Card
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="1"
-                    Grid.RowSpan="10"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3" 
-                    Margin="30,0, 0,0"
-                    >
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto"
-                        >
-                        <TextBlock
-                            x:Name="ssh_text1"
-                            TextWrapping="Wrap"
-                            Foreground="{StaticResource LightGray}"
-                            />
-                    </ScrollViewer>
-                </materialDesign:Card>
+                    
+                    materialDesign:HintAssist.Hint=""
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
 
             </Grid>
         </Border>

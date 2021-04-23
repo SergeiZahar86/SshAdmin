@@ -53,7 +53,7 @@ namespace IncubeAdmin
             //sshClient = new SshClient();
             UsersGlobal = new List<User>();
 
-            getUsers();
+            getUsersSQLite();
 
         }
 
@@ -113,7 +113,7 @@ namespace IncubeAdmin
             }
         }
 
-        public void getUsers()
+        public void getUsersSQLite()
         {
             //var appSettings = ConfigurationManager.AppSettings;
             //connectionString = "Data Source = MySqlite.db;Cache=Shared;Mode=ReadWrite;";
@@ -140,6 +140,10 @@ namespace IncubeAdmin
             }
         }
 
+        public void getUsers()
+        {
+
+        }
 
 
     }
