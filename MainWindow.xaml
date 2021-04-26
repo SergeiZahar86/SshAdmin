@@ -71,6 +71,7 @@
         </Grid.RowDefinitions>
 
         <!-- Панель слева -->
+        <!--
         <materialDesign:Card
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
             Grid.Column="0"
@@ -79,14 +80,10 @@
             Grid.RowSpan="12"
             Padding="8"
             Background="#FF424242"
-
             >
             <StackPanel Margin="0,70,0,0">
-                <TextBlock
-                    Margin="16 16 12 8"
-                    FontSize="16"
-                    Text="Страницы" />
-
+             -->   
+                <!--
                 <RadioButton
                     x:Name="radio1"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
@@ -96,22 +93,26 @@
                     Cursor="Hand"
                     Click="radio1_Click"
                     />
+                -->
+                <!--
                 <RadioButton
-                    x:Name="radio2"
+                    x:Name="systemPage"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="True"
+                    Content="СИСТЕМА"
+                    Cursor="Hand"
+                    Click="systemPage_Click"/>
+                <RadioButton
+                    x:Name="usersPage"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False"
                     Content="ПОЛЬЗОВАТЕЛИ" 
                     Cursor="Hand" 
-                    Click="radio2_Click"/>
-                <RadioButton
-                    x:Name="radio3"
-                    Style="{StaticResource MaterialDesignTabRadioButton}"
-                    Margin="4"
-                    IsChecked="False"
-                    Content="THIRD"
-                    Cursor="Hand"
-                    Click="radio3_Click"/>
+                    Click="usersPage_Click"/>
+                -->
+                <!--
                 <RadioButton
                     x:Name="radio4"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
@@ -120,18 +121,25 @@
                     Content="NONE"
                     Cursor="Hand" Click="radio4_Click"
                     />
+                -->
+
+                <!--
                 <RadioButton
-                    x:Name="radio5"
+                    x:Name="directoriesPage"
                     Style="{StaticResource MaterialDesignTabRadioButton}"
                     Margin="4"
                     IsChecked="False"
                     Content="СПРАВОЧНИКИ"
                     Cursor="Hand"
-                    Click="radio5_Click"
+                    Click="directoriesPage_Click"
                     />
+                -->
+        <!--
             </StackPanel>
         </materialDesign:Card>
-
+        -->
+        
+        
         <!-- Верхняя навигационная панель -->
         <materialDesign:ColorZone 
             Mode="PrimaryMid" 
@@ -340,6 +348,7 @@
         </materialDesign:ColorZone>
 
         <!-- Первая страница -->
+        <!--
         <Border 
             x:Name="first"
             Grid.Column="2"
@@ -509,12 +518,12 @@
                 </StackPanel>
             </Grid>
         </Border>
-
+-->
         <!-- Пользователи -->
         <Grid 
-            x:Name="users"
-            Grid.Column="2"
-            Grid.ColumnSpan="10"
+            x:Name="users_Page"
+            Grid.Column="0"
+            Grid.ColumnSpan="12"
             Grid.Row="1"
             Grid.RowSpan="11"
             >
@@ -547,6 +556,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            
 
             <!--
                 MouseLeftButtonDown="datagrid_MouseLeftButtonDown"
@@ -607,60 +617,126 @@
                         ColumnWidth="*" 
                         BorderThickness="2"
                         ItemsSource="{Binding Users}"
-                        CanUserAddRows="False"
                         AutoGenerateColumns="False"
                         SelectedItem="{Binding SelectedUser}" 
-                        
-                        
-                        
                         SelectionChanged="datagrid_SelectionChanged"
+                        CanUserAddRows="False"
+                        SelectionUnit="Cell"
+                        SelectionMode="Extended" 
                         >
+                        <!--
+                        <DataGrid.RowStyle>
+                            <Style
+                                TargetType="DataGridRow">
+                                
+                                <Style.Triggers>
+                                    <Trigger
+                                        Property="IsMouseOver"
+                                        Value="True">
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="Red"/>
+                                        <Setter
+                                            Property="Background"
+                                            Value="{StaticResource SecondaryHueLightBrush}"
+                                            />
+                                    </Trigger>
+                                    <Trigger
+                                        Property="IsSelected"
+                                        Value="True"
+                                        >
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="Red"
+                                            />
+                                        <Setter
+                                            Property="Background"
+                                            Value="{StaticResource SecondaryHueLightBrush}"
+                                            />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        -->
                         <DataGrid.Columns>
-                        <DataGridTemplateColumn x:Name="id" Header="Id" Width="100"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                        <DataGridTemplateColumn
+                            x:Name="id"
+                            Header="Id"
+                            Width="100"
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Id}"  HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" ToolTipService.ShowDuration="15000" 
-                                       >
+                                    <TextBlock
+                                        Text="{Binding Path=Id}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
                                         <TextBlock.ToolTip >
                                             <ToolTip>
-                                                <TextBlock Text="{Binding Path=Id}" FontSize="22" Foreground="Black" 
-                                                    Background="White" />
+                                                <TextBlock
+                                                    Text="{Binding Path=Id}"
+                                                    FontSize="22"
+                                                    Foreground="Black" 
+                                                    Background="White"
+                                                    />
                                             </ToolTip>
                                         </TextBlock.ToolTip>
                                 </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn x:Name="name" Header="Name" Width="100"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                        <DataGridTemplateColumn
+                            x:Name="name"
+                            Header="Name"
+                            Width="100"
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Name}"  HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" ToolTipService.ShowDuration="15000" 
-                                       >
+                                    <TextBlock
+                                        Text="{Binding Path=Name}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
                                         <TextBlock.ToolTip >
                                             <ToolTip>
-                                                <TextBlock Text="{Binding Path=Name}" FontSize="22" Foreground="Black" 
-                                                    Background="White" />
+                                                <TextBlock
+                                                    Text="{Binding Path=Name}"
+                                                    FontSize="22"
+                                                    Foreground="Black" 
+                                                    Background="White"
+                                                    />
                                             </ToolTip>
                                         </TextBlock.ToolTip>
                                 </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn x:Name="pass" Header="Pass" Width="100"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                        <DataGridTemplateColumn
+                            x:Name="pass"
+                            Header="Pass"
+                            Width="100"
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Pass}"  HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" ToolTipService.ShowDuration="15000" 
-                                       >
+                                    <TextBlock
+                                        Text="{Binding Path=Pass}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
                                         <TextBlock.ToolTip >
                                             <ToolTip>
-                                                <TextBlock Text="{Binding Path=Pass}" FontSize="22" Foreground="Black" 
-                                                    Background="White" />
+                                                <TextBlock
+                                                    Text="{Binding Path=Pass}"
+                                                    FontSize="22"
+                                                    Foreground="Black" 
+                                                    Background="White"
+                                                    />
                                             </ToolTip>
                                         </TextBlock.ToolTip>
                                 </TextBlock>
@@ -816,222 +892,8 @@
 
         </Grid>
 
-        <!-- Третья страница -->
-        <Border 
-            x:Name="third"
-            Grid.Column="2"
-            Grid.ColumnSpan="10"
-            Grid.Row="1"
-            Grid.RowSpan="11"
-            >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <!-- Для размещения диаграммы -->
-                <Canvas 
-                    Name="cnv"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="12"
-                    Grid.Row="0"
-                    Grid.RowSpan="12"
-                    RenderTransformOrigin="0.5,0.5"
-                    Width="1360"
-                    Height="832" Background="{StaticResource Background}"
-                    >
-                    <Canvas.LayoutTransform>
-                        <TransformGroup>
-                            <ScaleTransform x:Name="scaleTransform"/>
-                        </TransformGroup>
-                    </Canvas.LayoutTransform>
-                </Canvas>
-                <!-- Верхняя панель -->
-                <StackPanel 
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="12"
-                    Orientation="Horizontal"
-                    
-                    >
-                    <Button
-                        x:Name="sys"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="sys"
-                        Margin="20"
-                        Click="sys_Click"
-                        />
-                    <Button
-                        x:Name="sys1"
-                        Style="{DynamicResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="sys1"
-                        Margin="20"
-                        Click="sys1_Click"
-                        />
-                    <Button
-                        x:Name="sys4"
-                        Style="{DynamicResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="sys4"
-                        Margin="20"
-                        Click="sys4_Click"
-                        />
-                </StackPanel>
-                <!-- Левая панель -->
-                <materialDesign:Card
-                    x:Name="left_card"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="1"
-                    Grid.RowSpan="10"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3" 
-                    Margin="30,0, 0,0"
-                    >
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto"
-                        >
-                        <TextBlock
-                            x:Name="left_ssh_text"
-                            TextWrapping="Wrap"
-                            Foreground="{StaticResource LightGray}"
-                            />
-                    </ScrollViewer>
-                </materialDesign:Card>
-                <!-- Правая верхняя -->
-                <materialDesign:Card
-                    x:Name="right_card"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.Column="9"
-                    Grid.ColumnSpan="3" 
-                    Margin="0,0,30,0"
-                    >
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
-                        Foreground="{StaticResource LightGray}"
-                        >
-                        <StackPanel
-                            x:Name="third_stack_right"
-                            >
-                            <TextBlock
-                                x:Name="right_ssh_text"
-                                TextWrapping="Wrap"
-                                Text="Подключенные узлы Cassandra"
-                                Foreground="{StaticResource Gray}"
-                                Margin="10,0,10,10"
-                                />
-                        </StackPanel>
-                    </ScrollViewer>
-                </materialDesign:Card>
-                <!-- Правая вторая сверху -->
-                <materialDesign:Card
-                    x:Name="right_card1"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="4"
-                    Grid.RowSpan="3"
-                    Grid.Column="9"
-                    Grid.ColumnSpan="3" 
-                    Margin="0,0,30,0"
-                    >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        
-                        <ScrollViewer 
-                            Grid.Row="0"
-                            Grid.RowSpan="3"
-                            VerticalScrollBarVisibility="Auto" 
-                            Foreground="{StaticResource LightGray}"
-                            >
-                            <StackPanel
-                                x:Name="third_stack_right1"
-                                >
-                                <TextBlock
-                                    x:Name="right_ssh_text1"
-                                    TextWrapping="Wrap"
-                                    Text="Список введённых хостов"
-                                    Foreground="{StaticResource Gray}"
-                                    Margin="10,0,10,10"
-                                    />
-                            </StackPanel>
-                        </ScrollViewer>
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Grid.Row="3"
-                            FlowDirection="RightToLeft"
-                            >
-                            <Button
-                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                ToolTip="Добавить"
-                                Margin="10,5"
-                                Width="30"
-                                Height="30"
-                                >
-                                <materialDesign:PackIcon
-                                    Kind="PlusCircleOutline"
-                                    Height="25"
-                                    Width="25" />
-                            </Button>
-                            <Button
-                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                ToolTip="Редактировать"
-                                Margin="10,5"
-                                Width="30"
-                                Height="30"
-                                >
-                                <materialDesign:PackIcon
-                                    Kind="ClipboardEditOutline"
-                                    Height="25"
-                                    Width="25" 
-                                    />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </Grid>
-        </Border>
-        
         <!-- NONE -->
+        <!--
         <Grid 
             x:Name="none"
             Grid.Column="2"
@@ -1239,27 +1101,7 @@
                         Margin="0 8 0 0"
                         Content="Временный пароль" />
                    
-                    <!--
-                    <ComboBox
-                        Name="roles_combo"
-                        Grid.Row="6"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="3"
-                        materialDesign:HintAssist.FontFamily="Verdana"
-                        MinWidth="72"
-                        Height="40"
-                        FontSize="16"
-                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                        Background="{StaticResource DarkGray}"
-                        Padding="9"
-                        >
-                        <ComboBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ComboBox.ItemsPanel>
-                    </ComboBox>
-                    -->
+                   
                     <DatePicker
                         Grid.Row="6"
                         Grid.Column="1"
@@ -1324,12 +1166,13 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
-
+         -->
+        
         <!-- Справочники -->
         <Border 
-            x:Name="directories"
-            Grid.Column="2"
-            Grid.ColumnSpan="10"
+            x:Name="directories_Page"
+            Grid.Column="0"
+            Grid.ColumnSpan="12"
             Grid.Row="1"
             Grid.RowSpan="11"
             >
@@ -1380,6 +1223,581 @@
             </Grid>
         </Border>
         
+         <!-- Система -->
+        <Border 
+            x:Name="system_Page"
+            Grid.Column="0"
+            Grid.ColumnSpan="12"
+            Grid.Row="1"
+            Grid.RowSpan="11"
+            >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!-- Для размещения диаграммы -->
+                <Canvas 
+                    Name="cnv"
+                    Grid.Column="3"
+                    Grid.ColumnSpan="6"
+                    Grid.Row="0"
+                    Grid.RowSpan="5"
+                    RenderTransformOrigin="0.5,0.5"
+                    Width="802"
+                    Height="350"
+                    Background="{StaticResource Background}"
+                    >
+                    <Canvas.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="scaleTransform"/>
+                        </TransformGroup>
+                    </Canvas.LayoutTransform>
+                </Canvas>
+                <!-- Верхняя панель -->
+                <StackPanel 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="12"
+                    Orientation="Horizontal"
+                    
+                    >
+                    <Button
+                        x:Name="sys"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="sys"
+                        Margin="20"
+                        Click="sys_Click"
+                        />
+                    <Button
+                        x:Name="sys1"
+                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="sys1"
+                        Margin="20"
+                        Click="sys1_Click"
+                        />
+                    <Button
+                        x:Name="sys4"
+                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Width="80"
+                        ToolTip="Resource"
+                        Content="sys4"
+                        Margin="20"
+                        Click="sys4_Click"
+                        />
+                </StackPanel>
+                
+                <!-- Таблица системы -->
+                <materialDesign:Card
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    materialDesign:ShadowAssist.ShadowEdges="All"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="12"
+                    Grid.Row="5"
+                    Grid.RowSpan="7"
+                    Margin="15,15,15,15"
+                    >
+                    <DataGrid 
+                        x:Name="datagrid_system"
+                        ColumnWidth="*" 
+                        BorderThickness="2"
+                        ItemsSource="{Binding Users}"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        SelectedItem="{Binding SelectedUser}" 
+                        
+                        
+                        
+                        SelectionChanged="datagrid_SelectionChanged"
+                        >
+                    <DataGrid.Columns>
+                        
+                        <DataGridTemplateColumn
+                            x:Name="id_system"
+                            Header="Id" 
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding Path=Id}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                    Text="{Binding Path=Id}"
+                                                    FontSize="22"
+                                                    Foreground="Black" 
+                                                    Background="White"
+                                                    />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                                </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                        <DataGridTemplateColumn
+                            x:Name="name1"
+                            Header="Name" 
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding Path=Name}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
+                                        <TextBlock.ToolTip >
+                                            <ToolTip>
+                                                <TextBlock
+                                                    Text="{Binding Path=Name}"
+                                                    FontSize="22"
+                                                    Foreground="Black" 
+                                                    Background="White"
+                                                    />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                                </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                        <DataGridTemplateColumn
+                            x:Name="pass1"
+                            Header="Pass"
+                            Width="*"
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding Path=Pass}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
+                                        <TextBlock.ToolTip >
+                                            <ToolTip>
+                                                <TextBlock
+                                                    Text="{Binding Path=Pass}"
+                                                    FontSize="22"
+                                                    Foreground="Black" 
+                                                    Background="White"
+                                                    />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id11"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id12"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id13"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id14"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id15"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id16"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id17"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                         <DataGridTemplateColumn
+                         x:Name="id18"
+                         Header="Id" 
+                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                         >
+                             <DataGridTemplateColumn.CellTemplate>
+                                 <DataTemplate>
+                                     <TextBlock
+                                     Text="{Binding Path=Id}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     ToolTipService.ShowDuration="15000" 
+                                     >
+                                         <TextBlock.ToolTip>
+                                             <ToolTip>
+                                                 <TextBlock
+                                                 Text="{Binding Path=Id}"
+                                                 FontSize="22"
+                                                 Foreground="Black" 
+                                                 Background="White"
+                                                 />
+                                             </ToolTip>
+                                         </TextBlock.ToolTip>
+                             </TextBlock>
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellTemplate>
+                         </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+
+
+                    <!--
+                        <DataGrid.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock FontSize="18" Text="{Binding Path=Id}" />
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                    <TextBlock Text="{Binding Path=Pass}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.ItemTemplate>
+                        -->
+
+                </DataGrid>
+                </materialDesign:Card>
+                <!-- Левая панель -->
+                <!--
+                <materialDesign:Card
+                    x:Name="left_card"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="1"
+                    Grid.RowSpan="10"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" 
+                    Margin="30,0, 0,0"
+                    >
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto"
+                        >
+                        <TextBlock
+                            x:Name="left_ssh_text"
+                            TextWrapping="Wrap"
+                            Foreground="{StaticResource LightGray}"
+                            />
+                    </ScrollViewer>
+                </materialDesign:Card>
+                -->
+                <!-- Правая верхняя -->
+                <!--
+                <materialDesign:Card
+                    x:Name="right_card"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="9"
+                    Grid.ColumnSpan="3" 
+                    Margin="0,0,30,0"
+                    >
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto" 
+                        Foreground="{StaticResource LightGray}"
+                        >
+                        <StackPanel
+                            x:Name="third_stack_right"
+                            >
+                            <TextBlock
+                                x:Name="right_ssh_text"
+                                TextWrapping="Wrap"
+                                Text="Подключенные узлы Cassandra"
+                                Foreground="{StaticResource Gray}"
+                                Margin="10,0,10,10"
+                                />
+                        </StackPanel>
+                    </ScrollViewer>
+                </materialDesign:Card>
+                -->
+                <!-- Правая вторая сверху -->
+                <!--
+                <materialDesign:Card
+                    x:Name="right_card1"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Padding="10"
+                    Background="{StaticResource Background}"
+                    Grid.Row="4"
+                    Grid.RowSpan="3"
+                    Grid.Column="9"
+                    Grid.ColumnSpan="3" 
+                    Margin="0,0,30,0"
+                    >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        
+                        <ScrollViewer 
+                            Grid.Row="0"
+                            Grid.RowSpan="3"
+                            VerticalScrollBarVisibility="Auto" 
+                            Foreground="{StaticResource LightGray}"
+                            >
+                            <StackPanel
+                                x:Name="third_stack_right1"
+                                >
+                                <TextBlock
+                                    x:Name="right_ssh_text1"
+                                    TextWrapping="Wrap"
+                                    Text="Список введённых хостов"
+                                    Foreground="{StaticResource Gray}"
+                                    Margin="10,0,10,10"
+                                    />
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Grid.Row="3"
+                            FlowDirection="RightToLeft"
+                            >
+                            <Button
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="Добавить"
+                                Margin="10,5"
+                                Width="30"
+                                Height="30"
+                                >
+                                <materialDesign:PackIcon
+                                    Kind="PlusCircleOutline"
+                                    Height="25"
+                                    Width="25" />
+                            </Button>
+                            <Button
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="Редактировать"
+                                Margin="10,5"
+                                Width="30"
+                                Height="30"
+                                >
+                                <materialDesign:PackIcon
+                                    Kind="ClipboardEditOutline"
+                                    Height="25"
+                                    Width="25" 
+                                    />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+                -->
+            </Grid>
+        </Border>
+        
         <!-- Выезжающие панели -->
         <materialDesign:DrawerHost
             x:Name="DrawerHost"
@@ -1410,9 +1828,10 @@
             </materialDesign:DrawerHost.Style>
             <materialDesign:DrawerHost.LeftDrawerContent >
                 <StackPanel
-                    Margin="16"
+                    Margin="50"
                     
                     >
+                    <!--
                     <TextBlock
                         Margin="4"
                         HorizontalAlignment="Center"
@@ -1430,6 +1849,42 @@
                         HorizontalAlignment="Center"
                         Style="{DynamicResource MaterialDesignFlatButton}"
                         Content="CLOSE ALL" />
+                    -->
+                    <RadioButton
+                    x:Name="systemPage"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="True"
+                    Content="СИСТЕМА"
+                    Cursor="Hand"
+                    Click="systemPage_Click"/>
+                    <RadioButton
+                    x:Name="usersPage"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="False"
+                    Content="ПОЛЬЗОВАТЕЛИ" 
+                    Cursor="Hand" 
+                    Click="usersPage_Click"/>
+                    <!--
+                <RadioButton
+                    x:Name="radio4"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="False"
+                    Content="NONE"
+                    Cursor="Hand" Click="radio4_Click"
+                    />
+                -->
+                    <RadioButton
+                    x:Name="directoriesPage"
+                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                    Margin="4"
+                    IsChecked="False"
+                    Content="СПРАВОЧНИКИ"
+                    Cursor="Hand"
+                    Click="directoriesPage_Click"
+                    />
                 </StackPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
             <materialDesign:DrawerHost.TopDrawerContent>
@@ -1586,7 +2041,8 @@
                     MaxWidth="60">
                     <materialDesign:PackIcon Width="20" Height="20" Kind="AccountKeyOutline" />
                 </Button>
-                -->
+                
+                
                 <Button
                     Background="{StaticResource PrimaryHueMidBrush}"
                     Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
@@ -1597,7 +2053,7 @@
                     VerticalAlignment="Top"
                     Margin="20,15,20,0" 
                     MaxWidth="50"/>
-
+                -->
             </Grid>
         </materialDesign:DrawerHost>
         

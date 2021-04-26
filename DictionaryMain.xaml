@@ -245,7 +245,7 @@
 
     <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Background" Value="#FF37474F"/>
+        <Setter Property="Background" Value="#FF647076"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Calibri"/>

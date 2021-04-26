@@ -71,11 +71,11 @@ namespace IncubeAdmin
             datagrid.ItemsSource = applicationView.Users;
             datagrid.SelectedItem = applicationView.SelectedUser;
 
-            users.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Hidden;
-            directories.Visibility = Visibility.Hidden;
+            users_Page.Visibility = Visibility.Hidden;
+            //system_Page.Visibility = Visibility.Hidden;
+            directories_Page.Visibility = Visibility.Hidden;
             progressBar.Visibility = Visibility.Hidden;
-            none.Visibility = Visibility.Hidden;
+            //none.Visibility = Visibility.Hidden;
 
             //MainGrid.Children.Remove(progressBar);
             stackPan_Nav.Children.Remove(chip_connect);
@@ -177,9 +177,9 @@ namespace IncubeAdmin
             //Color c2 = Color.FromArgb(246, 246, 248, 0);
             //ellipse2.Fill = new SolidColorBrush(c);
             ellipse2.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
-            ellipse2.Width = 550;
-            ellipse2.Height = 550;
-            ellipse2.Margin = new Thickness(x0 - 275, y0 - 275, 0, 0);
+            ellipse2.Width = 300;
+            ellipse2.Height = 300;
+            ellipse2.Margin = new Thickness(x0 - 150, y0 - 150, 0, 0);
             ellipse2.Stroke = Brushes.Black;
             ellipse2.StrokeThickness = 0;
 
@@ -198,7 +198,7 @@ namespace IncubeAdmin
 
 
 
-            radius = 200;
+            radius = 115;
             //radius_Elipse(4);
 
         }
@@ -260,10 +260,10 @@ namespace IncubeAdmin
                 double y1 = y0 + (radius * Math.Sin(radian2));
 
                 Border bord = new Border();
-                bord.Width = 100;
-                bord.Height = 100;
-                bord.Margin = new Thickness(x1 - 50, y1 - 50, 0, 0);   // первый круг
-                bord.CornerRadius = new CornerRadius(50);
+                bord.Width = 50;
+                bord.Height = 50;
+                bord.Margin = new Thickness(x1 - 25, y1 - 25, 0, 0);   // первый круг
+                bord.CornerRadius = new CornerRadius(25);
                 //bord.BorderBrush = Brushes.Orange;
 
                 if (global.nodes[i].Status == "DN")
@@ -314,7 +314,7 @@ namespace IncubeAdmin
                 bord1.Effect = effect3;*/
 
                 TextBlock tBlock = new TextBlock();
-                tBlock.FontSize = 20;
+                tBlock.FontSize = 16;
                 tBlock.Inlines.Add(new Bold(new Run(count[i].Name)));
                 tBlock.Foreground = Brushes.Black;
                 tBlock.TextAlignment = TextAlignment.Center;
@@ -392,7 +392,7 @@ namespace IncubeAdmin
 
 
 
-        private void radio1_Click(object sender, RoutedEventArgs e)                         // переключение страниц
+        /*private void radio1_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Visible;
             users.Visibility = Visibility.Hidden;
@@ -401,28 +401,28 @@ namespace IncubeAdmin
 
             //fourth.Visibility = Visibility.Hidden;
 
-        }
-        private void radio2_Click(object sender, RoutedEventArgs e)                         // переключение страниц
+        }*/
+        private void usersPage_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            first.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Visible;
-            third.Visibility = Visibility.Hidden;
-            none.Visibility = Visibility.Hidden;
+            //first.Visibility = Visibility.Hidden;
+            users_Page.Visibility = Visibility.Visible;
+            system_Page.Visibility = Visibility.Hidden;
+            //none.Visibility = Visibility.Hidden;
 
-            directories.Visibility = Visibility.Hidden;
+            directories_Page.Visibility = Visibility.Hidden;
 
         }
-        private void radio3_Click(object sender, RoutedEventArgs e)                         // переключение страниц
+        private void systemPage_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            first.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Visible;
-            none.Visibility = Visibility.Hidden;
+            //first.Visibility = Visibility.Hidden;
+            users_Page.Visibility = Visibility.Hidden;
+            system_Page.Visibility = Visibility.Visible;
+            //none.Visibility = Visibility.Hidden;
 
-            directories.Visibility = Visibility.Hidden;
+            directories_Page.Visibility = Visibility.Hidden;
 
         }
-        private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
+       /* private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
             first.Visibility = Visibility.Hidden;
             users.Visibility = Visibility.Hidden;
@@ -430,15 +430,15 @@ namespace IncubeAdmin
             none.Visibility = Visibility.Visible;
 
             directories.Visibility = Visibility.Hidden;
-        }
-        private void radio5_Click(object sender, RoutedEventArgs e)                         // переключение страниц
+        }*/
+        private void directoriesPage_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            none.Visibility = Visibility.Hidden;
+            //none.Visibility = Visibility.Hidden;
 
-            first.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Hidden;
-            directories.Visibility = Visibility.Visible;
+            //first.Visibility = Visibility.Hidden;
+            users_Page.Visibility = Visibility.Hidden;
+            system_Page.Visibility = Visibility.Hidden;
+            directories_Page.Visibility = Visibility.Visible;
         }
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -518,7 +518,7 @@ namespace IncubeAdmin
 
         private void RestartOnClick(object sender, RoutedEventArgs e)
         {
-            Chart.Update(true, true);
+            //Chart.Update(true, true);
         }
         /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -555,14 +555,14 @@ namespace IncubeAdmin
             try
             {
                 
-                double a = this.Width;
+                /*double a = this.Width;
                 double b = this.Height;
                 left_ssh_text.Text += (a + "  " + b).ToString();
                 progressBar.Visibility = Visibility.Visible;
 
 
                 Thread thread = new Thread(GetDataCassandra);
-                thread.Start();
+                thread.Start();*/
 
             }
             catch(Exception eee)
@@ -670,7 +670,7 @@ namespace IncubeAdmin
 
                             stack.Children.Add(bord);
                             stack.Children.Add(tBlock);
-                            third_stack_right.Children.Add(stack);
+                            //third_stack_right.Children.Add(stack);
                         }
                     });
 
@@ -686,7 +686,7 @@ namespace IncubeAdmin
                 // вызвать диспетчер патока главного окна и сделать изменения в GUI.
                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                 {
-                    left_ssh_text.Text += (dddd.ToString() + " \n");
+                    //left_ssh_text.Text += (dddd.ToString() + " \n");
                 });
             }
         }
@@ -736,7 +736,7 @@ namespace IncubeAdmin
 
                     //stack.Children.Add(bord);
                     stack.Children.Add(tBlock);
-                    third_stack_right1.Children.Add(stack);
+                    //third_stack_right1.Children.Add(stack);
                 }
 
                 // добавление элементов в стекпанель вторая сверху
@@ -821,7 +821,7 @@ namespace IncubeAdmin
                         string[] words = fff.Split(new char[] { '\n' });
                         for (int i = 0; i < words.Length - 1; i++) 
                         {
-                            left_ssh_text.Text += (words[i] + "\n");
+                            //left_ssh_text.Text += (words[i] + "\n");
                             name_node.Add(words[i]);
                         }
                         //Console.Write(command.Execute());
@@ -834,7 +834,7 @@ namespace IncubeAdmin
                         string[] words = fff.Split(new char[] { '\n' });
                         for (int i = 0; i < words.Length - 1; i++)
                         {
-                            left_ssh_text.Text += (words[i] + "\n");
+                            //left_ssh_text.Text += (words[i] + "\n");
                             isOk_node.Add(words[i]);
                         }
                         //Console.Write(command.Execute());
@@ -847,7 +847,7 @@ namespace IncubeAdmin
                         string[] words = fff.Split(new char[] { '\n' });
                         for (int i = 0; i < words.Length - 1; i++)
                         {
-                            left_ssh_text.Text += (words[i] + "\n");
+                            //left_ssh_text.Text += (words[i] + "\n");
                             ip_node.Add(words[i]);
                         }
                         //Console.Write(command.Execute());
@@ -860,7 +860,7 @@ namespace IncubeAdmin
                         string[] words = fff.Split(new char[] { '\n' });
                         foreach (string s in words)
                         {
-                            left_ssh_text.Text += (s + "\n");
+                            //left_ssh_text.Text += (s + "\n");
                         }
                         //Console.Write(command.Execute());
                         //Console.ReadLine();
@@ -870,7 +870,7 @@ namespace IncubeAdmin
             }
             catch (Exception eee)
             {
-                left_ssh_text.Text = eee.ToString();
+                //left_ssh_text.Text = eee.ToString();
             }
 
             /*MainGrid.Children.Remove(progressBar);
