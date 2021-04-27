@@ -17,6 +17,8 @@ namespace IncubeAdmin
         public string connectionString;
         private string sqlExpression;
         public List<User> UsersGlobal; // список пользователей из базы данных
+        public List<SystemCassandra> systemCassandras;
+        public List<AllDisk> allDisks;
 
         public string login;
         public string password;
@@ -52,9 +54,11 @@ namespace IncubeAdmin
             //hosts = new List<Host>();
             //sshClient = new SshClient();
             UsersGlobal = new List<User>();
+            systemCassandras = new List<SystemCassandra>();
+            allDisks = new List<AllDisk>(); 
 
             getUsersSQLite();
-
+            getSystemsCassandra();
         }
 
         
@@ -144,7 +148,20 @@ namespace IncubeAdmin
         {
 
         }
-
-
+        private void getSystemsCassandra()
+        {
+            for(int i = 1; i < 4; i++)
+            {
+                systemCassandras.Add(new SystemCassandra(i, "server", $"10.90.90.{i}",
+                    "16380", "10000", "54%", "500", "300", "DB", $"10.90.90.{i}", "UN"));
+            }
+        }
+        private void getAllDisk()
+        {
+            for(int i = 1; i <6; i++)
+            {
+                allDisks.Add(new AllDisk(i, $"10.90.90.{i}", "16000"));
+            }
+        }
     }
 }

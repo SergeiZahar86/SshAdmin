@@ -608,7 +608,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <DataGrid 
-                        x:Name="datagrid"
+                        x:Name="datagrid_users"
                         Grid.Column="0"
                         Grid.ColumnSpan="5"
                         Grid.Row="1"
@@ -1278,42 +1278,7 @@
                         </TransformGroup>
                     </Canvas.LayoutTransform>
                 </Canvas>
-                <!-- Верхняя панель -->
-                <StackPanel 
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="12"
-                    Orientation="Horizontal"
-                    
-                    >
-                    <Button
-                        x:Name="sys"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="sys"
-                        Margin="20"
-                        Click="sys_Click"
-                        />
-                    <Button
-                        x:Name="sys1"
-                        Style="{DynamicResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="sys1"
-                        Margin="20"
-                        Click="sys1_Click"
-                        />
-                    <Button
-                        x:Name="sys4"
-                        Style="{DynamicResource MaterialDesignRaisedButton}"
-                        Width="80"
-                        ToolTip="Resource"
-                        Content="sys4"
-                        Margin="20"
-                        Click="sys4_Click"
-                        />
-                </StackPanel>
+                
                 
                 <!-- Таблица системы -->
                 <materialDesign:Card
@@ -1321,21 +1286,20 @@
                     materialDesign:ShadowAssist.ShadowEdges="All"
                     Grid.Column="0"
                     Grid.ColumnSpan="12"
-                    Grid.Row="5"
-                    Grid.RowSpan="7"
+                    Grid.Row="7"
+                    Grid.RowSpan="5"
                     Margin="15,15,15,15"
                     >
+
+                    
+
+                    
                     <DataGrid 
                         x:Name="datagrid_system"
                         ColumnWidth="*" 
                         BorderThickness="2"
-                        ItemsSource="{Binding Users}"
                         CanUserAddRows="False"
                         AutoGenerateColumns="False"
-                        SelectedItem="{Binding SelectedUser}" 
-                        
-                        
-                        
                         SelectionChanged="datagrid_SelectionChanged"
                         >
                     <DataGrid.Columns>
@@ -1343,6 +1307,7 @@
                         <DataGridTemplateColumn
                             x:Name="id_system"
                             Header="Id" 
+                            Width="0.5*"
                             HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                             >
                             <DataGridTemplateColumn.CellTemplate>
@@ -1369,14 +1334,14 @@
                         </DataGridTemplateColumn>
                         
                         <DataGridTemplateColumn
-                            x:Name="name1"
-                            Header="Name" 
+                            x:Name="name_server"
+                            Header="Сервер" 
                             HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                             >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        Text="{Binding Path=Name}"
+                                        Text="{Binding Path=NameServer}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         ToolTipService.ShowDuration="15000" 
@@ -1384,7 +1349,7 @@
                                         <TextBlock.ToolTip >
                                             <ToolTip>
                                                 <TextBlock
-                                                    Text="{Binding Path=Name}"
+                                                    Text="{Binding Path=NameServer}"
                                                     FontSize="22"
                                                     Foreground="Black" 
                                                     Background="White"
@@ -1397,15 +1362,15 @@
                         </DataGridTemplateColumn>
                         
                         <DataGridTemplateColumn
-                            x:Name="pass1"
-                            Header="Pass"
+                            x:Name="ip_server"
+                            Header="IP сервера"
                             Width="*"
                             HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                             >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        Text="{Binding Path=Pass}"
+                                        Text="{Binding Path=IpServer}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         ToolTipService.ShowDuration="15000" 
@@ -1413,7 +1378,7 @@
                                         <TextBlock.ToolTip >
                                             <ToolTip>
                                                 <TextBlock
-                                                    Text="{Binding Path=Pass}"
+                                                    Text="{Binding Path=IpServer}"
                                                     FontSize="22"
                                                     Foreground="Black" 
                                                     Background="White"
@@ -1425,247 +1390,239 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id11"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="all_memory"
+                        Header="Память. всего" 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=AllMemory}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000"
+                                    MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=AllMemory}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id12"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="used_memory"
+                        Header="Память. исп." 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=UsedMemory}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000" 
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=UsedMemory}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id13"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="cpu"
+                        Header="CPU" 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=Cpu}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000" 
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=Cpu}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id14"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="all_disk"
+                        Header="Диск. всего" 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        x:Name="textBlock_all_disk"
+                                        Text="{Binding Path=AllDisk}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTipService.ShowDuration="15000" 
+                                        >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=AllDisk}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id15"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="used_disk"
+                        Header="Диск. исп." 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=UsedDisk}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000" 
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=UsedDisk}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id16"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="name_db"
+                        Header="Имя БД" 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=NameDB}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000" 
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=NameDB}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id17"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                        x:Name="ip_db"
+                        Header="IP БД" 
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=IpDB}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000" 
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=IpDB}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                         <DataGridTemplateColumn
-                         x:Name="id18"
-                         Header="Id" 
-                         HeaderStyle="{StaticResource CenterGridHeaderStyle}"
-                         >
-                             <DataGridTemplateColumn.CellTemplate>
-                                 <DataTemplate>
-                                     <TextBlock
-                                     Text="{Binding Path=Id}"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     ToolTipService.ShowDuration="15000" 
-                                     >
-                                         <TextBlock.ToolTip>
-                                             <ToolTip>
-                                                 <TextBlock
-                                                 Text="{Binding Path=Id}"
-                                                 FontSize="22"
-                                                 Foreground="Black" 
-                                                 Background="White"
-                                                 />
-                                             </ToolTip>
-                                         </TextBlock.ToolTip>
-                             </TextBlock>
-                                 </DataTemplate>
-                             </DataGridTemplateColumn.CellTemplate>
-                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            x:Name="status"
+                            Header="Статус" 
+                            HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                            >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                    Text="{Binding Path=StatusDB}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ShowDuration="15000" 
+                                    >
+                                        <TextBlock.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock
+                                                Text="{Binding Path=StatusDB}"
+                                                FontSize="22"
+                                                Foreground="Black" 
+                                                Background="White"
+                                                />
+                                            </ToolTip>
+                                        </TextBlock.ToolTip>
+                            </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
 
 
 
-                    <!--
-                        <DataGrid.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="5">
-                                    <TextBlock FontSize="18" Text="{Binding Path=Id}" />
-                                    <TextBlock Text="{Binding Path=Name}" />
-                                    <TextBlock Text="{Binding Path=Pass}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGrid.ItemTemplate>
-                        -->
 
                 </DataGrid>
+                    
                 </materialDesign:Card>
                 <!-- Левая панель -->
                 <!--

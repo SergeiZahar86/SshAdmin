@@ -68,8 +68,11 @@ namespace IncubeAdmin
             global = Global.getInstance();
             applicationView = ApplicationViewModel.getInstance();
             DataContext = applicationView;
-            datagrid.ItemsSource = applicationView.Users;
-            datagrid.SelectedItem = applicationView.SelectedUser;
+            datagrid_users.ItemsSource = applicationView.Users;
+            datagrid_users.SelectedItem = applicationView.SelectedUser;
+            datagrid_system.ItemsSource = applicationView.Cassandras;
+            datagrid_system.SelectedItem = applicationView.SelectedSystemCassandra;
+           
 
             users_Page.Visibility = Visibility.Hidden;
             //system_Page.Visibility = Visibility.Hidden;
@@ -337,8 +340,8 @@ namespace IncubeAdmin
         {
             User user = new User();
             applicationView.Users.Insert(0, user);
-            datagrid.ItemsSource = null;
-            datagrid.ItemsSource = applicationView.Users;
+            datagrid_users.ItemsSource = null;
+            datagrid_users.ItemsSource = applicationView.Users;
         }
 
 
@@ -531,11 +534,11 @@ namespace IncubeAdmin
         {
             try
             {
-                if (datagrid.SelectedItem != null)
+                if (datagrid_users.SelectedItem != null)
                 {
-                    if (datagrid.SelectedItem is User)
+                    if (datagrid_users.SelectedItem is User)
                     {
-                        var row = (User)datagrid.SelectedItem;
+                        var row = (User)datagrid_users.SelectedItem;
 
                         if (row != null)
                         {
@@ -902,15 +905,17 @@ namespace IncubeAdmin
 
             Thread thread = new Thread(GetDataHost);
             thread.Start();
-
-
-
-
-            //progressBar.Visibility = Visibility.Visible;
-
-            // progressBar.Visibility = Visibility.Hidden;
         }
 
+        
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowAllDisk showAllDisk = new ShowAllDisk();
+            showAllDisk.ShowDialog();
+        }
+
+       
     }
 }
 
