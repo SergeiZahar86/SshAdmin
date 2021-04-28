@@ -17,7 +17,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="ShowAllDisk"
         Height="450"
-        Width="400"
+        Width="500"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -43,9 +43,6 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -62,132 +59,125 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <!-- Авторизация -->
-            <Grid
-                x:Name="grid_signIn"
-                Grid.Column="0"
-                Grid.ColumnSpan="12"
-                Grid.Row="0"
-                Grid.RowSpan="12"
-                >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+            
                 
-                <!-- Верхняя навигационная панель -->
-                <materialDesign:ColorZone 
-                    Mode="PrimaryMid" 
-                    Padding="5" 
-                    Grid.ColumnSpan="12"
-                    Background="{StaticResource LightBackground}"
-                    MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
-                    >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <DockPanel 
+            <!-- Верхняя навигационная панель -->
+            <materialDesign:ColorZone 
+                Mode="PrimaryMid" 
+                Padding="5" 
+                Grid.ColumnSpan="12"
+                Background="{StaticResource LightBackground}"
+                MouseLeftButtonDown="ColorZone_MouseLeftButtonDown"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel 
                         Height="30"
                         Grid.Column="0"
                         Grid.ColumnSpan="12" 
                         >
-                            <StackPanel
-                           Orientation="Horizontal"
-                           FlowDirection="RightToLeft"
-                           materialDesign:RippleAssist.IsCentered="True"
-                           >
-                                
+                        <StackPanel
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            >
                             <Button 
-                                
-                                Style="{StaticResource MaterialDesignFlatButton}" 
-                                Foreground="{StaticResource Gray}"
-                                ToolTip="Закрыть" 
-                                DockPanel.Dock="Right"
-                                Width="40" 
-                                Height="30" Padding="4" Click="close_Click"
-                                >
-                                <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
-                            </Button>
-                            
-                                <TextBlock 
-                                Foreground="{StaticResource Gray}"
-                                Text="Использование дисков"
-                                FontSize="20" Margin="50,0,0,0"
-                                />
+                            Style="{StaticResource MaterialDesignFlatButton}" 
+                            Foreground="{StaticResource Gray}"
+                            ToolTip="Закрыть" 
+                            DockPanel.Dock="Right"
+                            Width="40" 
+                            Height="30" Padding="4" Click="close_Click"
+                            >
+                            <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
+                        </Button>
+                            <TextBlock 
+                        Foreground="{StaticResource Gray}"
+                        Text="Использование дисков"
+                        FontSize="20" Margin="50,0,0,0"
+                        />
+                        </StackPanel>
+                    </DockPanel>
+                </Grid>
+            </materialDesign:ColorZone>
+            <!-- поля ввода -->
+            <ScrollViewer
+                
+                Grid.Row="1"
+                Grid.RowSpan="10"
+                Grid.Column="0"
+                Grid.ColumnSpan="9"
+                Padding="30"
+                VerticalScrollBarVisibility="Auto"
+                >
+                <StackPanel
+                x:Name="stk_disks"
+                />
+            </ScrollViewer>
+            <DataGrid
+                x:Name="grid_disk"
+                Grid.Row="1"
+                Grid.RowSpan="10"
+                Grid.Column="0"
+                Grid.ColumnSpan="9"
+                Padding="30"
+                CanUserAddRows="False"
+                AutoGenerateColumns="False"
+                HeadersVisibility="All"
+                >
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Название"
+                        Binding="{Binding Name}"
+                        />
+                    <DataGridTextColumn
+                        Header="Доступно"
+                        Binding="{Binding MemoryDisk}"
+                        />
+                    <DataGridTextColumn
+                        Header="Использовано"
+                        Binding="{Binding UsedDisk}"
+                        />
+                    <DataGridTextColumn
+                        Header="Исп. %"
+                        Binding="{Binding PieceDisk}"
+                        />
+                </DataGrid.Columns>
+            </DataGrid>
 
-                            </StackPanel>
-
-                        </DockPanel>
-
-                    </Grid>
-
-                </materialDesign:ColorZone>
-                <!-- поля ввода -->
-                <ScrollViewer
-                    
-                    Grid.Row="1"
-                    Grid.RowSpan="10"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="9"
-                    Padding="30"
-                    >
-                    <StackPanel
-                    x:Name="stk_disks"
-                    />
-                </ScrollViewer>
-
-                <Button
-                    x:Name="signIn_Ok"
-                    Grid.Row="11"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="3"
-                    Style="{StaticResource MaterialDesignFlatButton}"
-                    ToolTip="Авторизоваться"
-                    Content="ПРИНЯТЬ"
-                    />
-                <Button
-                    x:Name="signIn_cancel"
-                    Foreground="{StaticResource SecondaryHueMidBrush}"
-                    Grid.Row="11"
-                    Grid.Column="5"
-                    Grid.ColumnSpan="3"
-                    Style="{StaticResource MaterialDesignFlatButton}"
-                    ToolTip="Выйти из программы"
-                    Content="ОТМЕНА" 
-                    Click="cancel_Click" />
-            </Grid>
+            <Button
+                x:Name="signIn_Ok"
+                Grid.Row="11"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                ToolTip="Авторизоваться"
+                Content="ПРИНЯТЬ"
+                />
+            <Button
+                x:Name="signIn_cancel"
+                Foreground="{StaticResource SecondaryHueMidBrush}"
+                Grid.Row="11"
+                Grid.Column="5"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                ToolTip="Выйти из программы"
+                Content="ОТМЕНА" 
+                Click="cancel_Click" />
+            
 
             <!-- ======================================================================================================================== -->
 

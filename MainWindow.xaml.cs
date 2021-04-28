@@ -20,6 +20,8 @@ using IncubeAdmin.window;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace IncubeAdmin
 {
@@ -392,53 +394,20 @@ namespace IncubeAdmin
         }
 
 
-
-
-
-        /*private void radio1_Click(object sender, RoutedEventArgs e)                         // переключение страниц
-        {
-            first.Visibility = Visibility.Visible;
-            users.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Hidden;
-            none.Visibility = Visibility.Hidden;
-
-            //fourth.Visibility = Visibility.Hidden;
-
-        }*/
         private void usersPage_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            //first.Visibility = Visibility.Hidden;
             users_Page.Visibility = Visibility.Visible;
             system_Page.Visibility = Visibility.Hidden;
-            //none.Visibility = Visibility.Hidden;
-
             directories_Page.Visibility = Visibility.Hidden;
-
         }
         private void systemPage_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            //first.Visibility = Visibility.Hidden;
             users_Page.Visibility = Visibility.Hidden;
             system_Page.Visibility = Visibility.Visible;
-            //none.Visibility = Visibility.Hidden;
-
             directories_Page.Visibility = Visibility.Hidden;
-
         }
-       /* private void radio4_Click(object sender, RoutedEventArgs e)                         // переключение страниц
-        {
-            first.Visibility = Visibility.Hidden;
-            users.Visibility = Visibility.Hidden;
-            third.Visibility = Visibility.Hidden;
-            none.Visibility = Visibility.Visible;
-
-            directories.Visibility = Visibility.Hidden;
-        }*/
         private void directoriesPage_Click(object sender, RoutedEventArgs e)                         // переключение страниц
         {
-            //none.Visibility = Visibility.Hidden;
-
-            //first.Visibility = Visibility.Hidden;
             users_Page.Visibility = Visibility.Hidden;
             system_Page.Visibility = Visibility.Hidden;
             directories_Page.Visibility = Visibility.Visible;
@@ -574,7 +543,7 @@ namespace IncubeAdmin
             }
         }
 
-        private void GetDataCassandra() // Получение начальных сведений от виртуальной машины
+/*        private void GetDataCassandra() // Получение начальных сведений от виртуальной машины
         {
 
             try
@@ -693,7 +662,7 @@ namespace IncubeAdmin
                 });
             }
         }
-
+*/
         private void GetDataHost() // получить данные о хостах
         {
             // вызвать диспетчер патока главного окна и сделать изменения в GUI.
@@ -786,7 +755,7 @@ namespace IncubeAdmin
             });
         }
 
-        private void signUp_Click(object sender, RoutedEventArgs e) // окно создания подключения
+        private void connect_Click(object sender, RoutedEventArgs e) // окно создания подключения
         {
             try
             {
@@ -811,7 +780,7 @@ namespace IncubeAdmin
             catch { }
         }
 
-        private void sys1_Click(object sender, RoutedEventArgs e) // вывести информацию о узлах
+/*        private void sys1_Click(object sender, RoutedEventArgs e) // вывести информацию о узлах
         {
             try
             {
@@ -876,10 +845,10 @@ namespace IncubeAdmin
                 //left_ssh_text.Text = eee.ToString();
             }
 
-            /*MainGrid.Children.Remove(progressBar);
-            progressBar.Visibility = Visibility.Hidden;*/
+            *//*MainGrid.Children.Remove(progressBar);
+            progressBar.Visibility = Visibility.Hidden;*//*
         }
-
+*/
         private void sys4_Click(object sender, RoutedEventArgs e)
         {
             /*progressBar.Visibility = Visibility.Visible;
@@ -902,12 +871,44 @@ namespace IncubeAdmin
 
             //Thread thread = new Thread(GetDataCassandra);
             //thread.Start();
-
-            Thread thread = new Thread(GetDataHost);
+            Thread thread = new Thread(GetConnectCassandras);
             thread.Start();
+
+            //Thread thread = new Thread(GetDataHost);
+            //thread.Start();
+
         }
 
-        
+        private void GetConnectCassandras()
+        {
+            //using (var command = global.sshClients[0].CreateCommand("cd /opt/rust-bin/; ./casmon")) //("cd /etc/cassandra/ & /opt/rust-bin/casmon"))
+            //var command = global.sshClients[0].CreateCommand("cd /etc/cassandra/; /opt/rust-bin/casmon");
+            List<string> str = new List<string>();
+            //var fff = command.Execute();
+            Renci.SshNet.SshCommand ddd = global.sshClients[0].RunCommand("cd /etc/cassandra/; /opt/rust-bin/casmon");
+            string res = ddd.Result;
+            JObject eee = JObject.Parse(res);
+            JArray list = (JArray)eee["seeds"];
+            foreach (JObject content in list.Children<JObject>())
+            {
+                foreach (JProperty prop in content.Properties())
+                {
+                    string tempValue = prop.Value.ToString(); // This is not allowed 
+                    str.Add(tempValue);                                   
+                }
+            }
+
+
+
+            list = (JArray)list["node"];
+            List<string> rls = list.ToObject<List<string>>();
+            /*string[] words = fff.Split(new char[] { '\n' });
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                name_node.Add(words[i]);
+            }*/
+
+        }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

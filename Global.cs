@@ -23,7 +23,8 @@ namespace IncubeAdmin
         public string login;
         public string password;
         public SftpClient sftp;
-        public SshClient sshClient;
+        //public SshClient sshClient;
+        public List<SshClient> sshClients;
         public bool isConnect;
         public bool isProgressBar;    // видимость прогресс-бара
 
@@ -32,13 +33,13 @@ namespace IncubeAdmin
         public string host;
         public byte[] array;
 
-        private string passPhrase = "MyTestPassphrase";        //Может быть любой строкой
+/*        private string passPhrase = "MyTestPassphrase";        //Может быть любой строкой
         private string saltValue = "MyTestSaltValue";        // Может быть любой строкой
         private string hashAlgorithm = "SHA256";             // может быть "MD5"
         private int passwordIterations = 3;                //Может быть любым числом
         private string initVector = "!1A3g2D4s9K556g7"; // Должно быть 16 байт
         private int keySize = 256;                // Может быть 192 или 128
-
+*/
 
         public static Global getInstance() // возвращает singleton объекта Global
         {
@@ -49,6 +50,7 @@ namespace IncubeAdmin
 
         private Global()
         {
+            sshClients = new List<SshClient>();
             connectionString = "Data Source = ../../MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             nodes = new List<Node>();
             //hosts = new List<Host>();
@@ -59,38 +61,11 @@ namespace IncubeAdmin
 
             getUsersSQLite();
             getSystemsCassandra();
+            getAllDisk();
         }
 
         
-        public string MyEncrypt(string str)   // шифрование
-        {
-            string cipherText = RijndaelAlgorithm.Encrypt
-            (
-                str,
-                passPhrase,
-                saltValue,
-                hashAlgorithm,
-                passwordIterations,
-                initVector,
-                keySize
-            );
-            return cipherText;
-        }
 
-        public string MyDecrypt(string str)    // дешифрование
-        {
-            string plainText = RijndaelAlgorithm.Decrypt
-            (
-                str,
-                passPhrase,
-                saltValue,
-                hashAlgorithm,
-                passwordIterations,
-                initVector,
-                keySize
-            );
-            return plainText;
-        }
 
         public void getHosts(string nameUser) // выборка всех компьютеров по имени пользователя
         {
@@ -158,9 +133,11 @@ namespace IncubeAdmin
         }
         private void getAllDisk()
         {
+            double ss = 11000;
             for(int i = 1; i <6; i++)
             {
-                allDisks.Add(new AllDisk(i, $"10.90.90.{i}", "16000"));
+                allDisks.Add(new AllDisk($"10.90.90.{i}",$"sssss{i}", $"{ss}", "10000"));
+                ss += 1000;
             }
         }
     }

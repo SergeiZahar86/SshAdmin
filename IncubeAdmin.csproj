@@ -142,6 +142,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AllDisk.cs" />
+    <Compile Include="Casmon.cs" />
     <Compile Include="main\Host.cs" />
     <Compile Include="main\Node.cs" />
     <Compile Include="main\RijndaelAlgorithm.cs" />
@@ -152,17 +153,11 @@
     <Compile Include="window\ChangeHost.xaml.cs">
       <DependentUpon>ChangeHost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="window\EditHost.xaml.cs">
-      <DependentUpon>EditHost.xaml</DependentUpon>
-    </Compile>
     <Compile Include="window\ShowAllDisk.xaml.cs">
       <DependentUpon>ShowAllDisk.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="window\SignUp.xaml.cs">
-      <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\Wait.xaml.cs">
       <DependentUpon>Wait.xaml</DependentUpon>
@@ -192,19 +187,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="window\EditHost.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="window\ShowAllDisk.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\SignIn.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="window\SignUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

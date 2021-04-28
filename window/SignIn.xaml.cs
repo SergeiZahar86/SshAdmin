@@ -30,16 +30,16 @@ namespace IncubeAdmin.window
             secret = "kas;ldfu7392n.f(hjafl";             // соль для хэш-функции
 
             grid_signIn.Visibility = Visibility.Visible;
-            grid_signUp.Visibility = Visibility.Hidden;
+            //grid_signUp.Visibility = Visibility.Hidden;
             global = Global.getInstance();
             global.hosts = null;
             global.hosts = new List<Host>();
-            //host_string.Text = "10.90.0.29";
-            login_string.Text = "www";
-            pass_string.Password = "www";
-            global.host = "10.90.0.29";
+            ip_string.Text = "10.90.92.104";
+            login_string.Text = "root";
+            pass_string.Password = "Ind@sRoot2304";
+            global.host = "10.90.92.104";
             global.login = "root";
-            global.password = "root26032021";
+            global.password = "Ind@sRoot2304";
 
 
 
@@ -52,7 +52,7 @@ namespace IncubeAdmin.window
         private void OnTimedEvent(Object source, EventArgs e)  // метод таймера
         {
             grid_signIn.Visibility = Visibility.Visible;
-            grid_signUp.Visibility = Visibility.Hidden;
+            //grid_signUp.Visibility = Visibility.Hidden;
             dispatcherTimer.Stop();
         }
 
@@ -60,13 +60,122 @@ namespace IncubeAdmin.window
         {
             this.DragMove();
         }
-
         private void MinButton_Click(object sender, RoutedEventArgs e)    // сворачивание окна
         {
             this.WindowState = WindowState.Minimized;
         }
 
-        private void signIn_Ok_Click(object sender, RoutedEventArgs e)  // OK авторизация
+        private void signIn_cancel_Click(object sender, RoutedEventArgs e)   // Закрыть окно и выход из программы
+        {
+            this.Close();
+            Application.Current.Shutdown(); 
+            Environment.Exit(0);
+        }
+
+        private void signIn_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                global.sshClients.Add( new SshClient(global.host, global.login, global.password));
+                global.sshClients[0].Connect();
+                if (global.sshClients[0].IsConnected == true)
+                {
+                    global.isConnect = true;
+                    this.Close();
+                }
+                else
+                {
+                    textError.Text = "Соединение не установлено";
+                }
+
+
+            }
+            catch (Exception ee)
+            {
+                textError.Text = $"Ошибка соединения. \n {ee}";
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+/*        public string CalculateMD5Hash(string input)    // хэш-функция
+        {
+            // step 1, calculate MD5 hash from input
+            input = input + secret;
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+*/
+/*        private void signUp_Click(object sender, RoutedEventArgs e)  // Открыть форму регистрации
+        {
+            grid_signIn.Visibility = Visibility.Hidden;
+            //grid_signUp.Visibility = Visibility.Visible;
+        }
+*/
+/*        private void signUp_cancel_Click(object sender, RoutedEventArgs e) // Вернуться на форму авторизации
+        {
+            grid_signIn.Visibility = Visibility.Visible;
+            //grid_signUp.Visibility = Visibility.Hidden;
+        }
+*/
+/*        public void setUsers(string lg, string pass)  // добавление пользователя в базу
+        {
+           
+            sqlExpression = $"INSERT INTO Users (Name, Pass) VALUES ('{lg}', '{pass}')";
+            using (var connection = new SqliteConnection(global.connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                try
+                {
+                    int number = command.ExecuteNonQuery();
+                }
+                catch 
+                {
+                    error = true;
+                }
+            }
+        }
+*/
+
+        /*        private void signUp_Ok_Click(object sender, RoutedEventArgs e)  // OK регистрация
+                {
+                    error = false;
+                    //string password = pass_string1.Password + secret;
+                    string str = CalculateMD5Hash(pass_string1.Password);
+                    setUsers(login_string1.Text, str);
+                    if (error)
+                    {
+                        textError1.FontSize = 20;
+                        textError1.Foreground = Brushes.Red;
+                        textError1.Text = "Пользователь с таким именем уже существует";
+                    }
+                    else
+                    {
+                        textError1.FontSize = 25;
+                        textError1.Foreground = Brushes.White;
+                        textError1.Text = "Вы успешно зарегистрировались";
+                        dispatcherTimer.Start();
+                    }
+                }
+        */
+/*        private void signIn_Ok_Click(object sender, RoutedEventArgs e)  // OK авторизация
         {
             error = false;
             string log = login_string.Text;
@@ -121,7 +230,7 @@ namespace IncubeAdmin.window
 
             if (!error)
             {
-                /*try
+                *//*try
                 {
                     global.sshClient = new SshClient(global.host, global.login, global.password);
                     global.sshClient.Connect();
@@ -140,86 +249,11 @@ namespace IncubeAdmin.window
                     textError.Text = $"Ошибка соединения. \n {ee}";
                 }
 
-                global.getHosts(log);*/
+                global.getHosts(log);*//*
 
                 Close();
             }
         }
-
-        private void signIn_cancel_Click(object sender, RoutedEventArgs e)   // Закрыть окно и выход из программы
-        {
-            this.Close();
-            Application.Current.Shutdown(); 
-            Environment.Exit(0);
-        }
-
-        public string CalculateMD5Hash(string input)    // хэш-функция
-        {
-            // step 1, calculate MD5 hash from input
-            input = input + secret;
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
-            // step 2, convert byte array to hex string
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
-            {
-                sb.Append(hash[i].ToString("X2"));
-            }
-            return sb.ToString();
-        }
-
-        private void signUp_Click(object sender, RoutedEventArgs e)  // Открыть форму регистрации
-        {
-            grid_signIn.Visibility = Visibility.Hidden;
-            grid_signUp.Visibility = Visibility.Visible;
-        }
-
-        private void signUp_cancel_Click(object sender, RoutedEventArgs e) // Вернуться на форму авторизации
-        {
-            grid_signIn.Visibility = Visibility.Visible;
-            grid_signUp.Visibility = Visibility.Hidden;
-        }
-
-        public void setUsers(string lg, string pass)  // добавление пользователя в базу
-        {
-           /* var appSettings = ConfigurationManager.AppSettings;
-            List<string> ImportedFiles = new List<string>();*/
-            sqlExpression = $"INSERT INTO Users (Name, Pass) VALUES ('{lg}', '{pass}')";
-            using (var connection = new SqliteConnection(global.connectionString))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
-                try
-                {
-                    int number = command.ExecuteNonQuery();
-                }
-                catch 
-                {
-                    error = true;
-                }
-            }
-        }
-
-        private void signUp_Ok_Click(object sender, RoutedEventArgs e)  // OK регистрация
-        {
-            error = false;
-            //string password = pass_string1.Password + secret;
-            string str = CalculateMD5Hash(pass_string1.Password);
-            setUsers(login_string1.Text, str);
-            if (error)
-            {
-                textError1.FontSize = 20;
-                textError1.Foreground = Brushes.Red;
-                textError1.Text = "Пользователь с таким именем уже существует";
-            }
-            else
-            {
-                textError1.FontSize = 25;
-                textError1.Foreground = Brushes.White;
-                textError1.Text = "Вы успешно зарегистрировались";
-                dispatcherTimer.Start();
-            }
-        }
+*/
     }
 }

@@ -28,11 +28,14 @@ namespace IncubeAdmin.window
         byte r_Grey = 160;
         byte g_Grey = 178;
         byte b_Grey = 187;
-
+        private List<AllDisk> disks;
         public ShowAllDisk()
         {
             InitializeComponent();
             global = Global.getInstance();
+            disks = global.allDisks;
+            grid_disk.ItemsSource = disks;
+            grid_disk.SelectedItem = disks;
 
         }
 
@@ -58,7 +61,7 @@ namespace IncubeAdmin.window
             stack.Orientation = Orientation.Horizontal;
             TextBlock text = new TextBlock();
             text.FontSize = 14;
-            text.Inlines.Add(new Span(new Run(" ID     IP        DiskMemory")));
+            text.Inlines.Add(new Span(new Run(" Name             DiskMemory")));
             //tBlock.Foreground = ;
             text.TextAlignment = TextAlignment.Center;
             text.VerticalAlignment = VerticalAlignment.Center;
@@ -69,7 +72,7 @@ namespace IncubeAdmin.window
 
             //stack.Children.Add(bord);
             stack.Children.Add(text);
-            stk_disks.Children.Add(stack);
+            //stk_disks.Children.Add(stack);
             for (int i = 0; i < alls.Count; i++)
             {
                 StackPanel stk = new StackPanel();
@@ -87,7 +90,7 @@ namespace IncubeAdmin.window
 
                 //stack.Children.Add(bord);
                 stk.Children.Add(text1);
-                stk_disks.Children.Add(stk);
+                //stk_disks.Children.Add(stk);
             }
         }
 
