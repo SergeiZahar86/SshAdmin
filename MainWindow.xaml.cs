@@ -22,6 +22,9 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Windows.Threading;
+using System.Timers;
+using Renci.SshNet;
 
 namespace IncubeAdmin
 {
@@ -30,9 +33,13 @@ namespace IncubeAdmin
     /// </summary>
     public partial class MainWindow : Window
     {
+        int COUNT;
+        List<Casmon> casmon_list;
         private Global global;
         public List<string> roles;
         ApplicationViewModel applicationView;
+        DispatcherTimer getCasMon;                // таймер получение данных с casmon
+        DispatcherTimer getSysMon;                // таймер получение данных с sysmon
         Border border;
         int stckNmbr;
         TextBlock textBlock;
@@ -63,11 +70,26 @@ namespace IncubeAdmin
         byte g_Grey = 178;
         byte b_Grey = 187;
 
+
+
+        
+
         public MainWindow()
         {
 
             InitializeComponent();
             global = Global.getInstance();
+
+            casmon_list = new List<Casmon>();
+
+            getCasMon = new DispatcherTimer();
+            getCasMon.Tick += new EventHandler(GetConnectCassandras);
+            getCasMon.Interval = new TimeSpan(0, 0, 1);
+
+            getSysMon = new DispatcherTimer();
+            getSysMon.Tick += new EventHandler(GetConnectCassandras);
+            getSysMon.Interval = new TimeSpan(0, 0, 3);
+
             applicationView = ApplicationViewModel.getInstance();
             DataContext = applicationView;
             datagrid_users.ItemsSource = applicationView.Users;
@@ -868,46 +890,185 @@ namespace IncubeAdmin
                 stackPan_Nav.Children.Add(chip_connect);
             }
             global.isConnect = false;
-
+            getCasMon.Start();
             //Thread thread = new Thread(GetDataCassandra);
             //thread.Start();
-            Thread thread = new Thread(GetConnectCassandras);
-            thread.Start();
+            //Thread thread = new Thread(GetConnectCassandras);
+            //thread.Start();
 
             //Thread thread = new Thread(GetDataHost);
             //thread.Start();
 
         }
-
-        private void GetConnectCassandras()
+        //int i = 1;
+        private async void GetConnectCassandras(Object source, EventArgs e)  // Метод в таймере для casmon и создания всех соединений по SSH
         {
-            //using (var command = global.sshClients[0].CreateCommand("cd /opt/rust-bin/; ./casmon")) //("cd /etc/cassandra/ & /opt/rust-bin/casmon"))
-            //var command = global.sshClients[0].CreateCommand("cd /etc/cassandra/; /opt/rust-bin/casmon");
-            List<string> str = new List<string>();
-            //var fff = command.Execute();
-            Renci.SshNet.SshCommand ddd = global.sshClients[0].RunCommand("cd /etc/cassandra/; /opt/rust-bin/casmon");
-            string res = ddd.Result;
-            JObject eee = JObject.Parse(res);
-            JArray list = (JArray)eee["seeds"];
-            foreach (JObject content in list.Children<JObject>())
+
+            DispatcherTimer timer = (DispatcherTimer)source;
+            if (null != timer.Tag)
             {
-                foreach (JProperty prop in content.Properties())
-                {
-                    string tempValue = prop.Value.ToString(); // This is not allowed 
-                    str.Add(tempValue);                                   
-                }
+                return;
+            }
+            try
+            {
+                Task<List<Casmon>> t = Task<List<Casmon>>.Run(get_cass);
+                timer.Tag = t;
+                await t;
+                global.casmons = t.Result;
+                //i++;
+                //getCasMon.Interval = new TimeSpan(0,0,0,i);
+            }
+            catch (Exception ass)
+            {
+                return;
+            }
+            finally
+            {
+                timer.Tag = null;
             }
 
-
-
-            list = (JArray)list["node"];
-            List<string> rls = list.ToObject<List<string>>();
-            /*string[] words = fff.Split(new char[] { '\n' });
-            for (int i = 0; i < words.Length - 1; i++)
+            // получение файла casmon из начального соединения и извлечение всех доступных адресов
+            List<Casmon> get_cass()
             {
-                name_node.Add(words[i]);
-            }*/
+                casmon_list.Clear();
+                //var command = global.sshClients[0].CreateCommand("cd /etc/cassandra/; /opt/rust-bin/casmon");
+                //var fff = command.Execute();
+                try
+                {
+                    using (SshCommand ddd = global.sshClients[0].RunCommand("cd /etc/cassandra/; /opt/rust-bin/casmon"))
+                    {
+                        string res = ddd.Result;
+                        JObject eee = JObject.Parse(res);
+                        JArray list = (JArray)eee["seeds"];
+                        global.NameClasterCassandra = (string)eee["clusetr_name"];
+                        string node = "";
+                        string check = "";
+                        foreach (JObject content in list.Children<JObject>())
+                        {
+                            foreach (JProperty prop in content.Properties())
+                            {
+                                if (prop.Name.ToString() == "node")
+                                {
+                                    node = prop.Value.ToString();
+                                }
+                                else
+                                {
+                                    check = prop.Value.ToString();
+                                }
+                            }
+                            casmon_list.Add(new Casmon(node, check));
+                        }
+                    }
+                }
+                catch (Exception ass)
+                {
+                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                    {
+                        error_text.Text = $"Ошибка при получении данных с начального узла! \n{COUNT}\n{ass}";
+                    });
+                    COUNT++;
+                }
+                // делаем остальные соединения по ssh если их еще не сделали
+                int m = global.sshClients.Count -1 ;
+                if(global.sshClients.Count < casmon_list.Count) // если количество соединений меньше возможных
+                {
+                    foreach(Casmon casmon in casmon_list)
+                    {
+                        if(casmon.node != global.host)
+                        {
+                            m++;
+                            try
+                            {
+                                global.sshClients.Add(new SshClient(casmon.node, global.login, global.password));
+                                global.sshClients[m].Connect();
+                                if (global.sshClients[m].IsConnected != true)
+                                {
+                                    //MessageBox.Show($"Соединение SSH по адресу {cassss[i].node} не получилось установить!");
+                                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                    {
+                                        error_text.Text = $"Соединение SSH по адресу {casmon.node} не получилось установить! \n{COUNT}";
+                                    });
+                                    COUNT++;
+                                }
+                            }
+                            catch (Exception ee)
+                            {
+                                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    Console.WriteLine(casmon.node);
+                                    //MessageBox.Show($"Ошибка соединения по SSH {cassss[i].node} . \n {ee}");
+                                    error_text.Text = $"Ошибка соединения по SSH {casmon.node} . \n{COUNT}\n {ee}";
+                                });
+                                COUNT++;
+                            }
+                        }
+                    }
+                    int o = 0; // просто так. для точки остановки
+                }
+                else if(global.sshClients.Count == casmon_list.Count)  // проверка на IsConnected 
+                {
+                    foreach (SshClient ssh_client in global.sshClients)
+                    {
+                        if(ssh_client.IsConnected == false)
+                        {
+                            try
+                            {
+                                ssh_client.Connect();
+                            }
+                            catch (Exception ass)
+                            {
+                                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    error_text.Text = $"Ошибка при получении данных с начального узла! \n{COUNT}\n{ass}";
+                                });
+                                COUNT++;
+                            }
+                        }
+                    }
+                }
 
+                // получение всех sysmon файлов
+                foreach(SshClient ssh in global.sshClients)
+                {
+                    try
+                    {
+                        using (SshCommand ddd = ssh.RunCommand("cd /etc/cassandra/; /opt/rust-bin/sysmon"))
+                        {
+                            string res = ddd.Result;
+                            JObject eee = JObject.Parse(res);
+                            JArray list = (JArray)eee["disks"];
+                            /* global.NameClasterCassandra = (string)eee["clusetr_name"];
+                             string node = "";
+                             string check = "";
+                             foreach (JObject content in list.Children<JObject>())
+                             {
+                                 foreach (JProperty prop in content.Properties())
+                                 {
+                                     if (prop.Name.ToString() == "node")
+                                     {
+                                         node = prop.Value.ToString();
+                                     }
+                                     else
+                                     {
+                                         check = prop.Value.ToString();
+                                     }
+                                 }
+                                 casmon_list.Add(new Casmon(node, check));
+                             }*/
+                        }
+                    }
+                    catch (Exception ass)
+                    {
+                        this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                        {
+                            error_text.Text = $"Ошибка при получении данных с {ssh.ConnectionInfo.Host}! \n{COUNT}\n{ass}";
+                        });
+                        COUNT++;
+                    }
+                }
+
+                return casmon_list;
+            }
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

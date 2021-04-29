@@ -16,21 +16,22 @@ namespace IncubeAdmin
         private User User;
         public string connectionString;
         private string sqlExpression;
-        public List<User> UsersGlobal; // список пользователей из базы данных
+        public List<User> UsersGlobal;                             // список пользователей из базы данных
         public List<SystemCassandra> systemCassandras;
-        public List<AllDisk> allDisks;
+        public List<AllDisk> allDisks;                             // список всех дисков на конкретном
+        public string NameClasterCassandra;                        // название кластера кассандры
+        public List<Casmon> casmons;                               // список узлов кассандры
 
-        public string login;
-        public string password;
-        public SftpClient sftp;
-        //public SshClient sshClient;
-        public List<SshClient> sshClients;
-        public bool isConnect;
-        public bool isProgressBar;    // видимость прогресс-бара
+        public string host;                                        // ip вводимое при запуске программы
+        public string login;                                       // login вводимый при запуске программы
+        public string password;                                    // password вводимый при запуске программы
+        //public SftpClient sftp;
+        public List<SshClient> sshClients;                         // список соединений по ssh к компьютерам
+        public bool isConnect;                                     // проверка соединения по ssh для отображения вверху окна
+        public bool isProgressBar;                                 // видимость прогресс-бара
 
-        public List<Node> nodes;      // список узлов Cassandra
-        public List<Host> hosts;      // список хостов
-        public string host;
+        public List<Node> nodes;                                   // список узлов Cassandra
+        public List<Host> hosts;                                   // список хостов
         public byte[] array;
 
 /*        private string passPhrase = "MyTestPassphrase";        //Может быть любой строкой
@@ -50,6 +51,7 @@ namespace IncubeAdmin
 
         private Global()
         {
+            casmons = new List<Casmon>();
             sshClients = new List<SshClient>();
             connectionString = "Data Source = ../../MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             nodes = new List<Node>();

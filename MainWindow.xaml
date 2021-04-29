@@ -763,7 +763,18 @@
                         </TransformGroup>
                     </Canvas.LayoutTransform>
                 </Canvas>
-                
+                <ScrollViewer
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.Column="9"
+                    Grid.ColumnSpan="2"
+                    >
+                    <TextBlock
+                        x:Name="error_text"
+                        TextWrapping="Wrap"
+                        Foreground="Red"
+                        />
+                </ScrollViewer>
                 
                 <!-- Таблица системы -->
                 <materialDesign:Card
