@@ -35,6 +35,7 @@ namespace IncubeAdmin
     {
         int COUNT;
         List<Casmon> casmon_list;
+        public List<Disk> disks;
         private Global global;
         public List<string> roles;
         ApplicationViewModel applicationView;
@@ -1030,6 +1031,7 @@ namespace IncubeAdmin
                 // получение всех sysmon файлов
                 foreach(SshClient ssh in global.sshClients)
                 {
+                    disks.Clear();
                     try
                     {
                         using (SshCommand ddd = ssh.RunCommand("cd /etc/cassandra/; /opt/rust-bin/sysmon"))
@@ -1037,24 +1039,33 @@ namespace IncubeAdmin
                             string res = ddd.Result;
                             JObject eee = JObject.Parse(res);
                             JArray list = (JArray)eee["disks"];
-                            /* global.NameClasterCassandra = (string)eee["clusetr_name"];
-                             string node = "";
-                             string check = "";
-                             foreach (JObject content in list.Children<JObject>())
-                             {
-                                 foreach (JProperty prop in content.Properties())
-                                 {
-                                     if (prop.Name.ToString() == "node")
-                                     {
-                                         node = prop.Value.ToString();
-                                     }
-                                     else
-                                     {
-                                         check = prop.Value.ToString();
-                                     }
-                                 }
-                                 casmon_list.Add(new Casmon(node, check));
-                             }*/
+                            string name = "";
+                            string mount_point = "";
+                            double total = 0;
+                            double used = 0;
+                            foreach (JObject content in list.Children<JObject>())
+                            {
+                                foreach (JProperty prop in content.Properties())
+                                {
+                                    if (prop.Name.ToString() == "name")
+                                    {
+                                        name = prop.Value.ToString();
+                                    }
+                                    else if (prop.Name.ToString() == "mount_point")
+                                    {
+                                        mount_point = prop.Value.ToString();
+                                    }
+                                    else if (prop.Name.ToString() == "total")
+                                    {
+                                        total = (double)prop.Value;
+                                    }
+                                    else if (prop.Name.ToString() == "used")
+                                    {
+                                        used = (double)prop.Value;
+                                    }
+                                }
+                                disks.Add(new Disk(name, mount_point, total, used));
+                            }
                         }
                     }
                     catch (Exception ass)

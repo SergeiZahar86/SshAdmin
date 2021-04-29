@@ -9,7 +9,7 @@ namespace IncubeAdmin
     // класс для разбора json sysmon
     public class Disk
     {
-        public Disk(string n, string m, string t, string u)
+        public Disk(string n, string m, double t, double u)
         {
             name = n;
             mount_point = m;
@@ -18,7 +18,7 @@ namespace IncubeAdmin
         }
         public string name { get; set; }
         public string mount_point { get; set; }
-        public object total { get; set; }
-        public object used { get; set; }
+        public double total { get; set; }
+        public double used { get; set; }
     }
 }
