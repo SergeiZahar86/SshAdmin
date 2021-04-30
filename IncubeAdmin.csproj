@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DA8460E6-4FB7-4AF3-822D-105962CF3653}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>IncubeAdmin</RootNamespace>
     <AssemblyName>IncubeAdmin</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -150,6 +150,7 @@
     <Compile Include="main\Host.cs" />
     <Compile Include="main\Node.cs" />
     <Compile Include="main\RijndaelAlgorithm.cs" />
+    <Compile Include="SshError.cs" />
     <Compile Include="Sysmon.cs" />
     <Compile Include="SystemCassandra.cs" />
     <Compile Include="window\AddHost.xaml.cs">

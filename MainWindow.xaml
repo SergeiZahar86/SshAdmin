@@ -787,9 +787,48 @@
                     Margin="15,15,15,15"
                     >
 
-                    
-
-                    
+                    <DataGrid
+                        x:Name="datagrid_system"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        HeadersVisibility="All"
+                        CanUserDeleteRows="False"
+                        CanUserSortColumns="True"
+                        >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Header="Code"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                            <materialDesign:DataGridTextColumn
+                                Header="Name"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                <materialDesign:DataGridTextColumn.Binding>
+                                    <Binding
+                                        >
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </materialDesign:DataGridTextColumn.Binding>
+                            </materialDesign:DataGridTextColumn>
+                            <!-- set a max length to get an indicator in the editor -->
+                            <DataGridTextColumn
+                                Header="Description"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                                <DataGridTextColumn.Binding>
+                                    <Binding
+                                        >
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                        <!--
                     <DataGrid 
                         x:Name="datagrid_system"
                         ColumnWidth="*" 
@@ -1118,7 +1157,7 @@
 
 
                 </DataGrid>
-                    
+                    -->
                 </materialDesign:Card>
                 <!-- Левая панель -->
                 <!--

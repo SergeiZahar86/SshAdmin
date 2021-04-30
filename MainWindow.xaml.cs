@@ -82,6 +82,7 @@ namespace IncubeAdmin
             global = Global.getInstance();
 
             casmon_list = new List<Casmon>();
+            disks = new List<Disk>();
 
             getCasMon = new DispatcherTimer();
             getCasMon.Tick += new EventHandler(GetConnectCassandras);
@@ -95,8 +96,10 @@ namespace IncubeAdmin
             DataContext = applicationView;
             datagrid_users.ItemsSource = applicationView.Users;
             datagrid_users.SelectedItem = applicationView.SelectedUser;
-            datagrid_system.ItemsSource = applicationView.Cassandras;
-            datagrid_system.SelectedItem = applicationView.SelectedSystemCassandra;
+            //datagrid_system.ItemsSource = applicationView.Cassandras;
+            //datagrid_system.SelectedItem = applicationView.SelectedSystemCassandra;
+            datagrid_system.ItemsSource = global.sshErrors;
+            datagrid_system.SelectedItem = global.sshErrors;
            
 
             users_Page.Visibility = Visibility.Hidden;
@@ -994,6 +997,7 @@ namespace IncubeAdmin
                             }
                             catch (Exception ee)
                             {
+                                global.sshErrors.Add(new SshError(DateTime.Now.ToLongTimeString(), ee.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
                                     Console.WriteLine(casmon.node);
@@ -1028,6 +1032,7 @@ namespace IncubeAdmin
                     }
                 }
 
+                global.sysmons.Clear();
                 // получение всех sysmon файлов
                 foreach(SshClient ssh in global.sshClients)
                 {
@@ -1038,6 +1043,15 @@ namespace IncubeAdmin
                         {
                             string res = ddd.Result;
                             JObject eee = JObject.Parse(res);
+
+                            string host = (string)eee["host"];
+                            string ip = (string)eee["ip"];
+                            string os = (string)eee["os"];
+                            string version = (string)eee["version"];
+                            int mem_total = (int)eee["mem_total"];
+                            int mem_used = (int)eee["mem_used"];
+
+
                             JArray list = (JArray)eee["disks"];
                             string name = "";
                             string mount_point = "";
@@ -1066,6 +1080,7 @@ namespace IncubeAdmin
                                 }
                                 disks.Add(new Disk(name, mount_point, total, used));
                             }
+                            global.sysmons.Add(new Sysmon(host, ip, os, version, mem_total, mem_used, disks));
                         }
                     }
                     catch (Exception ass)

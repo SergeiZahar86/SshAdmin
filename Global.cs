@@ -21,6 +21,8 @@ namespace IncubeAdmin
         public List<AllDisk> allDisks;                             // список всех дисков на конкретном
         public string NameClasterCassandra;                        // название кластера кассандры
         public List<Casmon> casmons;                               // список узлов кассандры
+        public List<Sysmon> sysmons;                               // список Sysmon
+        public List<SshError> sshErrors;                           // список ошибок
 
         public string host;                                        // ip вводимое при запуске программы
         public string login;                                       // login вводимый при запуске программы
@@ -51,7 +53,9 @@ namespace IncubeAdmin
 
         private Global()
         {
+            sshErrors = new List<SshError>();
             casmons = new List<Casmon>();
+            sysmons = new List<Sysmon>();
             sshClients = new List<SshClient>();
             connectionString = "Data Source = ../../MySqlite.db;Cache=Shared;Mode=ReadWrite;";
             nodes = new List<Node>();
