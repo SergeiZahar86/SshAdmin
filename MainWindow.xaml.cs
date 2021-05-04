@@ -59,6 +59,10 @@ namespace IncubeAdmin
         byte g_Green = 218;
         byte b_Green = 201;
 
+        // зеленый для элипсов
+        byte r_GreenE = 36;
+        byte g_GreenE = 201;
+        byte b_GreenE = 133;
 
         // желтый
         byte r_Yellow = 255;
@@ -71,9 +75,12 @@ namespace IncubeAdmin
         byte g_Grey = 178;
         byte b_Grey = 187;
 
+        // серый для эллипса
+        byte r = 66;
+        byte g = 66;
+        byte b = 66;
 
 
-        
 
         public MainWindow()
         {
@@ -174,11 +181,9 @@ namespace IncubeAdmin
             y0 = cnv.Height / 2;   // центр канваса
 
             // серый
-            byte r = 66;
-            byte g = 66;
-            byte b = 66;
 
-            
+
+
 
 
 
@@ -204,13 +209,44 @@ namespace IncubeAdmin
             //cnv.Children.Add(ellipse);
 
 
+            /*Ellipse ellipse2 = new Ellipse();
+            //Color c2 = Color.FromArgb(246, 246, 248, 0);
+            //ellipse2.Fill = new SolidColorBrush(c);
+            ellipse2.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
+            ellipse2.Width = 450;
+            ellipse2.Height = 450;
+            ellipse2.Margin = new Thickness(x0 - 225, y0 - 225, 0, 0);
+            ellipse2.Stroke = Brushes.Black;
+            ellipse2.StrokeThickness = 0;
+
+
+            DropShadowEffect shadowEffect = new DropShadowEffect();
+            //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
+            //shadowEffect.Color = c3;
+            shadowEffect.Color = Colors.Black;
+            shadowEffect.Direction = 0;
+            shadowEffect.BlurRadius = 10;
+            shadowEffect.ShadowDepth = 0;
+            shadowEffect.Opacity = 50;
+            //effect.
+            ellipse2.Effect = shadowEffect;
+            cnv.Children.Add(ellipse2);*/
+
+            main_Elipse();
+
+            radius = 150;
+            //radius_Elipse(4);
+
+        }
+        public void main_Elipse() // отрисовка круга для фона
+        {
             Ellipse ellipse2 = new Ellipse();
             //Color c2 = Color.FromArgb(246, 246, 248, 0);
             //ellipse2.Fill = new SolidColorBrush(c);
             ellipse2.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
-            ellipse2.Width = 300;
-            ellipse2.Height = 300;
-            ellipse2.Margin = new Thickness(x0 - 150, y0 - 150, 0, 0);
+            ellipse2.Width = 450;
+            ellipse2.Height = 450;
+            ellipse2.Margin = new Thickness(x0 - 225, y0 - 225, 0, 0);
             ellipse2.Stroke = Brushes.Black;
             ellipse2.StrokeThickness = 0;
 
@@ -226,15 +262,8 @@ namespace IncubeAdmin
             //effect.
             ellipse2.Effect = shadowEffect;
             cnv.Children.Add(ellipse2);
-
-
-
-            radius = 115;
-            //radius_Elipse(4);
-
         }
-
-        public void radius_Elipse (List<Node> count) // отрисовка элипсов по окружности
+        public void radius_Elipse (List<Casmon> count) // отрисовка элипсов по окружности
         {
             /*double x0 = cnv.Width / 2;    // центр канваса
             double y0 = cnv.Height / 2;   // центр канваса*/
@@ -291,26 +320,26 @@ namespace IncubeAdmin
                 double y1 = y0 + (radius * Math.Sin(radian2));
 
                 Border bord = new Border();
-                bord.Width = 50;
-                bord.Height = 50;
-                bord.Margin = new Thickness(x1 - 25, y1 - 25, 0, 0);   // первый круг
-                bord.CornerRadius = new CornerRadius(25);
+                bord.Width = 110;
+                bord.Height = 110;
+                bord.Margin = new Thickness(x1 - 55, y1 - 55, 0, 0);   // первый круг
+                bord.CornerRadius = new CornerRadius(55);
                 //bord.BorderBrush = Brushes.Orange;
 
-                if (global.nodes[i].Status == "DN")
+                if (global.casmons[i].check == "false")
                 {
                     bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
                     bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
                 }
                 else
                 {
-                    bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                    bord.Background = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
+                    bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
+                    bord.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
                 }
 
                 bord.BorderThickness = new Thickness(0);
                 bord.Focusable = true;
-                bord.Tag = count[i].Name; // для поиска метки по клику правой кнопки мыши
+                bord.Tag = count[i].node; // для поиска метки по клику правой кнопки мыши
 
                 /*DropShadowEffect shadowEffect = new DropShadowEffect();
                 //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
@@ -345,9 +374,9 @@ namespace IncubeAdmin
                 bord1.Effect = effect3;*/
 
                 TextBlock tBlock = new TextBlock();
-                tBlock.FontSize = 16;
-                tBlock.Inlines.Add(new Bold(new Run(count[i].Name)));
-                tBlock.Foreground = Brushes.Black;
+                tBlock.FontSize = 14;
+                tBlock.Inlines.Add(new Bold(new Run(count[i].node)));
+                tBlock.Foreground = Brushes.White;
                 tBlock.TextAlignment = TextAlignment.Center;
                 tBlock.VerticalAlignment = VerticalAlignment.Center;
                 tBlock.HorizontalAlignment = HorizontalAlignment.Center;
@@ -919,6 +948,9 @@ namespace IncubeAdmin
                 timer.Tag = t;
                 await t;
                 global.casmons = t.Result;
+                cnv.Children.Clear();
+                main_Elipse();
+                radius_Elipse(global.casmons);
                 //i++;
                 //getCasMon.Interval = new TimeSpan(0,0,0,i);
             }
@@ -966,9 +998,13 @@ namespace IncubeAdmin
                 }
                 catch (Exception ass)
                 {
+                    global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ass.ToString()));
                     this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                     {
-                        error_text.Text = $"Ошибка при получении данных с начального узла! \n{COUNT}\n{ass}";
+                        datagrid_system.ItemsSource = null;
+                        datagrid_system.SelectedItem = null;
+                        datagrid_system.ItemsSource = global.sshErrors;
+                        datagrid_system.SelectedItem = global.sshErrors;
                     });
                     COUNT++;
                 }
@@ -988,21 +1024,24 @@ namespace IncubeAdmin
                                 if (global.sshClients[m].IsConnected != true)
                                 {
                                     //MessageBox.Show($"Соединение SSH по адресу {cassss[i].node} не получилось установить!");
-                                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                    /*this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                     {
                                         error_text.Text = $"Соединение SSH по адресу {casmon.node} не получилось установить! \n{COUNT}";
                                     });
-                                    COUNT++;
+                                    COUNT++;*/
                                 }
                             }
                             catch (Exception ee)
                             {
-                                global.sshErrors.Add(new SshError(DateTime.Now.ToLongTimeString(), ee.ToString()));
+                                global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ee.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
-                                    Console.WriteLine(casmon.node);
+                                    datagrid_system.ItemsSource = null;
+                                    datagrid_system.SelectedItem = null;
+                                    datagrid_system.ItemsSource = global.sshErrors;
+                                    datagrid_system.SelectedItem = global.sshErrors;
+                                    //Console.WriteLine(casmon.node);
                                     //MessageBox.Show($"Ошибка соединения по SSH {cassss[i].node} . \n {ee}");
-                                    error_text.Text = $"Ошибка соединения по SSH {casmon.node} . \n{COUNT}\n {ee}";
                                 });
                                 COUNT++;
                             }
@@ -1022,9 +1061,13 @@ namespace IncubeAdmin
                             }
                             catch (Exception ass)
                             {
+                                global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ass.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
-                                    error_text.Text = $"Ошибка при получении данных с начального узла! \n{COUNT}\n{ass}";
+                                    datagrid_system.ItemsSource = null;
+                                    datagrid_system.SelectedItem = null;
+                                    datagrid_system.ItemsSource = global.sshErrors;
+                                    datagrid_system.SelectedItem = global.sshErrors;
                                 });
                                 COUNT++;
                             }
@@ -1085,9 +1128,13 @@ namespace IncubeAdmin
                     }
                     catch (Exception ass)
                     {
+                        global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ass.ToString()));
                         this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                         {
-                            error_text.Text = $"Ошибка при получении данных с {ssh.ConnectionInfo.Host}! \n{COUNT}\n{ass}";
+                            datagrid_system.ItemsSource = null;
+                            datagrid_system.SelectedItem = null;
+                            datagrid_system.ItemsSource = global.sshErrors;
+                            datagrid_system.SelectedItem = global.sshErrors;
                         });
                         COUNT++;
                     }

@@ -45,7 +45,7 @@
             <SolidColorBrush x:Key="TextGray" Color="#FF9F9F9F"/>
             <SolidColorBrush x:Key="LineTextGray" Color="#FFEEEEEE"/>
 
-
+            <SolidColorBrush x:Key="GreenElipse" Color="#24C985"/>
 
 
 
