@@ -33,7 +33,6 @@ namespace IncubeAdmin
     /// </summary>
     public partial class MainWindow : Window
     {
-        int COUNT;
         List<Casmon> casmon_list;
         public List<Disk> disks;
         private Global global;
@@ -252,9 +251,9 @@ namespace IncubeAdmin
 
 
             DropShadowEffect shadowEffect = new DropShadowEffect();
-            //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
-            //shadowEffect.Color = c3;
-            shadowEffect.Color = Colors.Black;
+            Color c3 = (Color)ColorConverter.ConvertFromString("#FF595959");
+            shadowEffect.Color = c3;
+            //shadowEffect.Color = Colors.Black;
             shadowEffect.Direction = 0;
             shadowEffect.BlurRadius = 10;
             shadowEffect.ShadowDepth = 0;
@@ -326,20 +325,22 @@ namespace IncubeAdmin
                 bord.CornerRadius = new CornerRadius(55);
                 //bord.BorderBrush = Brushes.Orange;
 
-                if (global.casmons[i].check == "false")
+                if (global.casmons[i].check == "False")
                 {
                     bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
                     bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                    bord.Tag = "yellow";
                 }
                 else
                 {
                     bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
                     bord.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
+                    bord.Tag = "green";
                 }
 
                 bord.BorderThickness = new Thickness(0);
                 bord.Focusable = true;
-                bord.Tag = count[i].node; // для поиска метки по клику правой кнопки мыши
+                //bord.Tag = count[i].node; // для поиска метки по клику правой кнопки мыши
 
                 /*DropShadowEffect shadowEffect = new DropShadowEffect();
                 //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
@@ -376,7 +377,7 @@ namespace IncubeAdmin
                 TextBlock tBlock = new TextBlock();
                 tBlock.FontSize = 14;
                 tBlock.Inlines.Add(new Bold(new Run(count[i].node)));
-                tBlock.Foreground = Brushes.White;
+                tBlock.Foreground = new SolidColorBrush(Color.FromRgb(48, 48, 48));
                 tBlock.TextAlignment = TextAlignment.Center;
                 tBlock.VerticalAlignment = VerticalAlignment.Center;
                 tBlock.HorizontalAlignment = HorizontalAlignment.Center;
@@ -947,10 +948,49 @@ namespace IncubeAdmin
                 Task<List<Casmon>> t = Task<List<Casmon>>.Run(get_cass);
                 timer.Tag = t;
                 await t;
-                global.casmons = t.Result;
+                /*global.casmons = t.Result;
                 cnv.Children.Clear();
                 main_Elipse();
-                radius_Elipse(global.casmons);
+                radius_Elipse(global.casmons);*/
+                if (global.casmons.Count == 0)
+                {
+                    global.casmons = t.Result;
+                    cnv.Children.Clear();
+                    main_Elipse();
+                    radius_Elipse(global.casmons);
+                }
+                else 
+                {
+                    foreach(Casmon cas in t.Result)
+                    { 
+                        if(cas.check == "False")
+                        {
+                            global.casmons = t.Result;
+                            cnv.Children.RemoveRange(1,3);
+                            main_Elipse();
+                            radius_Elipse(global.casmons);
+                            break;
+                        }
+                        else
+                        {
+                            foreach (UIElement uI in cnv.Children)
+                            {
+                                if(uI is Border )
+                                {
+                                    Border border = (Border)uI;
+                                    if(border.Tag.ToString() == "yellow")
+                                    {
+                                        global.casmons = t.Result;
+                                        cnv.Children.RemoveRange(1, 3);
+                                        main_Elipse();
+                                        radius_Elipse(global.casmons);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 //i++;
                 //getCasMon.Interval = new TimeSpan(0,0,0,i);
             }
@@ -1006,7 +1046,6 @@ namespace IncubeAdmin
                         datagrid_system.ItemsSource = global.sshErrors;
                         datagrid_system.SelectedItem = global.sshErrors;
                     });
-                    COUNT++;
                 }
                 // делаем остальные соединения по ssh если их еще не сделали
                 int m = global.sshClients.Count -1 ;
@@ -1043,7 +1082,6 @@ namespace IncubeAdmin
                                     //Console.WriteLine(casmon.node);
                                     //MessageBox.Show($"Ошибка соединения по SSH {cassss[i].node} . \n {ee}");
                                 });
-                                COUNT++;
                             }
                         }
                     }
@@ -1069,7 +1107,6 @@ namespace IncubeAdmin
                                     datagrid_system.ItemsSource = global.sshErrors;
                                     datagrid_system.SelectedItem = global.sshErrors;
                                 });
-                                COUNT++;
                             }
                         }
                     }
@@ -1136,7 +1173,6 @@ namespace IncubeAdmin
                             datagrid_system.ItemsSource = global.sshErrors;
                             datagrid_system.SelectedItem = global.sshErrors;
                         });
-                        COUNT++;
                     }
                 }
 

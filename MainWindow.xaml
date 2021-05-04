@@ -755,7 +755,7 @@
                     RenderTransformOrigin="0.5,0.5"
                     Width="802"
                     Height="350"
-                    Background="{StaticResource Background}"
+                    Background="#FF303030"
                     >
                     <Canvas.LayoutTransform>
                         <TransformGroup>
