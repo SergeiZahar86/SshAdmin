@@ -33,6 +33,8 @@ namespace IncubeAdmin
     /// </summary>
     public partial class MainWindow : Window
     {
+        string nameClaster;
+        bool setBoolNameClaster = false;
         List<Casmon> casmon_list;
         public List<Disk> disks;
         private Global global;
@@ -128,19 +130,9 @@ namespace IncubeAdmin
             this.DataContext = this;
             roles_combo.ItemsSource = null;
             roles_combo.ItemsSource = roles;
-
-            
-            /*var thread = new Thread(Worker) { IsBackground = true };
-            thread.Start();*/
-
-
-
             // для диаграммы
             PointLabel = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             DataContext = this;
-
-
-
             // создание объектов для диаграмм
             SeriesCollection = new SeriesCollection      
             {
@@ -169,86 +161,45 @@ namespace IncubeAdmin
                     DataLabels = true
                 }
             };
-
-            //adding values or series will update and animate the chart automatically
-            //SeriesCollection.Add(new PieSeries());
-            //SeriesCollection[0].Values.Add(5);
-
             DataContext = this;
 
             x0 = cnv.Width / 2;    // центр канваса
             y0 = cnv.Height / 2;   // центр канваса
 
-            // серый
-
-
-
-
-
-
-            /*Ellipse ellipse = new Ellipse();
-            ellipse.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
-            ellipse.Width = 550;
-            ellipse.Height = 550;
-            ellipse.Margin = new Thickness(x0 - 275, y0 - 275, 0, 0);
-            ellipse.Stroke = Brushes.Black;
-            ellipse.StrokeThickness = 0;*/
-
-            /*DropShadowEffect effect = new DropShadowEffect();
-            Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
-            //effect.Color = Colors.Orange;
-            effect.Color = c3;
-            effect.Direction = 315;
-            effect.BlurRadius = 40;
-            effect.ShadowDepth = 20;
-            effect.Opacity = 50;
-            //effect.
-            ellipse.Effect = effect;*/
-
-            //cnv.Children.Add(ellipse);
-
-
-            /*Ellipse ellipse2 = new Ellipse();
-            //Color c2 = Color.FromArgb(246, 246, 248, 0);
-            //ellipse2.Fill = new SolidColorBrush(c);
-            ellipse2.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
-            ellipse2.Width = 450;
-            ellipse2.Height = 450;
-            ellipse2.Margin = new Thickness(x0 - 225, y0 - 225, 0, 0);
-            ellipse2.Stroke = Brushes.Black;
-            ellipse2.StrokeThickness = 0;
-
-
-            DropShadowEffect shadowEffect = new DropShadowEffect();
-            //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
-            //shadowEffect.Color = c3;
-            shadowEffect.Color = Colors.Black;
-            shadowEffect.Direction = 0;
-            shadowEffect.BlurRadius = 10;
-            shadowEffect.ShadowDepth = 0;
-            shadowEffect.Opacity = 50;
-            //effect.
-            ellipse2.Effect = shadowEffect;
-            cnv.Children.Add(ellipse2);*/
-
             main_Elipse();
-
             radius = 150;
-            //radius_Elipse(4);
 
+        }
+        public void cassandra_Name(string claster)
+        {
+            name_claster.Text = claster;
+            /*TextBlock tBlock = new TextBlock();
+            tBlock.Margin = new Thickness(x0, y0, 0, 0);
+            tBlock.FontSize = 14;
+            tBlock.Text = claster;
+            //tBlock.Inlines.Add(new Bold(new Run(claster)));
+            tBlock.Foreground = new SolidColorBrush(Color.FromRgb(r_Grey, g_Grey, b_Grey));
+            tBlock.TextAlignment = TextAlignment.Center;
+            tBlock.VerticalAlignment = VerticalAlignment.Center;
+            tBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            tBlock.Padding = new Thickness(0, 0, 0, 1);
+            double ddd = tBlock.Width;
+
+            
+            //cnv.Children.Add(bord1);
+            cnv.Children.Add(tBlock);*/
         }
         public void main_Elipse() // отрисовка круга для фона
         {
             Ellipse ellipse2 = new Ellipse();
-            //Color c2 = Color.FromArgb(246, 246, 248, 0);
-            //ellipse2.Fill = new SolidColorBrush(c);
+            
             ellipse2.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
             ellipse2.Width = 450;
             ellipse2.Height = 450;
             ellipse2.Margin = new Thickness(x0 - 225, y0 - 225, 0, 0);
             ellipse2.Stroke = Brushes.Black;
             ellipse2.StrokeThickness = 0;
-
+            
 
             DropShadowEffect shadowEffect = new DropShadowEffect();
             Color c3 = (Color)ColorConverter.ConvertFromString("#FF595959");
@@ -262,50 +213,9 @@ namespace IncubeAdmin
             ellipse2.Effect = shadowEffect;
             cnv.Children.Add(ellipse2);
         }
-        public void radius_Elipse (List<Casmon> count) // отрисовка элипсов по окружности
+        public void radius_Elipse_Casmon (List<Casmon> count) // отрисовка элипсов по окружности
         {
-            /*double x0 = cnv.Width / 2;    // центр канваса
-            double y0 = cnv.Height / 2;   // центр канваса*/
-
-
-            //stckNmbr = 1;
-
-
-            /*for(int i = 0; i <count.Length - 1; i++)
-            {
-
-            }*/
-
-            /*border = new Border();
-            border.Width = 50;
-            border.Height = 50;
-
-
-            border.Margin = new Thickness(x0 - 25, y0 + radius - 25, 0, 0);   // первый круг
-            //var ddd = border.Margin.Left;
-            border.CornerRadius = new CornerRadius(25);
-            border.BorderBrush = Brushes.Red;
-            border.Background = Brushes.LightPink;
-            border.BorderThickness = new Thickness(2);
-            border.Focusable = true;
-            border.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши
-
-
-            textBlock = new TextBlock();
-            textBlock.FontSize = 10;
-            textBlock.Inlines.Add(new Bold(new Run(stckNmbr.ToString())));
-            textBlock.Foreground = Brushes.Black;
-            textBlock.TextAlignment = TextAlignment.Center;
-            textBlock.VerticalAlignment = VerticalAlignment.Center;
-            textBlock.HorizontalAlignment = HorizontalAlignment.Center;
-            textBlock.Padding = new Thickness(0, 0, 0, 1);
-
-            border.Child = textBlock;
-            cnv.Children.Add(border);*/
             
-
-
-
             double angle = 360 / (count.Count);
             double angle2 = angle;
 
@@ -323,56 +233,27 @@ namespace IncubeAdmin
                 bord.Height = 110;
                 bord.Margin = new Thickness(x1 - 55, y1 - 55, 0, 0);   // первый круг
                 bord.CornerRadius = new CornerRadius(55);
-                //bord.BorderBrush = Brushes.Orange;
+                bord.BorderBrush = Brushes.Orange;
+                bord.BorderThickness = new Thickness(5);
 
                 if (global.casmons[i].check == "False")
                 {
                     bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
                     bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                    bord.Tag = "yellow";
+                    //bord.Tag = "yellow";
+                    bord.Tag = global.casmons[i].node;
                 }
                 else
                 {
                     bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
                     bord.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
-                    bord.Tag = "green";
+                    //bord.Tag = "green";
+                    bord.Tag = global.casmons[i].node;
                 }
 
                 bord.BorderThickness = new Thickness(0);
                 bord.Focusable = true;
-                //bord.Tag = count[i].node; // для поиска метки по клику правой кнопки мыши
-
-                /*DropShadowEffect shadowEffect = new DropShadowEffect();
-                //Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
-                //shadowEffect.Color = c3;
-                shadowEffect.Color = Colors.White;
-                shadowEffect.Direction = 135;
-                shadowEffect.BlurRadius = 15;
-                shadowEffect.ShadowDepth = 15;
-                shadowEffect.Opacity = 50;
-                //effect.
-                bord.Effect = shadowEffect;*/
-
-                /*Border bord1 = new Border();
-                bord1.Width = 100;
-                bord1.Height = 100;
-                bord1.Margin = new Thickness(x1 - 50, y1 - 50, 0, 0);   // первый круг
-                bord1.CornerRadius = new CornerRadius(50);
-                bord1.BorderBrush = Brushes.Orange;
-                bord1.Background = Brushes.Orange;
-                bord1.BorderThickness = new Thickness(2);
-                bord1.Focusable = true;
-                bord1.Tag = stckNmbr.ToString(); // для поиска метки по клику правой кнопки мыши*/
-
-               /* DropShadowEffect effect3 = new DropShadowEffect();
-                Color c3 = (Color)ColorConverter.ConvertFromString("#ededed");
-                //effect.Color = Colors.Orange;
-                effect3.Color = c3;
-                effect3.Direction = 315;
-                effect3.BlurRadius = 10;
-                effect3.ShadowDepth = 8;
-                effect3.Opacity = 50;
-                bord1.Effect = effect3;*/
+                
 
                 TextBlock tBlock = new TextBlock();
                 tBlock.FontSize = 14;
@@ -392,6 +273,63 @@ namespace IncubeAdmin
                 radian2 = angle2 * Math.PI / 180;
             }
         }
+        public void radius_Elipse_SSH(List<SshClient> count) // отрисовка элипсов по окружности
+        {
+
+            double angle = 360 / (count.Count);
+            double angle2 = angle;
+
+            double radian = angle * Math.PI / 180;
+            double radian2 = radian;
+            for (int i = 0; i < count.Count; i++)
+            {
+
+
+                double x1 = x0 + (radius * Math.Cos(radian2));
+                double y1 = y0 + (radius * Math.Sin(radian2));
+
+                Border bord = new Border();
+                bord.Width = 110;
+                bord.Height = 110;
+                bord.Margin = new Thickness(x1 - 55, y1 - 55, 0, 0);   // первый круг
+                bord.CornerRadius = new CornerRadius(55);
+                //bord.BorderBrush = Brushes.Orange;
+                if (global.casmons[i].check == "False")
+                {
+                    bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                    bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                    //bord.Tag = "yellow";
+                    bord.Tag = global.casmons[i].node;
+                }
+                else
+                {
+                    bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
+                    bord.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
+                    //bord.Tag = "green";
+                    bord.Tag = global.casmons[i].node;
+                }
+
+                bord.BorderThickness = new Thickness(0);
+                bord.Focusable = true;
+
+
+                TextBlock tBlock = new TextBlock();
+                tBlock.FontSize = 14;
+                //tBlock.Inlines.Add(new Bold(new Run(count[i].node)));
+                tBlock.Foreground = new SolidColorBrush(Color.FromRgb(48, 48, 48));
+                tBlock.TextAlignment = TextAlignment.Center;
+                tBlock.VerticalAlignment = VerticalAlignment.Center;
+                tBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                tBlock.Padding = new Thickness(0, 0, 0, 1);
+
+                bord.Child = tBlock;
+                cnv.Children.Add(bord);
+
+                angle2 += angle;
+                radian2 = angle2 * Math.PI / 180;
+            }
+        }
+
 
 
         private void butUser_Click(object sender, RoutedEventArgs e)                            // добавление User в таблицу
@@ -401,8 +339,6 @@ namespace IncubeAdmin
             datagrid_users.ItemsSource = null;
             datagrid_users.ItemsSource = applicationView.Users;
         }
-
-
 
         public Func<ChartPoint, string> PointLabel { get; set; }               // для диаграммы
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)   // для диаграммы
@@ -416,11 +352,6 @@ namespace IncubeAdmin
             var selectedSeries = (PieSeries)chartpoint.SeriesView;
             selectedSeries.PushOut = 20;
         }
-
-
-
-
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)                    // выход из программы
         {
             Application.Current.Shutdown(); // выход из программы
@@ -474,13 +405,6 @@ namespace IncubeAdmin
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
         }
-
-
-
-
-
-
-
 
 
 
@@ -836,75 +760,6 @@ namespace IncubeAdmin
             catch { }
         }
 
-/*        private void sys1_Click(object sender, RoutedEventArgs e) // вывести информацию о узлах
-        {
-            try
-            {
-                if (global.sshClient.IsConnected == true)
-                {
-                    // имя узла
-                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        for (int i = 0; i < words.Length - 1; i++) 
-                        {
-                            //left_ssh_text.Text += (words[i] + "\n");
-                            name_node.Add(words[i]);
-                        }
-                        //Console.Write(command.Execute());
-                        //Console.ReadLine();
-                    }
-                    // доступность узла
-                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $1}'"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        for (int i = 0; i < words.Length - 1; i++)
-                        {
-                            //left_ssh_text.Text += (words[i] + "\n");
-                            isOk_node.Add(words[i]);
-                        }
-                        //Console.Write(command.Execute());
-                        //Console.ReadLine();
-                    }
-                    // ip адрес узла
-                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $2}'"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        for (int i = 0; i < words.Length - 1; i++)
-                        {
-                            //left_ssh_text.Text += (words[i] + "\n");
-                            ip_node.Add(words[i]);
-                        }
-                        //Console.Write(command.Execute());
-                        //Console.ReadLine();
-                    }
-
-                    using (var command = global.sshClient.CreateCommand("nodetool status"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        foreach (string s in words)
-                        {
-                            //left_ssh_text.Text += (s + "\n");
-                        }
-                        //Console.Write(command.Execute());
-                        //Console.ReadLine();
-                    }
-                }
-
-            }
-            catch (Exception eee)
-            {
-                //left_ssh_text.Text = eee.ToString();
-            }
-
-            *//*MainGrid.Children.Remove(progressBar);
-            progressBar.Visibility = Visibility.Hidden;*//*
-        }
-*/
         private void sys4_Click(object sender, RoutedEventArgs e)
         {
             /*progressBar.Visibility = Visibility.Visible;
@@ -948,47 +803,49 @@ namespace IncubeAdmin
                 Task<List<Casmon>> t = Task<List<Casmon>>.Run(get_cass);
                 timer.Tag = t;
                 await t;
-                /*global.casmons = t.Result;
-                cnv.Children.Clear();
-                main_Elipse();
-                radius_Elipse(global.casmons);*/
                 if (global.casmons.Count == 0)
                 {
                     global.casmons = t.Result;
-                    cnv.Children.Clear();
-                    main_Elipse();
-                    radius_Elipse(global.casmons);
+                    //cnv.Children.Clear();
+                    //main_Elipse();
+                    radius_Elipse_Casmon(global.casmons);
                 }
                 else 
                 {
                     foreach(Casmon cas in t.Result)
-                    { 
-                        if(cas.check == "False")
+                    {
+                        if (cas.check == "False")
                         {
-                            global.casmons = t.Result;
-                            cnv.Children.RemoveRange(1,3);
-                            main_Elipse();
-                            radius_Elipse(global.casmons);
-                            break;
+                            //string tag = cas.node;
+                            foreach (UIElement uI in cnv.Children)
+                            {
+                                if (uI is Border)
+                                {
+                                    Border border = (Border)uI;
+                                    if (border.Tag.ToString() == cas.node.ToString())
+                                    {
+                                        border.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                                        global.casmons = t.Result;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
                             foreach (UIElement uI in cnv.Children)
                             {
-                                if(uI is Border )
+                                if (uI is Border)
                                 {
                                     Border border = (Border)uI;
-                                    if(border.Tag.ToString() == "yellow")
+                                    if (border.Tag.ToString() == cas.node.ToString())
                                     {
+                                        border.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
                                         global.casmons = t.Result;
-                                        cnv.Children.RemoveRange(1, 3);
-                                        main_Elipse();
-                                        radius_Elipse(global.casmons);
-                                        break;
                                     }
                                 }
                             }
                         }
+
                     }
                 }
                 //i++;
@@ -1007,8 +864,6 @@ namespace IncubeAdmin
             List<Casmon> get_cass()
             {
                 casmon_list.Clear();
-                //var command = global.sshClients[0].CreateCommand("cd /etc/cassandra/; /opt/rust-bin/casmon");
-                //var fff = command.Execute();
                 try
                 {
                     using (SshCommand ddd = global.sshClients[0].RunCommand("cd /etc/cassandra/; /opt/rust-bin/casmon"))
@@ -1085,7 +940,6 @@ namespace IncubeAdmin
                             }
                         }
                     }
-                    int o = 0; // просто так. для точки остановки
                 }
                 else if(global.sshClients.Count == casmon_list.Count)  // проверка на IsConnected 
                 {
@@ -1099,6 +953,10 @@ namespace IncubeAdmin
                             }
                             catch (Exception ass)
                             {
+                                //======================================================================================================================
+
+
+
                                 global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ass.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
@@ -1161,6 +1019,15 @@ namespace IncubeAdmin
                                 disks.Add(new Disk(name, mount_point, total, used));
                             }
                             global.sysmons.Add(new Sysmon(host, ip, os, version, mem_total, mem_used, disks));
+                            if (!setBoolNameClaster)  // устанавливаем имя кластера
+                            {
+                                nameClaster = global.sysmons[0].host;
+                                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    cassandra_Name(nameClaster);
+                                });
+                                setBoolNameClaster = true;
+                            }
                         }
                     }
                     catch (Exception ass)

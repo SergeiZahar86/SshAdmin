@@ -745,6 +745,28 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    FontSize="16"
+                    FontFamily="Arial"
+                    TextAlignment="Right"
+                    Text="Название кластера:  "
+                    Foreground="{StaticResource Gray}"
+                    Margin="0,10,0,0"
+                    />
+                <TextBlock
+                    x:Name="name_claster"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    FontSize="16"
+                    FontFamily="Arial"
+                    TextAlignment="Left"
+                    Foreground="{StaticResource LightGray}"
+                    Margin="0,10,0,0"
+                    />
                 <!-- Для размещения диаграммы -->
                 <Canvas 
                     Name="cnv"
