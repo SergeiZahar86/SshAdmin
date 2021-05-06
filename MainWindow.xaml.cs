@@ -78,6 +78,11 @@ namespace IncubeAdmin
         byte g_Grey = 178;
         byte b_Grey = 187;
 
+        // красный
+        byte r_Red = 244;
+        byte g_Red = 110;
+        byte b_Red = 104;
+
         // серый для эллипса
         byte r = 66;
         byte g = 66;
@@ -808,7 +813,7 @@ namespace IncubeAdmin
                 Task<List<Casmon>> t = Task<List<Casmon>>.Run(get_cass);
                 timer.Tag = t;
                 await t;
-                if (global.casmons.Count == 0)
+                /*if (global.casmons.Count == 0)
                 {
                     global.casmons = t.Result;
                     //cnv.Children.Clear();
@@ -827,7 +832,11 @@ namespace IncubeAdmin
                                 if (uI is Border)
                                 {
                                     Border border = (Border)uI;
-                                    if (border.Tag.ToString() == cas.node.ToString())
+
+                                    SolidColorBrush red = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
+                                    SolidColorBrush border_color = (SolidColorBrush)border.Background;
+
+                                    if (border.Tag.ToString() == cas.node.ToString() && red.Color != border_color.Color)
                                     {
                                         border.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
                                         global.casmons = t.Result;
@@ -842,7 +851,11 @@ namespace IncubeAdmin
                                 if (uI is Border)
                                 {
                                     Border border = (Border)uI;
-                                    if (border.Tag.ToString() == cas.node.ToString())
+
+                                    SolidColorBrush red = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
+                                    SolidColorBrush border_color = (SolidColorBrush)border.Background;
+
+                                    if (border.Tag.ToString() == cas.node.ToString() && red.Color != border_color.Color)
                                     {
                                         border.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
                                         global.casmons = t.Result;
@@ -852,7 +865,7 @@ namespace IncubeAdmin
                         }
 
                     }
-                }
+                }*/
                 //i++;
                 //getCasMon.Interval = new TimeSpan(0,0,0,i);
             }
@@ -895,6 +908,69 @@ namespace IncubeAdmin
                             casmon_list.Add(new Casmon(node, check));
                         }
                     }
+
+
+
+                    // Проверяем доступность и меняем цвет
+                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                    {
+                        if (global.casmons.Count == 0)
+                        {
+                            global.casmons = casmon_list;
+                            radius_Elipse_Casmon(global.casmons);
+                        }
+                        else
+                        {
+                            foreach (Casmon cas in global.casmons)
+                            {
+                                if (cas.check == "False")
+                                {
+                                    //string tag = cas.node;
+                                    foreach (UIElement uI in cnv.Children)
+                                    {
+                                        if (uI is Border)
+                                        {
+                                            Border border = (Border)uI;
+
+                                            SolidColorBrush red = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
+                                            SolidColorBrush border_color = (SolidColorBrush)border.Background;
+
+                                            if (border.Tag.ToString() == cas.node.ToString() && red.Color != border_color.Color)
+                                            {
+                                                border.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                                                //global.casmons = t.Result;
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (UIElement uI in cnv.Children)
+                                    {
+                                        if (uI is Border)
+                                        {
+                                            Border border = (Border)uI;
+
+                                            SolidColorBrush red = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
+                                            SolidColorBrush border_color = (SolidColorBrush)border.Background;
+
+                                            if (border.Tag.ToString() == cas.node.ToString() && red.Color != border_color.Color)
+                                            {
+                                                border.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
+                                                //global.casmons = t.Result;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    });
+
+
+
+
+
                 }
                 catch (Exception ass)
                 {
@@ -940,6 +1016,26 @@ namespace IncubeAdmin
                             }
                             catch (Exception ee)
                             {
+                                //string host = global.sshClients[m].ConnectionInfo.Host;
+                                string host = casmon.node;
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    foreach (UIElement uI in cnv.Children)
+                                    {
+                                        if (uI is Border)
+                                        {
+                                            Border border = (Border)uI;
+                                            if (border.Tag.ToString() == host.ToString())
+                                            {
+                                                border.Background = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
+                                            }
+                                        }
+                                    }
+                                });
+
+
+
+
                                 global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ee.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
@@ -969,16 +1065,51 @@ namespace IncubeAdmin
                                     image_Gif_System.Visibility = Visibility.Visible;
                                 });
                                 ssh_client.Connect();
+
+                                // Если соединение установлено то красим в желтый
+                                string host = ssh_client.ConnectionInfo.Host;
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    foreach (UIElement uI in cnv.Children)
+                                    {
+                                        if (uI is Border)
+                                        {
+                                            Border border = (Border)uI;
+                                            if (border.Tag.ToString() == host.ToString())
+                                            {
+                                                border.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
+                                            }
+                                        }
+                                    }
+                                });
+
+
+
                                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
                                     text_Gif_System.Visibility = Visibility.Hidden;
                                     image_Gif_System.Visibility = Visibility.Hidden;
                                 });
+
                             }
                             catch (Exception ass)
                             {
                                 //======================================================================================================================
-
+                                string host = ssh_client.ConnectionInfo.Host;
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    foreach (UIElement uI in cnv.Children)
+                                    {
+                                        if (uI is Border)
+                                        {
+                                            Border border = (Border)uI;
+                                            if (border.Tag.ToString() == host.ToString())
+                                            {
+                                                border.Background = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
+                                            }
+                                        }
+                                    }
+                                });
 
 
                                 global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ass.ToString()));
