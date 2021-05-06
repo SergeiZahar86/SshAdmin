@@ -25,6 +25,8 @@ using Newtonsoft.Json.Linq;
 using System.Windows.Threading;
 using System.Timers;
 using Renci.SshNet;
+using System.Net;
+using System.Net.Sockets;
 
 namespace IncubeAdmin
 {
@@ -115,6 +117,9 @@ namespace IncubeAdmin
             directories_Page.Visibility = Visibility.Hidden;
             progressBar.Visibility = Visibility.Hidden;
             //none.Visibility = Visibility.Hidden;
+
+            text_Gif_System.Visibility = Visibility.Hidden;
+            image_Gif_System.Visibility = Visibility.Hidden;
 
             //MainGrid.Children.Remove(progressBar);
             stackPan_Nav.Children.Remove(chip_connect);
@@ -914,7 +919,15 @@ namespace IncubeAdmin
                             try
                             {
                                 global.sshClients.Add(new SshClient(casmon.node, global.login, global.password));
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    progressBar.Visibility = Visibility.Visible;
+                                });
                                 global.sshClients[m].Connect();
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    progressBar.Visibility = Visibility.Hidden;
+                                });
                                 if (global.sshClients[m].IsConnected != true)
                                 {
                                     //MessageBox.Show($"Соединение SSH по адресу {cassss[i].node} не получилось установить!");
@@ -930,6 +943,7 @@ namespace IncubeAdmin
                                 global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ee.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
+                                    progressBar.Visibility = Visibility.Hidden;
                                     datagrid_system.ItemsSource = null;
                                     datagrid_system.SelectedItem = null;
                                     datagrid_system.ItemsSource = global.sshErrors;
@@ -949,7 +963,17 @@ namespace IncubeAdmin
                         {
                             try
                             {
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    text_Gif_System.Visibility = Visibility.Visible;
+                                    image_Gif_System.Visibility = Visibility.Visible;
+                                });
                                 ssh_client.Connect();
+                                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                                {
+                                    text_Gif_System.Visibility = Visibility.Hidden;
+                                    image_Gif_System.Visibility = Visibility.Hidden;
+                                });
                             }
                             catch (Exception ass)
                             {
@@ -960,6 +984,8 @@ namespace IncubeAdmin
                                 global.sshErrors.Add(new SshError(DateTime.Now.ToLocalTime().ToString(), ass.ToString()));
                                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
+                                    text_Gif_System.Visibility = Visibility.Hidden;
+                                    image_Gif_System.Visibility = Visibility.Hidden;
                                     datagrid_system.ItemsSource = null;
                                     datagrid_system.SelectedItem = null;
                                     datagrid_system.ItemsSource = global.sshErrors;
