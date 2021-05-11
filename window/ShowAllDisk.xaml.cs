@@ -28,15 +28,35 @@ namespace IncubeAdmin.window
         byte r_Grey = 160;
         byte g_Grey = 178;
         byte b_Grey = 187;
-        private List<AllDisk> disks;
-        public ShowAllDisk()
+        private List<Disk> disks;
+        private string Ip;
+        public ShowAllDisk(string ip)
         {
             InitializeComponent();
             global = Global.getInstance();
-            disks = global.allDisks;
+            Ip = ip;
+
+            foreach(Sysmon sysmon in global.sysmons)
+            {
+                if(sysmon.ip.ToString() == Ip)
+                {
+                    disks = sysmon.disks;
+                    host_sysmon.Text = sysmon.host;
+                    ip_sysmon.Text = sysmon.ip;
+                    os_sysmon.Text = sysmon.os;
+                    version_sysmon.Text = sysmon.version;
+                    mem_total_sysmon.Text = sysmon.mem_total.ToString();
+                    mem_used_sysmon.Text = sysmon.mem_used.ToString();
+
+                }
+            }
+
+
+
+            //disks = global.sysmons.;
+
             grid_disk.ItemsSource = disks;
             grid_disk.SelectedItem = disks;
-
         }
 
         private void ColorZone_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)  // Перемещение окна по экрану

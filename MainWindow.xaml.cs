@@ -275,6 +275,7 @@ namespace IncubeAdmin
                 tBlock.Padding = new Thickness(0, 0, 0, 1);
 
                 bord.Child = tBlock;
+                bord.MouseLeftButtonDown += bordLeftButton;
                 //cnv.Children.Add(bord1);
                 cnv.Children.Add(bord);
 
@@ -282,6 +283,14 @@ namespace IncubeAdmin
                 angle2 += angle;
                 radian2 = angle2 * Math.PI / 180;
             }
+        }
+        private void bordLeftButton(object sender, RoutedEventArgs e)
+        {
+            Border bord = (Border)sender;
+            //MessageBox.Show("hello");
+            ShowAllDisk showAll = new ShowAllDisk(bord.Tag.ToString());
+            showAll.Owner = Window.GetWindow(this);
+            showAll.Show();
         }
         public void radius_Elipse_SSH(List<SshClient> count) // отрисовка элипсов по окружности
         {
@@ -1173,7 +1182,7 @@ namespace IncubeAdmin
                                         used = (double)prop.Value;
                                     }
                                 }
-                                disks.Add(new Disk(name, mount_point, total, used));
+                                disks.Add(new Disk(name, mount_point, total.ToString(), used.ToString()));
                             }
                             global.sysmons.Add(new Sysmon(host, ip, os, version, mem_total, mem_used, disks));
                             if (!setBoolNameClaster)  // устанавливаем имя кластера
@@ -1204,11 +1213,11 @@ namespace IncubeAdmin
             }
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        /*private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ShowAllDisk showAllDisk = new ShowAllDisk();
             showAllDisk.ShowDialog();
-        }
+        }*/
 
        
     }

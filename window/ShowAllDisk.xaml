@@ -16,7 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="ShowAllDisk"
-        Height="450"
+        Height="620"
         Width="500"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -46,17 +46,23 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition />
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition Height="1.8*"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition />
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="1.8*"/>
             </Grid.RowDefinitions>
             <!-- Авторизация -->
             
@@ -95,20 +101,27 @@
                             materialDesign:RippleAssist.IsCentered="True"
                             >
                             <Button 
-                            Style="{StaticResource MaterialDesignFlatButton}" 
-                            Foreground="{StaticResource Gray}"
-                            ToolTip="Закрыть" 
-                            DockPanel.Dock="Right"
-                            Width="40" 
-                            Height="30" Padding="4" Click="close_Click"
-                            >
-                            <materialDesign:PackIcon Kind="Close"  Width="20" Height="20"/>
-                        </Button>
+                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                Foreground="{StaticResource Gray}"
+                                ToolTip="Закрыть" 
+                                DockPanel.Dock="Right"
+                                Width="40" 
+                                Height="30"
+                                Padding="4"
+                                Click="close_Click"
+                                >
+                                <materialDesign:PackIcon
+                                    Kind="Close"
+                                    Width="20"
+                                    Height="20"
+                                    />
+                            </Button>
                             <TextBlock 
-                        Foreground="{StaticResource Gray}"
-                        Text="Использование дисков"
-                        FontSize="20" Margin="50,0,0,0"
-                        />
+                                Foreground="{StaticResource Gray}"
+                                Text="Использование дисков"
+                                FontSize="20"
+                                Margin="95,0,0,0"
+                                />
                         </StackPanel>
                     </DockPanel>
                 </Grid>
@@ -127,13 +140,159 @@
                 x:Name="stk_disks"
                 />
             </ScrollViewer>
+
+            
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource Gray}"
+                Text="Host:"
+                />
+            <TextBlock
+                x:Name="host_sysmon"
+                Grid.Row="2"
+                Grid.Column="3"
+                Grid.ColumnSpan="6"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource LightGray}"
+                />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource Gray}"
+                Text="IP:"
+                />
+            <TextBlock
+                x:Name="ip_sysmon"
+                Grid.Row="3"
+                Grid.Column="3"
+                Grid.ColumnSpan="6"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource LightGray}"
+                />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource Gray}"
+                Text="Название ОС:"
+                />
+            <TextBlock
+                x:Name="os_sysmon"
+                Grid.Row="4"
+                Grid.Column="3"
+                Grid.ColumnSpan="6"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource LightGray}"
+                />
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource Gray}"
+                Text="Версия ОС:"
+                />
+            <TextBlock
+                x:Name="version_sysmon"
+                Grid.Row="5"
+                Grid.Column="3"
+                Grid.ColumnSpan="6"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource LightGray}"
+                />
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource Gray}"
+                Text="Доступно RAM:"
+                />
+            <TextBlock
+                x:Name="mem_total_sysmon"
+                Grid.Row="6"
+                Grid.Column="3"
+                Grid.ColumnSpan="6"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource LightGray}"
+                />
+            <TextBlock
+                Grid.Row="7"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource Gray}"
+                Text="Исп. RAM:"
+                />
+            <TextBlock
+                x:Name="mem_used_sysmon"
+                Grid.Row="7"
+                Grid.Column="3"
+                Grid.ColumnSpan="6"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Foreground="{StaticResource LightGray}"
+                />
+            <TextBlock
+                Grid.Row="8"
+                Grid.Column="2"
+                Grid.ColumnSpan="5"
+                Padding="30, 0,30,0"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                FontSize="20"
+                Foreground="{StaticResource Gray}"
+                Text="Дисковые разделы"
+                />
+            
             <DataGrid
                 x:Name="grid_disk"
-                Grid.Row="1"
-                Grid.RowSpan="10"
+                Grid.Row="9"
+                Grid.RowSpan="8"
                 Grid.Column="0"
                 Grid.ColumnSpan="9"
-                Padding="30"
+                Padding="30, 10,30,10"
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
                 HeadersVisibility="All"
@@ -141,15 +300,15 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Название"
-                        Binding="{Binding Name}"
+                        Binding="{Binding mount_point}"
                         />
                     <DataGridTextColumn
                         Header="Доступно"
-                        Binding="{Binding MemoryDisk}"
+                        Binding="{Binding total}"
                         />
                     <DataGridTextColumn
                         Header="Использовано"
-                        Binding="{Binding UsedDisk}"
+                        Binding="{Binding used}"
                         />
                     <DataGridTextColumn
                         Header="Исп. %"
@@ -158,24 +317,25 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <!--
             <Button
                 x:Name="signIn_Ok"
-                Grid.Row="11"
+                Grid.Row="18"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
                 Style="{StaticResource MaterialDesignFlatButton}"
                 ToolTip="Авторизоваться"
                 Content="ПРИНЯТЬ"
                 />
+            -->
             <Button
                 x:Name="signIn_cancel"
                 Foreground="{StaticResource SecondaryHueMidBrush}"
-                Grid.Row="11"
-                Grid.Column="5"
+                Grid.Row="18"
+                Grid.Column="3"
                 Grid.ColumnSpan="3"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                ToolTip="Выйти из программы"
-                Content="ОТМЕНА" 
+                Content="Закрыть" 
                 Click="cancel_Click" />
             
 
