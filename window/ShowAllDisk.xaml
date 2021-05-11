@@ -118,9 +118,9 @@
                             </Button>
                             <TextBlock 
                                 Foreground="{StaticResource Gray}"
-                                Text="Использование дисков"
+                                Text="Данные об операционной системе"
                                 FontSize="20"
-                                Margin="95,0,0,0"
+                                Margin="45,0,0,0"
                                 />
                         </StackPanel>
                     </DockPanel>
