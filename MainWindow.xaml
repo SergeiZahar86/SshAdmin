@@ -367,8 +367,12 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <DataGrid 
-                        x:Name="datagrid_users"
+                    
+                    
+                    
+                    
+                    <!--
+                    x:Name="datagrid_users"
                         Grid.Column="0"
                         Grid.ColumnSpan="5"
                         Grid.Row="1"
@@ -382,43 +386,62 @@
                         SelectionChanged="datagrid_SelectionChanged"
                         CanUserAddRows="False"
                         SelectionUnit="Cell"
-                        SelectionMode="Extended" 
+                    -->
+                    
+                    <DataGrid 
+                        x:Name="datagrid_users"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        Grid.Row="1"
+                        Grid.RowSpan="11"
+                        Margin="15"
+                        ColumnWidth="*" 
+                        BorderThickness="2"
+                        AutoGenerateColumns="False"
+                        SelectionChanged="datagrid_SelectionChanged"
+                        
                         >
-                        <!--
-                        <DataGrid.RowStyle>
-                            <Style
-                                TargetType="DataGridRow">
-                                
-                                <Style.Triggers>
-                                    <Trigger
-                                        Property="IsMouseOver"
-                                        Value="True">
-                                        <Setter
-                                            Property="Foreground"
-                                            Value="Red"/>
-                                        <Setter
-                                            Property="Background"
-                                            Value="{StaticResource SecondaryHueLightBrush}"
-                                            />
-                                    </Trigger>
-                                    <Trigger
-                                        Property="IsSelected"
-                                        Value="True"
-                                        >
-                                        <Setter
-                                            Property="Foreground"
-                                            Value="Red"
-                                            />
-                                        <Setter
-                                            Property="Background"
-                                            Value="{StaticResource SecondaryHueLightBrush}"
-                                            />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.RowStyle>
-                        -->
+
                         <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Header="ID"
+                                Binding="{Binding Path=Id}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                />
+                            <DataGridTextColumn
+                                Header="Имя"
+                                Binding="{Binding Path=Name}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                />
+                            <DataGridTextColumn
+                                Header="Имя"
+                                Binding="{Binding Path=Login}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                />
+                            <DataGridTextColumn
+                                Header="Пароль"
+                                Binding="{Binding Path=Pass}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                />
+                            <materialDesign:DataGridTextColumn
+                                Header="Роль"
+                                Binding="{Binding Path=Role}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                            </materialDesign:DataGridTextColumn>
+                        </DataGrid.Columns>
+
+
+                        <!--
+                        
+                        <DataGrid.Columns>
+                            
+                            
+                          
                         <DataGridTemplateColumn
                             x:Name="id"
                             Header="Id"
@@ -499,27 +522,14 @@
                                                     />
                                             </ToolTip>
                                         </TextBlock.ToolTip>
-                                </TextBlock>
+                                    </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
+                           
                         </DataGridTemplateColumn>
-
+                         
                         </DataGrid.Columns>
-                        
-
-
-                            <!--
-                        <DataGrid.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="5">
-                                    <TextBlock FontSize="18" Text="{Binding Path=Id}" />
-                                    <TextBlock Text="{Binding Path=Name}" />
-                                    <TextBlock Text="{Binding Path=Pass}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGrid.ItemTemplate>
-                        -->
-                
+                 -->
                     </DataGrid>
 
                     <StackPanel
@@ -544,7 +554,7 @@
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
                             />
                         <Border
                             BorderBrush="#FFEEEEEE"
@@ -609,7 +619,7 @@
                                 Name="roles_combo"
                                 materialDesign:HintAssist.Hint="Выбрать роль"
                                 Width="300"
-                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="roles_combo_SelectionChanged">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -845,134 +855,6 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>
-                <!-- Левая панель -->
-                <!--
-                <materialDesign:Card
-                    x:Name="left_card"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="1"
-                    Grid.RowSpan="10"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3" 
-                    Margin="30,0, 0,0"
-                    >
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto"
-                        >
-                        <TextBlock
-                            x:Name="left_ssh_text"
-                            TextWrapping="Wrap"
-                            Foreground="{StaticResource LightGray}"
-                            />
-                    </ScrollViewer>
-                </materialDesign:Card>
-                -->
-                <!-- Правая верхняя -->
-                <!--
-                <materialDesign:Card
-                    x:Name="right_card"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.Column="9"
-                    Grid.ColumnSpan="3" 
-                    Margin="0,0,30,0"
-                    >
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
-                        Foreground="{StaticResource LightGray}"
-                        >
-                        <StackPanel
-                            x:Name="third_stack_right"
-                            >
-                            <TextBlock
-                                x:Name="right_ssh_text"
-                                TextWrapping="Wrap"
-                                Text="Подключенные узлы Cassandra"
-                                Foreground="{StaticResource Gray}"
-                                Margin="10,0,10,10"
-                                />
-                        </StackPanel>
-                    </ScrollViewer>
-                </materialDesign:Card>
-                -->
-                <!-- Правая вторая сверху -->
-                <!--
-                <materialDesign:Card
-                    x:Name="right_card1"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                    Padding="10"
-                    Background="{StaticResource Background}"
-                    Grid.Row="4"
-                    Grid.RowSpan="3"
-                    Grid.Column="9"
-                    Grid.ColumnSpan="3" 
-                    Margin="0,0,30,0"
-                    >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        
-                        <ScrollViewer 
-                            Grid.Row="0"
-                            Grid.RowSpan="3"
-                            VerticalScrollBarVisibility="Auto" 
-                            Foreground="{StaticResource LightGray}"
-                            >
-                            <StackPanel
-                                x:Name="third_stack_right1"
-                                >
-                                <TextBlock
-                                    x:Name="right_ssh_text1"
-                                    TextWrapping="Wrap"
-                                    Text="Список введённых хостов"
-                                    Foreground="{StaticResource Gray}"
-                                    Margin="10,0,10,10"
-                                    />
-                            </StackPanel>
-                        </ScrollViewer>
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Grid.Row="3"
-                            FlowDirection="RightToLeft"
-                            >
-                            <Button
-                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                ToolTip="Добавить"
-                                Margin="10,5"
-                                Width="30"
-                                Height="30"
-                                >
-                                <materialDesign:PackIcon
-                                    Kind="PlusCircleOutline"
-                                    Height="25"
-                                    Width="25" />
-                            </Button>
-                            <Button
-                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                ToolTip="Редактировать"
-                                Margin="10,5"
-                                Width="30"
-                                Height="30"
-                                >
-                                <materialDesign:PackIcon
-                                    Kind="ClipboardEditOutline"
-                                    Height="25"
-                                    Width="25" 
-                                    />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:Card>
-                -->
             </Grid>
         </Border>
         

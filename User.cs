@@ -10,11 +10,13 @@ namespace IncubeAdmin
 {
     public class User : INotifyPropertyChanged
     {
-        private int id;
+        private string id;
         private string name;
+        private string login;
         private string pass;
+        private string role;
 
-        public int Id
+        public string Id
         {
             get { return id; }
             set
@@ -41,13 +43,33 @@ namespace IncubeAdmin
                 OnPropertyChanged("Pass");
             }
         }
+        public string Role
+        {
+            get { return role; }
+            set
+            {
+                role = value;
+                OnPropertyChanged("Role");
+            }
+        }
+        public string Login
+        {
+            get { return login; }
+            set
+            {
+                login = value;
+                OnPropertyChanged("Login");
+            }
+        }
 
 
-        public User(int id, string name, string pass)
+        public User(string id, string name, string login, string pass, string role)
         {
             Id = id;
             Name = name;
+            Login = login;
             Pass = pass;
+            Role = role;
         }
         public User() { }
 

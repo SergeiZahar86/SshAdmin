@@ -18,7 +18,7 @@ namespace IncubeAdmin
         private string sqlExpression;
         public List<User> UsersGlobal;                             // список пользователей из базы данных
         public List<SystemCassandra> systemCassandras;
-        public List<AllDisk> allDisks;                             // список всех дисков на конкретном
+        //public List<AllDisk> allDisks;                             // список всех дисков на конкретном
         public string NameClasterCassandra;                        // название кластера кассандры
         public List<Casmon> casmons;                               // список узлов кассандры
         public List<Sysmon> sysmons;                               // список Sysmon
@@ -62,18 +62,22 @@ namespace IncubeAdmin
             //hosts = new List<Host>();
             //sshClient = new SshClient();
             UsersGlobal = new List<User>();
+            for(int i = 0; i < 5; i++)
+            {
+                UsersGlobal.Add(new User($"{i + 1}", "Jone", "sss", "www", "ddd"));
+            }
             systemCassandras = new List<SystemCassandra>();
-            allDisks = new List<AllDisk>(); 
+            //allDisks = new List<AllDisk>(); 
 
-            getUsersSQLite();
-            getSystemsCassandra();
-            getAllDisk();
+            //getUsersSQLite();
+            //getSystemsCassandra();
+            //getAllDisk();
         }
 
-        
 
 
-        public void getHosts(string nameUser) // выборка всех компьютеров по имени пользователя
+
+        /*public void getHosts(string nameUser) // выборка всех компьютеров по имени пользователя
         {
             sqlExpression = $"SELECT  Hosts.host AS host, Hosts.login as login , Hosts.pass as pass FROM Users " +
                 $"INNER JOIN UsersHosts ON Users.id = UsersHosts.user " +
@@ -96,9 +100,9 @@ namespace IncubeAdmin
                     }
                 }
             }
-        }
+        }*/
 
-        public void getUsersSQLite()
+/*        public void getUsersSQLite()
         {
             //var appSettings = ConfigurationManager.AppSettings;
             //connectionString = "Data Source = MySqlite.db;Cache=Shared;Mode=ReadWrite;";
@@ -118,26 +122,23 @@ namespace IncubeAdmin
                         {
                             string name = reader.GetString(0);
                             string pass = reader.GetString(1);
-                            UsersGlobal.Add(new User { Id = f++, Name = name, Pass = pass });
+                            //UsersGlobal.Add(new User { Id = f++, Name = name, Pass = pass });
                         }
                     }
                 }
             }
         }
+*/
 
-        public void getUsers()
+/*        private void getSystemsCassandra()
         {
-
-        }
-        private void getSystemsCassandra()
-        {
-            for(int i = 1; i < 4; i++)
+            for (int i = 1; i < 4; i++)
             {
                 systemCassandras.Add(new SystemCassandra(i, "server", $"10.90.90.{i}",
                     "16380", "10000", "54%", "500", "300", "DB", $"10.90.90.{i}", "UN"));
             }
         }
-        private void getAllDisk()
+*/        /*private void getAllDisk()
         {
             double ss = 11000;
             for(int i = 1; i <6; i++)
@@ -145,6 +146,6 @@ namespace IncubeAdmin
                 allDisks.Add(new AllDisk($"10.90.90.{i}",$"sssss{i}", $"{ss}", "10000"));
                 ss += 1000;
             }
-        }
+        }*/
     }
 }

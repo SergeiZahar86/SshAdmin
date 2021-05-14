@@ -1,40 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using IncubeAdmin.main;
 using IncubeAdmin.window;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Windows.Threading;
-using System.Timers;
 using Renci.SshNet;
-using System.Net;
-using System.Net.Sockets;
 
 namespace IncubeAdmin
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        string selectedRole;
         string nameClaster;
         bool setBoolNameClaster = false;
         List<Casmon> casmon_list;
@@ -88,8 +76,6 @@ namespace IncubeAdmin
         byte g = 66;
         byte b = 66;
 
-
-
         public MainWindow()
         {
 
@@ -108,7 +94,9 @@ namespace IncubeAdmin
             getSysMon.Interval = new TimeSpan(0, 0, 3);
 
             applicationView = ApplicationViewModel.getInstance();
-            DataContext = applicationView;
+            //DataContext = applicationView;
+            DataContext = applicationView.SelectedUser;
+            stackPanel.DataContext = applicationView.SelectedUser;
             datagrid_users.ItemsSource = applicationView.Users;
             datagrid_users.SelectedItem = applicationView.SelectedUser;
             //datagrid_system.ItemsSource = applicationView.Cassandras;
@@ -134,9 +122,7 @@ namespace IncubeAdmin
             ip_node = new List<string>();
 
 
-            roles = new List<string> {"4","5","Hello" };
-            roles.Add("1");
-            roles.Add("2");
+            roles = new List<string> {"","Лесоруб","Врач","Космонавт" };
             this.DataContext = this;
             roles_combo.ItemsSource = null;
             roles_combo.ItemsSource = roles;
@@ -183,21 +169,6 @@ namespace IncubeAdmin
         public void cassandra_Name(string claster)
         {
             name_claster.Text = claster;
-            /*TextBlock tBlock = new TextBlock();
-            tBlock.Margin = new Thickness(x0, y0, 0, 0);
-            tBlock.FontSize = 14;
-            tBlock.Text = claster;
-            //tBlock.Inlines.Add(new Bold(new Run(claster)));
-            tBlock.Foreground = new SolidColorBrush(Color.FromRgb(r_Grey, g_Grey, b_Grey));
-            tBlock.TextAlignment = TextAlignment.Center;
-            tBlock.VerticalAlignment = VerticalAlignment.Center;
-            tBlock.HorizontalAlignment = HorizontalAlignment.Center;
-            tBlock.Padding = new Thickness(0, 0, 0, 1);
-            double ddd = tBlock.Width;
-
-            
-            //cnv.Children.Add(bord1);
-            cnv.Children.Add(tBlock);*/
         }
         public void main_Elipse() // отрисовка круга для фона
         {
@@ -348,9 +319,6 @@ namespace IncubeAdmin
                 radian2 = angle2 * Math.PI / 180;
             }
         }
-
-
-
         private void butUser_Click(object sender, RoutedEventArgs e)                            // добавление User в таблицу
         {
             User user = new User();
@@ -520,240 +488,6 @@ namespace IncubeAdmin
             {
             }
         }
-
-        private void sys_Click(object sender, RoutedEventArgs e)  // определение размеров окна
-        {
-            try
-            {
-                
-                /*double a = this.Width;
-                double b = this.Height;
-                left_ssh_text.Text += (a + "  " + b).ToString();
-                progressBar.Visibility = Visibility.Visible;
-
-
-                Thread thread = new Thread(GetDataCassandra);
-                thread.Start();*/
-
-            }
-            catch(Exception eee)
-            {
-
-            }
-        }
-
-/*        private void GetDataCassandra() // Получение начальных сведений от виртуальной машины
-        {
-
-            try
-            {
-                if (global.sshClient.IsConnected == true)
-                {
-                    // имя узла
-                    //using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $8}'"))
-                    using (var command = global.sshClient.CreateCommand("hostnamectl | grep hostname | cut -d : -f 2"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        for (int i = 0; i < words.Length - 1; i++)
-                        {
-                            name_node.Add(words[i]);
-                        }
-                    }
-
-                    // доступность узла
-                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $1}'"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        for (int i = 0; i < words.Length - 1; i++)
-                        {
-                            isOk_node.Add(words[i]);
-                        }
-                    }
-
-                    // ip адрес узла
-                    using (var command = global.sshClient.CreateCommand("nodetool status | awk '/^(U|D)(N|L|J|M)/{print $2}'"))
-                    {
-                        string fff = command.Execute();
-                        string[] words = fff.Split(new char[] { '\n' });
-                        for (int i = 0; i < words.Length - 1; i++)
-                        {
-                            ip_node.Add(words[i]);
-                        }
-                    }
-
-                    for (int i = 0; i < name_node.Count; i++)
-                    {
-                        global.nodes.Add(new Node(name_node[i], ip_node[i], isOk_node[i]));
-                    }
-
-
-
-                    // вызвать диспетчер патока главного окна и сделать изменения в GUI. Если вместо BeginInvoke() 
-                    // применить Invoke(). Метод Invoke() останавливает поток до тех пор, пока диспетчер выполняет код.
-                    // Метод Invoke() можно использовать, если нужно приостановить асинхронную операцию до тех пор, пока
-                    // от пользователя не поступит какой-нибудь отклик.
-                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
-                    {
-                        radius_Elipse(global.nodes);
-                    });
-
-
-                    // вызвать диспетчер патока главного окна и сделать изменения в GUI.
-                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
-                    {
-
-                        // добавление элементов в стекпанель
-                        for (int i = 0; i < global.nodes.Count; i++)
-                        {
-                            StackPanel stack = new StackPanel();
-                            stack.Orientation = Orientation.Horizontal;
-
-                            Border bord = new Border();
-                            bord.Width = 14;
-                            bord.Height = 14;
-                            bord.Margin = new Thickness(5, 5, 15, 5);   // первый круг
-                            bord.CornerRadius = new CornerRadius(15);
-                            //bord.BorderBrush = Brushes.Orange;
-                            if (global.nodes[i].Status == "DN")
-                            {
-                                bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                                bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                            }
-                            else
-                            {
-                                bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                                bord.Background = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                            }
-                            bord.BorderThickness = new Thickness(0);
-                            bord.Focusable = true;
-                            //bord.Tag = count[i]; // для поиска метки по клику правой кнопки мыши
-
-                            TextBlock tBlock = new TextBlock();
-                            tBlock.FontSize = 14;
-                            tBlock.Inlines.Add(new Span(new Run(global.nodes[i].Name + "   " + global.nodes[i].Ip + "   " + global.nodes[i].Status)));
-                            //tBlock.Foreground = ;
-                            tBlock.TextAlignment = TextAlignment.Center;
-                            tBlock.VerticalAlignment = VerticalAlignment.Center;
-                            tBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                            tBlock.Padding = new Thickness(0, 0, 0, 1);
-
-                            stack.Children.Add(bord);
-                            stack.Children.Add(tBlock);
-                            //third_stack_right.Children.Add(stack);
-                        }
-                    });
-
-                    // вызвать диспетчер патока главного окна и сделать изменения в GUI.
-                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
-                    {
-                        //progressBar.Visibility = Visibility.Hidden;
-                    });
-                }
-            }
-            catch (Exception dddd)
-            {
-                // вызвать диспетчер патока главного окна и сделать изменения в GUI.
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
-                {
-                    //left_ssh_text.Text += (dddd.ToString() + " \n");
-                });
-            }
-        }
-*/
-        private void GetDataHost() // получить данные о хостах
-        {
-            // вызвать диспетчер патока главного окна и сделать изменения в GUI.
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
-            {
-
-                // добавление элементов в стекпанель вторая сверху
-                for (int i = 0; i < global.hosts.Count; i++)
-                {
-                    StackPanel stack = new StackPanel();
-                    stack.Orientation = Orientation.Horizontal;
-
-                    /*Border bord = new Border();
-                    bord.Width = 14;
-                    bord.Height = 14;
-                    bord.Margin = new Thickness(5, 5, 15, 5);   // первый круг
-                    bord.CornerRadius = new CornerRadius(15);
-                    //bord.BorderBrush = Brushes.Orange;
-                    if (global.nodes[i].Status == "DN")
-                    {
-                        bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                        bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                    }
-                    else
-                    {
-                        bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                        bord.Background = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                    }
-                    bord.BorderThickness = new Thickness(0);
-                    bord.Focusable = true;*/
-                    //bord.Tag = count[i]; // для поиска метки по клику правой кнопки мыши
-
-                    TextBlock tBlock = new TextBlock();
-                    tBlock.FontSize = 14;
-                    tBlock.Inlines.Add(new Span(new Run(global.hosts[i].Ip + "     " + global.hosts[i].Login)));
-                    //tBlock.Foreground = ;
-                    tBlock.TextAlignment = TextAlignment.Center;
-                    tBlock.VerticalAlignment = VerticalAlignment.Center;
-                    tBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                    tBlock.Padding = new Thickness(0, 0, 0, 1);
-                    tBlock.Margin = new Thickness(10, 0, 0, 0);
-                    tBlock.Foreground = new SolidColorBrush(Color.FromRgb(r_Grey, g_Grey, b_Grey));
-
-                    //stack.Children.Add(bord);
-                    stack.Children.Add(tBlock);
-                    //third_stack_right1.Children.Add(stack);
-                }
-
-                // добавление элементов в стекпанель вторая сверху
-               /* for (int i = 0; i < global.hosts.Count; i++)
-                {
-                    StackPanel stack = new StackPanel();
-                    stack.Orientation = Orientation.Horizontal;
-
-                    Border bord = new Border();
-                    bord.Width = 14;
-                    bord.Height = 14;
-                    bord.Margin = new Thickness(5, 5, 15, 5);   // первый круг
-                    bord.CornerRadius = new CornerRadius(15);
-                    //bord.BorderBrush = Brushes.Orange;
-                    if (global.nodes[i].Status == "DN")
-                    {
-                        bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                        bord.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                    }
-                    else
-                    {
-                        bord.BorderBrush = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                        bord.Background = new SolidColorBrush(Color.FromRgb(r_Green, g_Green, b_Green));
-                    }
-                    bord.BorderThickness = new Thickness(0);
-                    bord.Focusable = true;
-                    //bord.Tag = count[i]; // для поиска метки по клику правой кнопки мыши
-
-                    TextBlock tBlock = new TextBlock();
-                    tBlock.FontSize = 14;
-                    tBlock.Inlines.Add(new Span(new Run(global.hosts[i].Ip + "     " + global.hosts[i].Login)));
-                    //tBlock.Foreground = ;
-                    tBlock.TextAlignment = TextAlignment.Center;
-                    tBlock.VerticalAlignment = VerticalAlignment.Center;
-                    tBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                    tBlock.Padding = new Thickness(0, 0, 0, 1);
-                    tBlock.Margin = new Thickness(10, 0, 0, 0);
-                    tBlock.Foreground = new SolidColorBrush(Color.FromRgb(r_Grey, g_Grey, b_Grey));
-
-                    //stack.Children.Add(bord);
-                    stack.Children.Add(tBlock);
-                    third_stack_right.Children.Add(stack);
-                }*/
-            });
-        }
-
         private void connect_Click(object sender, RoutedEventArgs e) // окно создания подключения
         {
             try
@@ -778,14 +512,6 @@ namespace IncubeAdmin
             }
             catch { }
         }
-
-        private void sys4_Click(object sender, RoutedEventArgs e)
-        {
-            /*progressBar.Visibility = Visibility.Visible;
-            Thread.Sleep(4000);
-            progressBar.Visibility = Visibility.Hidden;*/
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e) // после загрузки главного окна
         {
 
@@ -799,8 +525,6 @@ namespace IncubeAdmin
             }
             global.isConnect = false;
             getCasMon.Start();
-            //Thread thread = new Thread(GetDataCassandra);
-            //thread.Start();
             //Thread thread = new Thread(GetConnectCassandras);
             //thread.Start();
 
@@ -822,61 +546,6 @@ namespace IncubeAdmin
                 Task<List<Casmon>> t = Task<List<Casmon>>.Run(get_cass);
                 timer.Tag = t;
                 await t;
-                /*if (global.casmons.Count == 0)
-                {
-                    global.casmons = t.Result;
-                    //cnv.Children.Clear();
-                    //main_Elipse();
-                    radius_Elipse_Casmon(global.casmons);
-                }
-                else 
-                {
-                    foreach(Casmon cas in t.Result)
-                    {
-                        if (cas.check == "False")
-                        {
-                            //string tag = cas.node;
-                            foreach (UIElement uI in cnv.Children)
-                            {
-                                if (uI is Border)
-                                {
-                                    Border border = (Border)uI;
-
-                                    SolidColorBrush red = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
-                                    SolidColorBrush border_color = (SolidColorBrush)border.Background;
-
-                                    if (border.Tag.ToString() == cas.node.ToString() && red.Color != border_color.Color)
-                                    {
-                                        border.Background = new SolidColorBrush(Color.FromRgb(r_Yellow, g_Yellow, b_Yellow));
-                                        global.casmons = t.Result;
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            foreach (UIElement uI in cnv.Children)
-                            {
-                                if (uI is Border)
-                                {
-                                    Border border = (Border)uI;
-
-                                    SolidColorBrush red = new SolidColorBrush(Color.FromRgb(r_Red, g_Red, b_Red));
-                                    SolidColorBrush border_color = (SolidColorBrush)border.Background;
-
-                                    if (border.Tag.ToString() == cas.node.ToString() && red.Color != border_color.Color)
-                                    {
-                                        border.Background = new SolidColorBrush(Color.FromRgb(r_GreenE, g_GreenE, b_GreenE));
-                                        global.casmons = t.Result;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }*/
-                //i++;
-                //getCasMon.Interval = new TimeSpan(0,0,0,i);
             }
             catch (Exception ass)
             {
@@ -976,10 +645,6 @@ namespace IncubeAdmin
                         }
                     });
 
-
-
-
-
                 }
                 catch (Exception ass)
                 {
@@ -1053,8 +718,6 @@ namespace IncubeAdmin
                                     datagrid_system.SelectedItem = null;
                                     datagrid_system.ItemsSource = global.sshErrors;
                                     datagrid_system.SelectedItem = global.sshErrors;
-                                    //Console.WriteLine(casmon.node);
-                                    //MessageBox.Show($"Ошибка соединения по SSH {cassss[i].node} . \n {ee}");
                                 });
                             }
                         }
@@ -1091,8 +754,6 @@ namespace IncubeAdmin
                                         }
                                     }
                                 });
-
-
 
                                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
@@ -1208,18 +869,15 @@ namespace IncubeAdmin
                         });
                     }
                 }
-
                 return casmon_list;
             }
         }
 
-        /*private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void roles_combo_SelectionChanged(object sender, SelectionChangedEventArgs e) // выбор роли
         {
-            ShowAllDisk showAllDisk = new ShowAllDisk();
-            showAllDisk.ShowDialog();
-        }*/
-
-       
+            int selectedIndex = roles_combo.SelectedIndex;
+            selectedRole = roles_combo.SelectedItem.ToString();
+        }
     }
 }
 

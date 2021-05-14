@@ -35,11 +35,11 @@ namespace IncubeAdmin.window
             global.hosts = null;
             global.hosts = new List<Host>();
             ip_string.Text = "10.90.92.104";
-            login_string.Text = "root";
-            pass_string.Password = "Ind@sRoot2304";
+            login_string.Text = "testuser";
+            pass_string.Password = "linpass";
             global.host = "10.90.92.104";
-            global.login = "root";
-            global.password = "Ind@sRoot2304";
+            global.login = "testuser";
+            global.password = "linpass";
 
 
 
